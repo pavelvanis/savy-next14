@@ -7,7 +7,7 @@ const AuthHeader = ({ className }: PropsWithClassName) => {
       className={cn("h-14 flex justify-between align-center px-8", className)}
     >
       <div className="flex justify-center items-center">logo</div>
-      <nav className="flex" >
+      <nav className="flex">
         <ul className="flex justify-between items-center gap-x-10 ">
           <li>docs</li>
           <li>about</li>
