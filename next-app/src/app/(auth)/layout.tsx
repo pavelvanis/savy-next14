@@ -1,8 +1,8 @@
-import React, { PropsWithChildren } from "react";
+import React from "react";
 import AuthHeader from "./_components/header";
 import AuthFooter from "./_components/footer";
 
-const AuthLayout = ({ children }: PropsWithChildren) => {
+const AuthLayout = ({ children }: React.PropsWithChildren) => {
   return (
     <>
       <AuthHeader className=" fixed w-screen top-0 left-1/2 -translate-x-1/2 z-[9999] max-w-6xl" />
