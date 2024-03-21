@@ -4,10 +4,10 @@ import React from "react";
 import Link from "next/link";
 import { TinkConfig } from "@/config/tink";
 import { createTinkLink } from "@/lib/tink/link";
-import { cookies } from "next/headers";
+import { getCsrfToken } from "next-auth/react";
 
-const TinkLink = () => {
-  const token = cookies().get("next-auth.csrf-token")?.value;
+const TinkLink = async () => {
+  const token = await getCsrfToken();
   return (
     <div className="w-screen h-screen flex justify-center items-center">
       <Link
