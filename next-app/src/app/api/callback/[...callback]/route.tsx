@@ -14,9 +14,9 @@ export const GET = async (req: NextRequest, res: NextResponse) => {
     }
 
     // Get the CSRF token from cookies
-    const csrf_token = cookies().get("next-auth.csrf-token");
+    const csrf_token = cookies().get("next-auth.csrf-token")?.value;
 
-    // TODO: Better handling when CSRF token is not available in authorize callback
+    // TODO: Better handling when CSRF token is not available
     if (!csrf_token) {
       return NextResponse.redirect(new URL("/", req.url));
     }
@@ -25,7 +25,10 @@ export const GET = async (req: NextRequest, res: NextResponse) => {
 
     const state = params.get("state");
 
-    console.log(state);
+    // TODO: Better handling when state is not equal to csrf_token
+    if (csrf_token !== state) {
+      return NextResponse.redirect(new URL("/", req.url));
+    }
 
     return NextResponse.json({
       params: params.toString(),
