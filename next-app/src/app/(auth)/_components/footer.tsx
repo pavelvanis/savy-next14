@@ -6,7 +6,9 @@ const AuthFooter = ({ className }: PropsWithClassName) => {
     <footer className={cn("flex justify-between py-5 px-8", className)}>
       <div className="flex flex-col justify-between">
         <div>Min logo</div>
-        <div className="font-light text-xs">Copyright © Pavel Vanis</div>
+        <div className="font-light text-xs">
+          Copyright © Pavel Vanis {new Date().getFullYear()}
+        </div>
       </div>
       <div className="flex gap-10">
         <ul>
