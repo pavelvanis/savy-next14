@@ -1,14 +1,12 @@
-import * as z from "zod";
-import mongoose, { Model, Schema, Document } from "mongoose";
+import bcrypt from "bcrypt";
+import mongoose, { Model, Schema } from "mongoose";
 import { User } from "@/types/zod/mongoose";
 
-const ZodUser = z.object({
-  name: z.string(),
-});
+interface IUserMethods {
+  comparePassword: (password: string) => Promise<boolean>;
+}
 
-interface IUserMethods {}
-
-const UserSchema: Schema = new Schema<User, {}, IUserMethods>(
+const UserSchema = new Schema<User, {}, IUserMethods>(
   {
     user_id: {
       type: String,
@@ -36,6 +34,21 @@ const UserSchema: Schema = new Schema<User, {}, IUserMethods>(
     timestamps: true,
   }
 );
+
+// Compare password
+UserSchema.methods.comparePassword = async function (password: string) {
+  console.log("comparing password", password, this);
+  return await bcrypt.compare(password, this.password);
+};
+
+// Hash password before saving
+UserSchema.pre("save", async function (next) {
+  console.log("hashing password", this);
+  if (!this.isModified("password")) return next();
+  const salt = await bcrypt.genSalt(10);
+  this.password = await bcrypt.hash(this.password, salt);
+  next();
+});
 
 const UserModel = mongoose.models.user || mongoose.model("user", UserSchema);
 
