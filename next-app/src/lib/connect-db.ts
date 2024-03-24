@@ -1,6 +1,9 @@
-import mongoose from "mongoose";
+import mongoose, { sanitizeFilter } from "mongoose";
 
 const MONGODB_URI = process.env.MONGODB_URI;
+
+// Enable mongoose to sanitize data
+mongoose.set("sanitizeFilter", true);
 
 if (!MONGODB_URI) {
   throw new Error(
