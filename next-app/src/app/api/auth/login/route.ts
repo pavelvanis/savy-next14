@@ -1,7 +1,5 @@
-import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 
-import authOptions from "@/lib/authOptions";
 import { ZodLoginUser } from "@/types/zod/auth";
 import { UserModel } from "@/database/models/";
 import { connectDB } from "@/lib/connect-db";
@@ -33,7 +31,7 @@ export const POST = async (req: NextRequest, res: NextResponse) =>
       // Check if user exist in database
       const userExist = await UserModel.findOne({
         email: validBody.data.email,
-      }).setOptions({ sanitizeFilter: true });
+      });
 
       if (!userExist) {
         return NextResponse.json(
@@ -43,25 +41,29 @@ export const POST = async (req: NextRequest, res: NextResponse) =>
       }
 
       // Check if password match ..
-      // const passwordMatch = await userExist.comparePassword(
-      //   validBody.data.password
-      // );
+      const passwordMatch = await userExist.comparePassword(
+        validBody.data.password
+      );
 
-      // if (!passwordMatch) {
-      //   return NextResponse.json(
-      //     { message: "Password does not match!" },
-      //     { status: 400 }
-      //   );
-      // }
+      if (!passwordMatch) {
+        return NextResponse.json(
+          { message: "Password does not match!" },
+          { status: 400 }
+        );
+      }
 
-      // Generate JWT
-      // TODO: generate JWT
+      // Return user without password
+      const { password, ...user } = userExist.toObject({ versionKey: false });
 
       return NextResponse.json({
         message: "You were successfuly logged in!",
-        data: userExist,
+        data: user,
       });
     } catch (error) {
       console.error(error);
+      return NextResponse.json(
+        { message: "Something went wrong" },
+        { status: 500 }
+      );
     }
   });
