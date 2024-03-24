@@ -3,8 +3,10 @@ import { ApiResponse } from "../types/types";
 import { getServerSession } from "next-auth";
 import authOptions from "./authOptions";
 
-// If AUTHORIZE is set to false, it will skip the authorization process.
-const AUTHORIZE = false;
+// If AUTHORIZE is set to false, it will skip the authorization process. In production, it should be set to true.
+let AUTHORIZE = false;
+
+if (process.env.NODE_ENV === "production") AUTHORIZE = true;
 
 /**
  * Authorize the user before accessing the protected route. Check the session and return an error if no session was found.
@@ -28,4 +30,18 @@ export const Authorize = async (
   }
 
   return next();
+};
+
+/**
+ * Sanitize the data before saving it to the database.
+ */
+export const sanitize = () => {
+  // TODO: Create function to sanitize data
+};
+
+/**
+ * Handle the error and return the error message.
+ */
+export const errorHandler = () => {
+  // TODO: Create function to handle errors
 };
