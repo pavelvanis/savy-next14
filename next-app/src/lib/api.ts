@@ -35,8 +35,9 @@ export const Authorize = async (
 /**
  * Sanitize the data before saving it to the database.
  */
-export const sanitize = () => {
+export const sanitize = (params: any) => {
   // TODO: Create function to sanitize data
+  return params;
 };
 
 /**
