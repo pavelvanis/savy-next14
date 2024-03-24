@@ -150,22 +150,26 @@ const getUserGrantAuthorizationCode = async (
  * @returns {Promise<Object>} The user's access token.
  */
 const getUserAccessToken = async (code: string) => {
-  const userAccessTokenResponse = await TinkApiAxios.post(
-    `/api/v1/oauth/token`,
-    {
-      body: `client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}&grant_type=authorization_code&scope=credentials:read,credentials:write&code=${code}`,
-    },
-    {
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded; charset=utf-8",
+  try {
+    const userAccessTokenResponse = await TinkApiAxios.post(
+      `/api/v1/oauth/token`,
+      {
+        body: `client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}&grant_type=authorization_code&scope=credentials:read,credentials:write&code=${code}`,
       },
-    }
-  );
+      {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded; charset=utf-8",
+        },
+      }
+    );
 
-  const userAccessToken = userAccessTokenResponse.data;
-  console.log("\n\nCreate user access token", userAccessToken);
+    const userAccessToken = userAccessTokenResponse.data;
+    console.log("\n\nCreate user access token", userAccessToken);
 
-  return userAccessToken;
+    return userAccessToken;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 /**
@@ -191,6 +195,14 @@ const getUserCredentials = async (userAccessToken: string) => {
   return userCredentials;
 };
 
+const getUserAccounts = async (userAccessToken: string) => {
+  const userAccountsResponse = await TinkApiAxios.get(`/data/v2/accounts`, {
+    headers: {
+      Authorization: `Bearer ${userAccessToken}`,
+    },
+  });
+};
+
 const api = {
   getClientAccessToken,
   createPermanentUser,
@@ -198,6 +210,7 @@ const api = {
   getUserGrantAuthorizationCode,
   getUserAccessToken,
   getUserCredentials,
+  getUserAccounts,
 };
 
 export default api;
