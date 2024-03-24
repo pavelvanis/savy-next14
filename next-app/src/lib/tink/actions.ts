@@ -26,7 +26,7 @@ const createPermanentUser = async () => {
  * @param {string} userId The user ID.
  * @returns {Promise<Object>} The authorization code.
  */
-const getAuthorizationCode = async (userId: string) => {
+const generateAuthorizationCode = async (userId: string) => {
   const token = await api.getClientAccessToken();
   const authorization_code = await api.getAuthorizationCode(userId, token);
 
@@ -49,10 +49,26 @@ const getCredentials = async (userId: string) => {
     userGrantAuthorizationCode.code
   );
   const userCredentials = await api.getUserCredentials(
-    userAccessToken.access_token
+    userAccessToken
   );
 
   return userCredentials;
 };
 
-export { createPermanentUser, getAuthorizationCode, getCredentials };
+const getAccounts = async (userId: string) => {
+  const clientAccessToken = await api.getClientAccessToken();
+  const userGrantAuthorizationCode = await api.getUserGrantAuthorizationCode(
+    userId,
+    clientAccessToken
+  );
+  const userAccessToken = await api.getUserAccessToken(
+    userGrantAuthorizationCode.code
+  );
+};
+
+export {
+  createPermanentUser,
+  generateAuthorizationCode,
+  getCredentials,
+  getAccounts,
+};
