@@ -1,7 +1,12 @@
 // Configuration for Tink API and his services
 
+import { link } from "fs";
+import { apiBaseUrl } from "next-auth/client/_utils";
+
 export const TinkConfig = {
-  url: "https://link.tink.com/1.0",
-  scope: "accounts:read,transactions:read,user:read",
+  apiBaseUrl: "https://api.tink.com",
+  linkBaseUrl: "https://link.tink.com",
   callback: "http://localhost:3000/api/callback/authorize",
+  market: "CZ",
+  locale: "cs_CZ",
 };
