@@ -1,5 +1,8 @@
 import { TinkConfig } from "@/config/tink";
 
+const TEST = process.env.NODE_ENV === "production" ? "false" : "true";
+const CLIENT_ID = process.env.TINK_CLIENT_ID;
+
 /**
  * TinkLinkProps is a type that represents the properties required to create a Tink Link.
  * It includes mandatory properties like endpoint, client_id, and redirect_uri, and optional properties like scope, market, locale, etc.
@@ -39,11 +42,9 @@ export const createTinkLink = ({
     ),
   });
 
-  const link = `${TinkConfig.url}${endpoint}?${params}`;
+  const link = `${TinkConfig.linkBaseUrl}${endpoint}?${params}`;
 
-  console.log(link);
-
-  return `${TinkConfig.url}${endpoint}?${params}`;
+  return link;
 };
 
 /**
@@ -54,4 +55,45 @@ const makeParams = (params: Record<string, string>) => {
   return Object.entries(params)
     .map(([key, value]) => `${key}=${value}`)
     .join("&");
+};
+
+export const authenticateCredentialsLink = (
+  authorizationCode: string,
+  userId: string,
+  credentialsId: string
+) => {
+  // Read more about Tink Link initialization parameters: https://docs.tink.com/api/#initialization-parameters
+  const params = [
+    `client_id=${CLIENT_ID}`,
+    `redirect_uri=${TinkConfig.callback}`,
+    "scope=user:read,credentials:read",
+    `market=${TinkConfig.market}`,
+    `locale=${TinkConfig.locale}`,
+    `state=${userId}`,
+    `authorization_code=${authorizationCode}`,
+    `credentials_id=${credentialsId}`,
+    `test=${TEST}`,
+  ];
+
+  return `${TinkConfig.linkBaseUrl}/1.0/credentials/authenticate?${params.join(
+    "&"
+  )}`;
+};
+
+export const addCredentialsLink = (
+  authorizationCode: string,
+  userId: string
+) => {
+  const params = [
+    `client_id=${CLIENT_ID}`,
+    `redirect_uri=${TinkConfig.callback}`,
+    "scope=user:read,credentials:read",
+    `market=${TinkConfig.market}`,
+    "locale=en_US",
+    `state=${userId}`,
+    `authorization_code=${authorizationCode}`,
+    `test=${TEST}`,
+  ];
+
+  return `${TinkConfig.linkBaseUrl}/1.0/credentials/add?${params.join("&")}`;
 };
