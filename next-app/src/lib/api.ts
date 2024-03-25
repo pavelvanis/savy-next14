@@ -2,14 +2,21 @@ import { NextRequest, NextResponse } from "next/server";
 import { ApiResponse } from "../types/types";
 import { getServerSession } from "next-auth";
 import authOptions from "./authOptions";
+import { getCsrfToken } from "next-auth/react";
 
-// If AUTHORIZE is set to false, it will skip the authorization process. In production, it should be set to true.
-let AUTHORIZE = false;
+// If SESSION_AUTHORIZE is set to false, it will skip the session authorization process. In production, it should be set to true.
+let SESSION_AUTHORIZE = false;
 
-if (process.env.NODE_ENV === "production") AUTHORIZE = true;
+// If CSRF_AUTHORIZE is set to false, it will skip the csrf authorization process. In production, it should be set to true.
+let CSRF_AUTHORIZE = true;
+
+if (process.env.NODE_ENV === "production") {
+  CSRF_AUTHORIZE = true;
+  SESSION_AUTHORIZE = true;
+}
 
 /**
- * Authorize the user before accessing the protected route. Check the session and return an error if no session was found.
+ * Authorize the user before accessing the protected route. Check the session and CSRF token.
  * @param req NextRequest
  * @param res NextResponse
  * @param next Function
@@ -18,18 +25,34 @@ if (process.env.NODE_ENV === "production") AUTHORIZE = true;
 export const Authorize = async (
   req: NextRequest,
   res: NextResponse,
-  next: () => Promise<ApiResponse>
+  next: (body: any) => Promise<ApiResponse>
 ) => {
   const session = await getServerSession(authOptions);
+  const sessionCsrfToken = await getCsrfToken();
 
-  if (!session && AUTHORIZE) {
+  const { csrfToken, ...body } = await req.json();
+
+  console.log(`[${req.url}] \n- ${sessionCsrfToken}\n- ${csrfToken}`);
+
+  if (csrfToken !== sessionCsrfToken && CSRF_AUTHORIZE) {
+    console.log("Invalid CSRF token.");
+    return NextResponse.json(
+      { message: "Invalid CSRF token." },
+      { status: 401 }
+    );
+  }
+
+  if (!session && SESSION_AUTHORIZE) {
+    console.log("No session was founded.");
     return NextResponse.json(
       { message: "No session was founded." },
       { status: 401 }
     );
   }
 
-  return next();
+  console.log("Success");
+
+  return next(body);
 };
 
 /**
