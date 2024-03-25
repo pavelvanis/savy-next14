@@ -2,13 +2,14 @@ import { NextRequest, NextResponse } from "next/server";
 import { ApiResponse } from "../types/types";
 import { getServerSession } from "next-auth";
 import authOptions from "./authOptions";
-import { getCsrfToken } from "next-auth/react";
+
+import { csrf } from "@/lib/auth";
 
 // If SESSION_AUTHORIZE is set to false, it will skip the session authorization process. In production, it should be set to true.
 let SESSION_AUTHORIZE = false;
 
 // If CSRF_AUTHORIZE is set to false, it will skip the csrf authorization process. In production, it should be set to true.
-let CSRF_AUTHORIZE = true;
+let CSRF_AUTHORIZE = false;
 
 if (process.env.NODE_ENV === "production") {
   CSRF_AUTHORIZE = true;
@@ -17,30 +18,27 @@ if (process.env.NODE_ENV === "production") {
 
 /**
  * Authorize the user before accessing the protected route. Check the session and CSRF token.
- * @param req NextRequest
- * @param res NextResponse
- * @param next Function
- * @returns ApiResponse
  */
 export const Authorize = async (
   req: NextRequest,
   res: NextResponse,
   next: (body: any) => Promise<ApiResponse>
 ) => {
-  const session = await getServerSession(authOptions);
-  const sessionCsrfToken = await getCsrfToken();
+  console.log("Headers: ", req.headers);
+  console.log("Cookies: ", req.headers.get("cookie"));
 
+  const session = await getServerSession(authOptions);
   const { csrfToken, ...body } = await req.json();
 
-  console.log(`[${req.url}] \n- ${sessionCsrfToken}\n- ${csrfToken}`);
+  // Get the CSRF token of the current session.
+  const { checkCsrfToken } = await csrf();
 
-  if (csrfToken !== sessionCsrfToken && CSRF_AUTHORIZE) {
-    console.log("Invalid CSRF token.");
-    return NextResponse.json(
-      { message: "Invalid CSRF token." },
-      { status: 401 }
-    );
-  }
+  checkCsrfToken(csrfToken, { skip: false }, ({ authorized, message }) => {
+    if (!authorized) {
+      console.log("message:  ", message);
+      return NextResponse.json({ message }, { status: 401 });
+    }
+  });
 
   if (!session && SESSION_AUTHORIZE) {
     console.log("No session was founded.");
@@ -49,8 +47,6 @@ export const Authorize = async (
       { status: 401 }
     );
   }
-
-  console.log("Success");
 
   return next(body);
 };
