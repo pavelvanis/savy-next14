@@ -37,13 +37,11 @@ const UserSchema = new Schema<User, {}, IUserMethods>(
 
 // Compare password
 UserSchema.methods.comparePassword = async function (password: string) {
-  console.log("comparing password", password, this);
   return await bcrypt.compare(password, this.password);
 };
 
 // Hash password before saving
 UserSchema.pre("save", async function (next) {
-  console.log("hashing password", this);
   if (!this.isModified("password")) return next();
   const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);
