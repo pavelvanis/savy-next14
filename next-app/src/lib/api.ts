@@ -1,52 +1,52 @@
-import { NextRequest, NextResponse } from "next/server";
 import { ApiResponse } from "../types/types";
-import { getServerSession } from "next-auth";
-import authOptions from "./authOptions";
+import { NextRequest, NextResponse } from "next/server";
 
-import { csrf } from "@/lib/auth";
+import { checkCsrfToken, checkSession } from "@/lib/auth";
 
-// If SESSION_AUTHORIZE is set to false, it will skip the session authorization process. In production, it should be set to true.
+// Help methods for api routes
+
+// If SESSION_AUTHORIZE is set to true, it will skip the session authorization process. In production, it should be set to false.
 let SESSION_AUTHORIZE = false;
 
-// If CSRF_AUTHORIZE is set to false, it will skip the csrf authorization process. In production, it should be set to true.
-let CSRF_AUTHORIZE = false;
+// If CSRF_AUTHORIZE is set to true, it will skip the csrf authorization process. In production, it should be set to false.
+let SKIP_CSRF = false;
 
 if (process.env.NODE_ENV === "production") {
-  CSRF_AUTHORIZE = true;
-  SESSION_AUTHORIZE = true;
+  SKIP_CSRF = false;
+  SESSION_AUTHORIZE = false;
 }
 
 /**
- * Authorize the user before accessing the protected route. Check the session and CSRF token.
+ * Authorize the user before accessing the protected route. Checks the session and CSRF token.
  */
 export const Authorize = async (
   req: NextRequest,
   res: NextResponse,
   next: (body: any) => Promise<ApiResponse>
 ) => {
-  console.log("Headers: ", req.headers);
-  console.log("Cookies: ", req.headers.get("cookie"));
-
-  const session = await getServerSession(authOptions);
   const { csrfToken, ...body } = await req.json();
 
-  // Get the CSRF token of the current session.
-  const { checkCsrfToken } = await csrf();
-
-  checkCsrfToken(csrfToken, { skip: false }, ({ authorized, message }) => {
-    if (!authorized) {
-      console.log("message:  ", message);
-      return NextResponse.json({ message }, { status: 401 });
-    }
+  // Verify CSRF token
+  const { validCsrf, ...csrfMessage } = await checkCsrfToken(csrfToken, {
+    skip: SKIP_CSRF,
   });
 
-  if (!session && SESSION_AUTHORIZE) {
-    console.log("No session was founded.");
-    return NextResponse.json(
-      { message: "No session was founded." },
-      { status: 401 }
-    );
+  if (!validCsrf) {
+    console.log("message:  ", csrfMessage);
+    return NextResponse.json({ ...csrfMessage }, { status: 401 });
   }
+
+  // Verify session
+  const { validSession, ...sessionMessage } = await checkSession({
+    skip: SESSION_AUTHORIZE,
+  });
+
+  if (!validSession) {
+    console.log("message:  ", sessionMessage);
+    return NextResponse.json({ ...sessionMessage }, { status: 401 });
+  }
+
+  console.log("Successfully authorized the request.");
 
   return next(body);
 };
