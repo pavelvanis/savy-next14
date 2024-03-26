@@ -1,54 +1,82 @@
-import { getCsrfToken } from "next-auth/react";
+import { getServerSession } from "next-auth";
+import authOptions from "./authOptions";
 
-type AuthorizedProps = {
-  skip?: boolean;
-};
+// ------------------------------------------------------------
+// CSRF Verification
 
-type AuthorizedResponse = { authorized: boolean; message: string };
-
-// Saved CSRF token
-let token: string | undefined;
+// Define the type of the response.
+type VerifyCsrfResponse = { validCsrf: boolean; message: string };
 
 /**
- * Create a new CSRF token
- * @returns CSRF token
+ * Get the CSRF token of the current session.
+ * @returns The CSRF token of the current session.
  */
-const createToken = async (): Promise<string | undefined> => {
-  token = await getCsrfToken();
-  return token;
+export const csrfToken = async (): Promise<string | undefined> => {
+  const session = await getServerSession(authOptions);
+  return session?.csrfToken;
 };
 
 /**
- * Check if CSRF token is valid
- * @param passedToken CSRF token passed by client
- * @param skip Skip CSRF token check. Default is false. Useful for development.
- * @param callback Callback function
- * @returns Authorized response
+ * Compare the CSRF token of the current session with the token passed in the request.
+ * If `skip` in options parameter is set to true, it will skip the CSRF token verification.
+ * @param passedToken Token to verify
+ * @param options Options to CSRF token verification
+ * @param callback Function to execute after the token is verified
+ * @returns The response of the CSRF token verification.
  */
-const checkCsrfToken = (
+export const checkCsrfToken = async (
   passedToken: string,
-  { skip = false }: AuthorizedProps,
-  callback?: (res: AuthorizedResponse) => void
-): AuthorizedResponse => {
+  options: { skip?: boolean } = { skip: false },
+  callback?: (res: VerifyCsrfResponse) => void
+): Promise<VerifyCsrfResponse> => {
+  const sessionToken = await csrfToken();
 
-  const response: AuthorizedResponse = !token
-    ? {
-        authorized: false,
-        message: "No CSRF token was founded on server session.",
-      }
-    : token !== passedToken
-    ? { authorized: false, message: "Invalid CSRF token." }
-    : { authorized: true, message: "Valid CSRF token." };
+  let response: VerifyCsrfResponse;
 
-  if (skip) {
-    response.authorized = true;
-    response.message = "Skipped CSRF token check.";
+  if (options?.skip) {
+    response = { validCsrf: true, message: "Skipped CSRF token check" };
+  } else if (!sessionToken) {
+    response = { validCsrf: false, message: "No CSRF token found" };
+  } else if (sessionToken !== passedToken) {
+    response = { validCsrf: false, message: "Invalid CSRF token" };
+  } else {
+    response = { validCsrf: true, message: "Valid CSRF token" };
   }
 
   callback?.(response);
   return response;
 };
 
-export const csrf = async () => {
-  return { token, create: await createToken(), checkCsrfToken };
+// ------------------------------------------------------------
+// Session Authorize
+
+type VerifySessionResponse = { validSession: boolean; message: string };
+
+/**
+ * Check if session of user exists.
+ * If `skip` in options parameter is set to true, it will skip the CSRF token verification.
+ * @returns The response of the session verification.
+ */
+export const checkSession = async (
+  options: { skip?: boolean } = { skip: false },
+  callback?: (res: VerifySessionResponse) => void
+): Promise<VerifySessionResponse> => {
+  const session = await getServerSession(authOptions);
+
+  let response: VerifySessionResponse = {
+    validSession: true,
+    message: "Session is valid",
+  };
+
+  if (options?.skip) {
+    response = { validSession: true, message: "Skipped session check" };
+  } else {
+    if (!session) {
+      response = { validSession: false, message: "No session was founded." };
+    }
+  }
+
+  callback?.(response);
+  return response;
 };
+
