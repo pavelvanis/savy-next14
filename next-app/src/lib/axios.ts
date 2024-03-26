@@ -6,3 +6,9 @@ import axios from "axios";
 export const TinkApiAxios = axios.create({
   baseURL: TinkConfig.apiBaseUrl,
 });
+
+export const LocalApiAxios = axios.create({
+  baseURL: "http://localhost:3000/api/",
+  // xsrfHeaderName: "X-CSRF-Token",
+  // xsrfCookieName: "next-auth.csrf-token",
+})
