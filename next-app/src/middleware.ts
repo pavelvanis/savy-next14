@@ -1,16 +1,31 @@
-//export { default } from "next-auth/middleware";
+import { NextRequestWithAuth } from "next-auth/middleware";
+import csrf from "edge-csrf";
+import { NextResponse } from "next/server";
 
-import middleware, { NextRequestWithAuth } from "next-auth/middleware";
-import { NEXTAUTH_ROUTES } from "./config/routes";
-
-export default function customMiddleware(req: NextRequestWithAuth) {
-  // Your custom middleware logic here
-  console.log("Custom middleware!");
-
+// initalize protection function
+const csrfProtect = csrf({
+  cookie: {
+    name: "csrf-token",
+    httpOnly: true,
+    sameSite: "lax",
+    secure: process.env.NODE_ENV === "production",
+  },
+});
+export async function middleware(req: NextRequestWithAuth) {
+  const response = NextResponse.next();
   const pathname = req.nextUrl.pathname;
 
-  // If route is included in the secureRoute array, apply the Nextauth middleware
-  if (NEXTAUTH_ROUTES.includes(pathname)) {
-    return middleware(req);
+  return response;
+
+  if (!pathname.startsWith("/api/auth/")) {
+    // csrf protection
+    const csrfError = await csrfProtect(req, response);
+
+    // check result
+    if (csrfError) {
+      return new NextResponse("Invalid csrf token", { status: 403 });
+    }
   }
+
+  return response;
 }
