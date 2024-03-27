@@ -1,7 +1,8 @@
 import { NextAuthOptions, User } from "next-auth";
 import CredentialProvider from "next-auth/providers/credentials";
 import { getCsrfToken } from "next-auth/react";
-import { LocalApiAxios } from "./axios";
+import { LoginSchema } from "@/schemas";
+import { UserModel } from "@/database/models";
 
 const authOptions: NextAuthOptions = {
   // Set max age to 24 hours
@@ -37,17 +38,20 @@ const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" },
       },
       authorize: async (credentials) => {
-        console.log(credentials);
+        const validatedFields = LoginSchema.safeParse(credentials);
 
-        const login = await LocalApiAxios.post("/auth/login", credentials);
+        if (validatedFields.success) {
+          const { email, password } = validatedFields.data;
 
-        if (!login) {
-          return null;
+          const user = await UserModel.findOne({ email });
+          if (!user || !user.password) return null;
+
+          const passwordsMatch = await user.comparePassword(password);
+
+          if (passwordsMatch) return user as User;
         }
 
-        const user = login.data as User;
-
-        return user;
+        return null;
       },
     }),
   ],
