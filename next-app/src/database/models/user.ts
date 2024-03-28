@@ -1,6 +1,14 @@
 import bcrypt from "bcrypt";
 import mongoose, { Model, Schema } from "mongoose";
-import { User } from "@/types/zod/mongoose";
+// import { User } from "@/types/zod/mongoose";
+
+interface User extends mongoose.Document {
+  userId: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+}
 
 interface IUserMethods {
   comparePassword: (password: string) => Promise<boolean>;
@@ -8,16 +16,16 @@ interface IUserMethods {
 
 const UserSchema = new Schema<User, {}, IUserMethods>(
   {
-    user_id: {
+    userId: {
       type: String,
       unique: true,
       required: [true, "User ID is required"],
     },
-    first_name: {
+    firstName: {
       type: String,
       required: [true, "Name is required"],
     },
-    last_name: {
+    lastName: {
       type: String,
       required: [true, "Last name is required"],
     },
