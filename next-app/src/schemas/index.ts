@@ -25,6 +25,11 @@ export const RegisterSchema = z
     email: z.string().email({
       message: "Email is required",
     }),
+    consents: z
+      .boolean()
+      .refine((data) => data === true, {
+        message: "You must agree to the terms and conditions",
+      }),
     password: z
       .string()
       .min(4, {
