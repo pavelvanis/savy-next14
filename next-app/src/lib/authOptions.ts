@@ -38,6 +38,7 @@ const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" },
       },
       authorize: async (credentials) => {
+
         const validatedFields = LoginSchema.safeParse(credentials);
 
         if (validatedFields.success) {
