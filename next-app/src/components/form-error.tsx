@@ -1,13 +1,16 @@
-interface FormErrorProps {
+import { Typography } from "@/components/ui";
+import { cn } from "@/lib/utils";
+
+interface FormErrorProps extends PropsWithClassName {
   message?: string;
 }
 
-export const FormError = ({ message }: FormErrorProps) => {
+export const FormError = ({ message, className }: FormErrorProps) => {
   if (!message) return null;
 
   return (
-    <div className="bg-destructive/15 p-3 rounded-md flex items-center gap-x-2 text-sm text-destructive">
-      <p>{message}</p>
-    </div>
+    <Typography className={cn("text-red-500 ms-2 mt-1 text-sm", className)}>
+      {message}
+    </Typography>
   );
 };
