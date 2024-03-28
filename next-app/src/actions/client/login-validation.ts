@@ -1,7 +1,6 @@
 "use server";
 
 import * as z from "zod";
-
 import { LoginSchema } from "@/schemas";
 import { connectDB } from "@/lib/connect-db";
 import { UserModel } from "@/database/models";

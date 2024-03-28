@@ -1,16 +1,16 @@
 "use client";
+
+import { z } from "zod";
 import React from "react";
 import Link from "next/link";
-import { z } from "zod";
 import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Card, Typography, Button, Input, Spinner } from "@/components/ui";
 import { FormError } from "@/components/form-error";
-
 import { LoginSchema } from "@/schemas";
-import { login } from "@/actions/login";
-import { useRouter } from "next/navigation";
+import { login } from "@/actions/client/login";
 import { DEFAULT_LOGIN_REDIRECT } from "@/config/routes";
 
 const LoginForm = () => {

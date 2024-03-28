@@ -1,10 +1,11 @@
 "use client";
+
+import { z } from "zod";
 import React from "react";
 import Link from "next/link";
-import { z } from "zod";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { register as registerAction } from "@/actions/register";
 
 import {
   Card,
@@ -15,9 +16,9 @@ import {
   Spinner,
 } from "@/components/ui";
 import { RegisterSchema } from "@/schemas";
-import { FormError } from "../form-error";
-import { login } from "@/actions/login";
-import { useRouter } from "next/navigation";
+import { FormError } from "@/components/form-error";
+import { login } from "@/actions/client/login";
+import { register as registerAction } from "@/actions/server/register";
 
 const RegisterForm = () => {
   const [globalFormError, setGlobalFormError] = React.useState("");
