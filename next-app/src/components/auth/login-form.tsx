@@ -10,12 +10,14 @@ import { FormError } from "@/components/form-error";
 
 import { LoginSchema } from "@/schemas";
 import { login } from "@/server/login";
+import { redirect, useRouter } from "next/navigation";
+import { DEFAULT_LOGIN_REDIRECT } from "@/config/routes";
 
 const LoginForm = () => {
-  const [globalFormError, setError] = React.useState("");
-  const [success, setSuccess] = React.useState<string | undefined>("");
-
+  const [globalFormError, setGlobalFormError] = React.useState("");
   const [isPending, startTransition] = React.useTransition();
+
+  const router = useRouter();
 
   const {
     register,
@@ -27,14 +29,15 @@ const LoginForm = () => {
   });
 
   const onSubmit = (values: z.infer<typeof LoginSchema>) => {
-    setError("");
-    setSuccess("");
+    setGlobalFormError("");
 
     startTransition(() => {
       login(values).then((data) => {
-        if (data?.error) {
+        if ("error" in data) {
+          setGlobalFormError(data.error);
+        } else if ("success" in data) {
           reset();
-          setError(data.error);
+          router.push(DEFAULT_LOGIN_REDIRECT);
         }
       });
     });
@@ -80,14 +83,14 @@ const LoginForm = () => {
           disabled={isPending}
           className="mt-6 flex justify-center items-center gap-2"
           type="submit"
-          onClick={() => setError("")}
+          onClick={() => setGlobalFormError("")}
           fullWidth
         >
           {isPending && <Spinner className="h-4 w-4" />}
           {isPending ? "Loading..." : "Login"}
         </Button>
         <Typography color="gray" className="mt-4 text-center font-normal">
-          Already have an account?{" "}
+          Don&apos;t have an account yet?{" "}
           <Link
             href="/register"
             className="font-medium text-gray-900 hover:underline transition-all"
