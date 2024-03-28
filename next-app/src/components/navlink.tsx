@@ -12,7 +12,7 @@ export type NavLinkProps = PropsWithClassName & {
 
 export const NavLink = ({ title, className, ...props }: NavLinkProps) => {
   const pathname = usePathname();
-  const active = pathname.startsWith(props.href);
+  const active = pathname === props.href;
   return (
     <Typography
       className={cn(

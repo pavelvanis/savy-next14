@@ -1,13 +1,8 @@
 import React from "react";
-import { cn } from "@/lib/utils";
 import Image from "next/image";
-import { NavLink, NavLinkProps } from "@/components/navlink";
-
-const links: NavLinkProps[] = [
-  { href: "#", title: "Docs" },
-  { href: "#", title: "About" },
-  { href: "#", title: "Security" },
-];
+import { cn } from "@/lib/utils";
+import { NavLink } from "@/components/navlink";
+import { authNavLinks } from "@/config/routes";
 
 const AuthHeader = ({ className }: PropsWithClassName) => {
   return (
@@ -25,9 +20,10 @@ const AuthHeader = ({ className }: PropsWithClassName) => {
       </div>
       <nav className="flex">
         <ul className="flex justify-between items-center gap-x-2 ">
-          {links.map(({ ...props }) => (
+          {authNavLinks.map(({ ...props }) => (
             <li className="inline-block">
               <NavLink
+                key={props.href}
                 className="inline-block text-center uppercase"
                 {...props}
               />
