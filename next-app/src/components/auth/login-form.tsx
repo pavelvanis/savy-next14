@@ -5,85 +5,98 @@ import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { Card, Typography, Button, Input, Checkbox } from "@/components/ui";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Card, Typography, Button, Input, Spinner } from "@/components/ui";
 import { FormError } from "@/components/form-error";
-import { FormSuccess } from "@/components/form-success";
+
 import { LoginSchema } from "@/schemas";
+import { login } from "@/server/login";
 
 const LoginForm = () => {
-  const [error, setError] = React.useState<string | undefined>("");
+  const [globalFormError, setError] = React.useState("");
   const [success, setSuccess] = React.useState<string | undefined>("");
-  const [isPending, setIsPending] = React.useState<boolean>(false);
 
-  const form = useForm<z.infer<typeof LoginSchema>>({
+  const [isPending, startTransition] = React.useTransition();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    reset,
+  } = useForm<z.infer<typeof LoginSchema>>({
     resolver: zodResolver(LoginSchema),
   });
 
   const onSubmit = (values: z.infer<typeof LoginSchema>) => {
-    console.log(values);
+    setError("");
+    setSuccess("");
+
+    startTransition(() => {
+      login(values).then((data) => {
+        if (data?.error) {
+          reset();
+          setError(data.error);
+        }
+      });
+    });
   };
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-        <div className="space-y-4">
-          <>
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Email</FormLabel>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      disabled={isPending}
-                      placeholder="john.doe@example.com"
-                      type="email"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+    <Card color="transparent" shadow={false}>
+      <Typography
+        variant="h1"
+        color="blue-gray"
+        className=" text-center font-bold"
+      >
+        Login
+      </Typography>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="mt-8 mb-2 px-4 w-80 max-w-screen-lg sm:w-96"
+      >
+        <div className="mb-3 flex flex-col gap-6">
+          <div>
+            <Input
+              {...register("email")}
+              type="email"
+              size="lg"
+              error={!!errors.email}
+              label="Email"
             />
-            <FormField
-              control={form.control}
-              name="password"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Password</FormLabel>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      disabled={isPending}
-                      placeholder="******"
-                      type="password"
-                    />
-                  </FormControl>
-                  <Button size="sm" variant="text" className="px-0 font-normal">
-                    <Link href="/auth/reset">Forgot password?</Link>
-                  </Button>
-                  <FormMessage />
-                </FormItem>
-              )}
+            <FormError message={errors.email?.message} />
+          </div>
+          <div>
+            <Input
+              {...register("password")}
+              type="password"
+              size="lg"
+              error={!!errors.password}
+              label="Password"
             />
-          </>
+            <FormError message={errors.password?.message} />
+          </div>
         </div>
-        <FormError message={error} />
-        <FormSuccess message={success} />
-        <Button disabled={isPending} type="submit" className="w-full">
-          Login
+        <FormError className="mt-4 font-semibold" message={globalFormError} />
+        <Button
+          disabled={isPending}
+          className="mt-6 flex justify-center items-center gap-2"
+          type="submit"
+          onClick={() => setError("")}
+          fullWidth
+        >
+          {isPending && <Spinner className="h-4 w-4" />}
+          {isPending ? "Loading..." : "Login"}
         </Button>
+        <Typography color="gray" className="mt-4 text-center font-normal">
+          Already have an account?{" "}
+          <Link
+            href="/register"
+            className="font-medium text-gray-900 hover:underline transition-all"
+          >
+            Register
+          </Link>
+        </Typography>
       </form>
-    </Form>
+    </Card>
   );
 };
 
