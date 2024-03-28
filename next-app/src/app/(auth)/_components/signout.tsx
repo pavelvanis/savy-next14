@@ -7,8 +7,8 @@ const Signout = () => {
   return (
     <div className="text-center">
       <Typography variant="h1">Signout</Typography>
-      <Typography variant="lead" className="mt-3">
-        You must log out before logging in.
+      <Typography variant="lead" className="mt-4 font-light text-lg">
+        You must sign out before logging in.
       </Typography>
       <Button
         variant="outlined"
