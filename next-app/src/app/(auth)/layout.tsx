@@ -1,9 +1,7 @@
 import React from "react";
-import AuthHeader from "./_components/header";
-import AuthFooter from "./_components/footer";
 import { getServerSession } from "next-auth";
 import authOptions from "@/lib/authOptions";
-import Signout from "./_components/signout";
+import { Signout, AuthFooter, AuthHeader } from "./_components";
 
 const AuthLayout = async ({ children }: React.PropsWithChildren) => {
   const session = await getServerSession(authOptions);
