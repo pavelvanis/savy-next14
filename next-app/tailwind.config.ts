@@ -8,7 +8,7 @@ const config = withMT({
   ],
   theme: {
     extend: {
-      fonFamily: {
+      fontFamily: {
         red: ["Red Hat Display", "sans-serif"],
       },
     },
