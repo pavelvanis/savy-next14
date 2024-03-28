@@ -25,11 +25,7 @@ export const login = async (
   const validatedFields = LoginSchema.safeParse(values);
 
   if (!validatedFields.success) {
-    const {
-      fieldErrors: { ...errors },
-    } = validatedFields.error.flatten();
-
-    return { errors: errors };
+    return { error: "Invalid fields!" };
   }
 
   await connectDB();
@@ -41,10 +37,10 @@ export const login = async (
   });
 
   if (!existingUser || !existingUser.password) {
-    return { message: "User does not exist!" };
+    return { error: "User does not exist!" };
   }
 
-  await signIn("credentials", {
+  return await signIn("credentials", {
     email,
     password,
     redirectTo: callbackUrl || DEFAULT_LOGIN_REDIRECT,
