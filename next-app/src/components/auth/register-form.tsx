@@ -21,8 +21,6 @@ import { useRouter } from "next/navigation";
 
 const RegisterForm = () => {
   const [globalFormError, setGlobalFormError] = React.useState("");
-  const [success, setSuccess] = React.useState<string | undefined>("");
-
   const [isPending, startTransition] = React.useState(false);
 
   const router = useRouter();
@@ -47,7 +45,6 @@ const RegisterForm = () => {
           setGlobalFormError(data.error);
         }
         if (data?.success) {
-          setSuccess(data.success);
           login(values).then((data) => {
             if ("error" in data) {
               router.push("/login");
@@ -127,6 +124,29 @@ const RegisterForm = () => {
               label="Confirm Password"
             />
             <FormError message={errors.confirmPassword?.message} />
+          </div>
+          <div>
+            <Checkbox
+              {...register("consents")}
+              className={errors.consents && "border-red-500"}
+              label={
+                <Typography
+                  variant="small"
+                  color="gray"
+                  className="flex items-center font-normal"
+                >
+                  I agree the&nbsp;
+                  <Link
+                    href="#"
+                    className="font-medium transition-colors hover:text-gray-900 hover:underline"
+                  >
+                    Terms and Conditions
+                  </Link>
+                </Typography>
+              }
+              containerProps={{ className: "-ml-2.5" }}
+            />
+            <FormError message={errors.consents?.message} />
           </div>
         </div>
         <FormError
