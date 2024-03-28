@@ -7,7 +7,11 @@ const config = withMT({
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fonFamily: {
+        red: ["Red Hat Display", "sans-serif"],
+      },
+    },
   },
   plugins: [],
 });
