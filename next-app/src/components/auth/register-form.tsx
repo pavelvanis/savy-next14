@@ -4,7 +4,7 @@ import Link from "next/link";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { register as registerAction } from "@/server/register";
+import { register as registerAction } from "@/actions/register";
 
 import {
   Card,
@@ -16,7 +16,7 @@ import {
 } from "@/components/ui";
 import { RegisterSchema } from "@/schemas";
 import { FormError } from "../form-error";
-import { login } from "@/server/login";
+import { login } from "@/actions/login";
 import { useRouter } from "next/navigation";
 
 const RegisterForm = () => {

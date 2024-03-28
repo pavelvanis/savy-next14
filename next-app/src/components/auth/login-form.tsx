@@ -9,7 +9,7 @@ import { Card, Typography, Button, Input, Spinner } from "@/components/ui";
 import { FormError } from "@/components/form-error";
 
 import { LoginSchema } from "@/schemas";
-import { login } from "@/server/login";
+import { login } from "@/actions/login";
 import { useRouter } from "next/navigation";
 import { DEFAULT_LOGIN_REDIRECT } from "@/config/routes";
 
