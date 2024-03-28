@@ -10,7 +10,7 @@ import { FormError } from "@/components/form-error";
 
 import { LoginSchema } from "@/schemas";
 import { login } from "@/server/login";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { DEFAULT_LOGIN_REDIRECT } from "@/config/routes";
 
 const LoginForm = () => {
