@@ -16,7 +16,7 @@ export const NavLink = ({ title, className, ...props }: NavLinkProps) => {
   return (
     <Typography
       className={cn(
-        "hover:font-semibold transition-all w-20",
+        "hover:font-semibold transition-all w-20 text-center",
         active && "font-semibold",
         className
       )}
