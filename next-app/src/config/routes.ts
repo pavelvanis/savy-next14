@@ -12,3 +12,10 @@ export const authNavLinks: NavLinkProps[] = [
   { href: "#", title: "Security" },
   { href: "#", title: "Privacy" },
 ];
+
+// Links for haeder in auth layout
+export const mainNavLinks: NavLinkProps[] = [
+  { href: "/", title: "Integration" },
+  { href: "#", title: "Security" },
+  { href: "", title: "Services" },
+];
