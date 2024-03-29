@@ -7,6 +7,11 @@ import Signout from "@/components/auth/signout";
 import { Button } from "@/components/ui";
 import { useSession } from "next-auth/react";
 
+/**
+ * If user is authenticated, show signout button, else show login and register button
+ * @param {boolean} state Initializing state of session if authenticated *(true/false)*
+ * @returns
+ */
 const LoginSignout = ({ state }: { state: boolean }) => {
   const session = useSession();
   const [login, setLogin] = React.useState<boolean>(state);
@@ -54,6 +59,5 @@ const LogOut = () => (
     className="flex gap-x-2 items-center hover:bg-gray-100 transition-all"
   >
     <LogOutIcon className="w-4 h-4" />
-    
   </Signout>
 );
