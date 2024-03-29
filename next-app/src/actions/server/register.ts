@@ -44,11 +44,12 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
     // Create user (database)
     const createdUser = await UserModel.create({
       ...sanitizedFields,
-      userId: permanentUser.user_id,
+      permanentUserId: permanentUser.user_id,
     });
 
     return { success: "You have been registred!" };
   } catch (error) {
+    console.log(error);
     return { error: "Something went wrong!" };
   }
 };
