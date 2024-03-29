@@ -3,6 +3,8 @@ import "@/styles/globals.css";
 import type { Metadata } from "next";
 import { Inter, Red_Hat_Display } from "next/font/google";
 
+import { ThemeProvider, SessionProvider } from "@/components/providers";
+
 const inter = Inter({ subsets: ["latin"] });
 const font = Red_Hat_Display({ subsets: ["latin"] });
 
@@ -19,7 +21,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={font.className}>{children}</body>
+      <ThemeProvider>
+        <SessionProvider>
+          <body className={font.className}>{children}</body>
+        </SessionProvider>
+      </ThemeProvider>
     </html>
   );
 }
