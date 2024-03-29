@@ -5,7 +5,7 @@ import { NavLink } from "@/components/navlink";
 import { Typography } from "@/components/ui";
 import { mainNavLinks } from "@/config/routes";
 import authOptions from "@/lib/authOptions";
-import LoginSignout from "./nav-session";
+import LoginSignout from "@/components/auth/header-session";
 
 const PublicHeader = async ({ className }: PropsWithClassName) => {
   const session = await getServerSession(authOptions);
@@ -28,7 +28,7 @@ const PublicHeader = async ({ className }: PropsWithClassName) => {
           ))}
         </ul>
       </nav>
-      {/* Login & Register / Signout */}
+      {/* Login & Register | Signout */}
       <LoginSignout state={!!session} />
     </div>
   );
