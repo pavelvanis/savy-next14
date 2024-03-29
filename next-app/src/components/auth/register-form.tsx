@@ -19,6 +19,7 @@ import { RegisterSchema } from "@/schemas";
 import { FormError } from "@/components/form-error";
 import { login } from "@/actions/client/login";
 import { register as registerAction } from "@/actions/server/register";
+import { DEFAULT_LOGIN_REDIRECT } from "@/config/routes";
 
 const RegisterForm = () => {
   const [globalFormError, setGlobalFormError] = React.useState("");
@@ -51,7 +52,7 @@ const RegisterForm = () => {
               router.push("/login");
             } else if ("success" in data) {
               reset();
-              router.push("/");
+              router.push(DEFAULT_LOGIN_REDIRECT);
             }
           });
           reset();
