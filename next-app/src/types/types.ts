@@ -1,32 +1,13 @@
 // ----------------------------------------------------------------------
 // Database types
 
-import { NextResponse } from "next/server";
-
-export type User = {
-  user_id: string;
-  name: string;
-  email: string;
-};
-
-// ----------------------------------------------------------------------
-// API types
-
-export type ApiLoginBody = {
+export interface IUser {
+  permanentUserId: string;
+  firstName: string;
+  lastName: string;
   email: string;
   password: string;
-};
-
-export type ApiRegisterBody = {
-  user: Omit<User, "user_id">;
-};
-
-type ErrorResponse = { errors: object; message?: never };
-type MessageResponse = { errors?: never; message?: string; data?: any };
-
-export type ApiResponse =
-  | NextResponse<ErrorResponse | MessageResponse>
-  | undefined;
+}
 
 // ----------------------------------------------------------------------
 // Tink API types

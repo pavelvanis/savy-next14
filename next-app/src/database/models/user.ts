@@ -1,14 +1,8 @@
+import { IUser } from "@/types/types";
 import bcrypt from "bcrypt";
 import mongoose, { Model, Schema } from "mongoose";
-// import { User } from "@/types/zod/mongoose";
 
-interface User extends mongoose.Document {
-  userId: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-}
+interface User extends IUser, mongoose.Document {}
 
 interface IUserMethods {
   comparePassword: (password: string) => Promise<boolean>;
@@ -16,7 +10,7 @@ interface IUserMethods {
 
 const UserSchema = new Schema<User, {}, IUserMethods>(
   {
-    userId: {
+    permanentUserId: {
       type: String,
       unique: true,
       required: [true, "User ID is required"],
