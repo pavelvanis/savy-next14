@@ -1,3 +1,3 @@
-export { default as AuthFooter } from "./footer";
-export { default as AuthHeader } from "./header";
+export { default as AuthFooter } from "./auth-footer";
+export { default as AuthHeader } from "./auth-header";
 export { default as Signout } from "./signout";
