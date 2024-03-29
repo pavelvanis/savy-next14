@@ -20,10 +20,10 @@ const AuthHeader = ({ className }: PropsWithClassName) => {
       </div>
       <nav className="flex">
         <ul className="flex justify-between items-center gap-x-2 ">
-          {authNavLinks.map(({ ...props }) => (
-            <li className="inline-block">
+          {authNavLinks.map(({ ...props }, i) => (
+            <li className="inline-block" key={i}>
               <NavLink
-                key={props.href}
+                key={i}
                 className="inline-block text-center uppercase"
                 {...props}
               />
