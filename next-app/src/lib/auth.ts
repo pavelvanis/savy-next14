@@ -1,6 +1,7 @@
-import getServerSession from "next-auth";
+import { Session, getServerSession } from "next-auth";
 import authOptions from "./authOptions";
-import NextAuth from "next-auth";
+import { redirect } from "next/navigation";
+import { DEFAULT_UNAUTHORIZED_REDIRECT } from "@/config/routes";
 
 // ------------------------------------------------------------
 // Session Authorize
@@ -33,4 +34,18 @@ export const checkSession = async (
 
   callback?.(response);
   return response;
+};
+
+/**
+ * Return a session of the user. If the session is not found, it will redirect to the unauthorized page.
+ * @returns The session of the user.
+ */
+export const getAuthSession = async () => {
+  const session = await getServerSession(authOptions);
+
+  if (!session) {
+    redirect(DEFAULT_UNAUTHORIZED_REDIRECT);
+  }
+
+  return session;
 };
