@@ -1,8 +1,10 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "@/styles/globals.css";
 
+import type { Metadata } from "next";
+import { Inter, Red_Hat_Display } from "next/font/google";
+
 const inter = Inter({ subsets: ["latin"] });
+const font = Red_Hat_Display({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "savy - Money Manager",
@@ -17,7 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={font.className}>{children}</body>
     </html>
   );
 }

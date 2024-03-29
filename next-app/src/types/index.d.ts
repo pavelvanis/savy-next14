@@ -1,0 +1,4 @@
+
+interface PropsWithClassName {
+  className?: string;
+}
