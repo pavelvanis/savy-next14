@@ -1,10 +1,12 @@
-import { NextAuthOptions, User } from "next-auth";
+import { NextAuthConfig, User } from "next-auth";
 import CredentialProvider from "next-auth/providers/credentials";
-import { getCsrfToken } from "next-auth/react";
 import { LoginSchema } from "@/schemas";
 import { UserModel } from "@/database/models";
 
-const authOptions: NextAuthOptions = {
+import { AdapterUser } from "next-auth/adapters";
+import { IUser } from "@/types/types";
+
+const authOptions: NextAuthConfig = {
   // Set max age to 24 hours
   jwt: {
     maxAge: 60 * 60 * 24,
@@ -16,8 +18,7 @@ const authOptions: NextAuthOptions = {
 
       // Calls when user logged in
       if (user) {
-        const csrf = await getCsrfToken();
-        return { user: user, csrfToken: csrf };
+        return { user: user };
       }
       return token;
     },
@@ -25,8 +26,7 @@ const authOptions: NextAuthOptions = {
       // console.log("session callback", { session, token });
 
       // Add user and csrf token to session
-      session.user = token.user as User;
-      session.csrfToken = token.csrfToken as string;
+      session.user = token.user as AdapterUser & IUser;
 
       return session;
     },
@@ -38,7 +38,6 @@ const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" },
       },
       authorize: async (credentials) => {
-
         const validatedFields = LoginSchema.safeParse(credentials);
 
         if (validatedFields.success) {
