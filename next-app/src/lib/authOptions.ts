@@ -13,8 +13,13 @@ const authOptions: NextAuthConfig = {
   },
   session: {},
   callbacks: {
-    async jwt({ token, user, account, profile }) {
+    async jwt({ token, user, trigger, session }) {
       // console.log("jwt callback", { token, user, account, profile });
+
+      if (trigger === "update" && session) {
+        console.log("Updating session:  ", session);
+        return { ...token, user: session.user };
+      }
 
       // Calls when user logged in
       if (user) {
