@@ -1,11 +1,8 @@
-import { DefaultSession } from "next-auth";
+// import NextAuth, { type DefaultSession } from "next-auth";
 import { IUser } from "@/types/types";
 
 declare module "next-auth" {
   interface Session {
-    user: User;
-    csrfToken: string;
+    user: IUser;
   }
 }
-
-export interface User extends IUser {}
