@@ -1,7 +1,17 @@
-import { Session, getServerSession } from "next-auth";
-import authOptions from "./authOptions";
+import NextAuth from "next-auth";
 import { redirect } from "next/navigation";
 import { DEFAULT_UNAUTHORIZED_REDIRECT } from "@/config/routes";
+import authOptions from "./authOptions";
+import { createPermanentUser } from "./tink/actions";
+
+// ------------------------------------------------------------
+// NextAuth Handlers
+
+export const {
+  handlers: { GET, POST },
+  auth,
+  unstable_update,
+} = NextAuth({ ...authOptions });
 
 // ------------------------------------------------------------
 // Session Authorize
@@ -17,7 +27,7 @@ export const checkSession = async (
   options: { skip?: boolean } = { skip: false },
   callback?: (res: VerifySessionResponse) => void
 ): Promise<VerifySessionResponse> => {
-  const session = await getServerSession(authOptions);
+  const session = await auth();
 
   let response: VerifySessionResponse = {
     validSession: true,
@@ -41,10 +51,21 @@ export const checkSession = async (
  * @returns The session of the user.
  */
 export const getAuthSession = async () => {
-  const session = await getServerSession(authOptions);
+  const session = await auth();
 
   if (!session) {
     redirect(DEFAULT_UNAUTHORIZED_REDIRECT);
+  }
+
+  const newPermanentuser = await createPermanentUser();
+
+  const testSession = {
+    ...session,
+    user: { ...session.user, permanentUserId: newPermanentuser.user_id },
+  };
+
+  if (process.env.NODE_ENV === "development") {
+    return testSession;
   }
 
   return session;
