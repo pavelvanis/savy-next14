@@ -2,11 +2,15 @@
 // Database types
 
 export interface IUser {
+  // Tink properties
   permanentUserId: string;
+  credentialsId: string;
+  // Credentials
   firstName: string;
   lastName: string;
   email: string;
   password: string;
+  // consents: boolean;
 }
 
 // ----------------------------------------------------------------------
