@@ -1,14 +1,13 @@
 import React from "react";
-import { getServerSession } from "next-auth";
 import { cn } from "@/lib/utils";
 import { NavLink } from "@/components/navlink";
 import { Typography } from "@/components/ui";
 import { mainNavLinks } from "@/config/routes";
-import authOptions from "@/lib/authOptions";
 import LoginSignout from "@/components/auth/header-session";
+import { auth } from "@/lib/auth";
 
 const PublicHeader = async ({ className }: PropsWithClassName) => {
-  const session = await getServerSession(authOptions);
+  const session = await auth();
   return (
     <div
       className={cn(

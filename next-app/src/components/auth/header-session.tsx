@@ -54,9 +54,9 @@ const LoginRegister = () => (
 
 const LogOut = () => (
   <Signout
-    variant="outlined"
+    variant="text"
     size="sm"
-    className="flex gap-x-2 items-center hover:bg-gray-100 transition-all"
+    className="flex gap-x-2 items-center bg-gray-100 hover:bg-gray-300 transition-all"
   >
     <LogOutIcon className="w-4 h-4" />
   </Signout>

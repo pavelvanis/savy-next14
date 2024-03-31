@@ -1,8 +1,8 @@
 import React from "react";
-import { cn } from "@/lib/utils";
-import Image from "next/image";
-import { Typography } from "@/components/ui";
 import Link from "next/link";
+import Image from "next/image";
+import { cn } from "@/lib/utils";
+import { Typography } from "@/components/ui";
 import { GITHUB_REPO } from "@/config/general";
 
 const PublicFooter = ({ className }: PropsWithClassName) => {
