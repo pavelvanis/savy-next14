@@ -36,19 +36,73 @@ export type TinkAuthorizationCode = {
   code: string;
 };
 
+// - - - - - - - - - - - - - - - - - - - - - - - -
+// Credentials
+
 export type TinkCredential = {
-  id: string
-  providerName: string
-  type: string
-  status: string
-  statusUpdated: number
-  statusPayload: string
-  updated: number
-  fields: {}
-  sessionExpiryDate: number
-  userId: string
+  id: string;
+  providerName: string;
+  type: string;
+  status: string;
+  statusUpdated: number;
+  statusPayload: string;
+  updated: number;
+  fields: {};
+  sessionExpiryDate: number;
+  userId: string;
 };
 
 export type TinkCredentails = TinkCredential[];
 
-// - - - - - - - - - - - - - - - - - - - - - - - - 
+// - - - - - - - - - - - - - - - - - - - - - - - -
+// Account
+
+type TinkAmount = {
+  currencyCode: string;
+  value: {
+    scale: string;
+    unscaledValue: string;
+  };
+};
+
+type TinkBalances = {
+  booked: {
+    amount: TinkAmount;
+  };
+};
+
+type TinkDates = {
+  lastRefreshed: string;
+};
+
+type TinkIdentifiers = {
+  financialInstitution: {
+    accountNumber: string;
+  };
+  iban: {
+    bban: string;
+    iban: string;
+  };
+  pan: {
+    masked: string;
+  };
+};
+
+export type TinkAccount = {
+  balances: TinkBalances;
+  customerSegment: string;
+  dates: TinkDates;
+  financialInstitutionId: string;
+  id: string;
+  identifiers: TinkIdentifiers;
+  name: string;
+  type: string;
+};
+
+export type TinkAccounts = {
+  accounts: TinkAccount[];
+  nextPageToken: string;
+};
+
+// - - - - - - - - - - - - - - - - - - - - - - - -
+// Balances
