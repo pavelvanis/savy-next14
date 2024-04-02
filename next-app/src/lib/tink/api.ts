@@ -1,13 +1,30 @@
-import { TinkConfig } from "@/config/tink";
+import {
+  TinkAccessToken,
+  TinkAuthorizationCode,
+  TinkCredentails,
+  TinkPermanentUser,
+} from "@/types/types";
 import { TinkApiAxios } from "../axios";
 
 const CLIENT_ID = process.env.TINK_CLIENT_ID;
 const CLIENT_SECRET = process.env.TINK_CLIENT_SECRET;
+const DELEGATED_TINK_LINK_CLIENT_ID = "df05e4b379934cd09963197cc855bfe9";
 // TODO: make it more configurable
 const MARKET = "CZ";
 const LOCALE = "cs_CZ";
 
-const DELEGATED_TINK_LINK_CLIENT_ID = "df05e4b379934cd09963197cc855bfe9";
+// TODO: Create logger
+/**
+ * Function which logs the arguments to the console.
+ * Does not log in production.
+ */
+const log = function (...args: any[]) {
+  if (process.env.NODE_ENV === "production") return;
+  args.forEach((arg) => {
+    console.log(arg);
+  });
+  console.log("\n\n");
+};
 
 // Methods to interact with Tink API
 
@@ -24,34 +41,29 @@ const getClientAccessToken = async () => {
     "accounts:read", // needed for fetching account details
   ].join(",");
 
-  try {
-    const clientAccessTokenResponse = await TinkApiAxios.post(
-      `/api/v1/oauth/token`,
-      `client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}&grant_type=client_credentials&scope=${scopes}`,
-      {
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded; charset=utf-8",
-        },
-      }
-    );
-    const token = clientAccessTokenResponse.data;
+  const clientAccessTokenResponse = await TinkApiAxios.post(
+    `/api/v1/oauth/token`,
+    `client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}&grant_type=client_credentials&scope=${scopes}`,
+    {
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded; charset=utf-8",
+      },
+    }
+  );
+  const clientAccessToken: TinkAccessToken = clientAccessTokenResponse.data;
 
-    console.log("\n\nCreate client access token:", token);
+  log("\n\nCreate client access token:", clientAccessToken);
 
-    return token.access_token;
-  } catch (error) {
-    console.error(error);
-  }
+  return clientAccessToken;
 };
 
 /**
- * Creates a new user in Tink.
+ * Creates a new permanent user in Tink.
  *
  * @param {string} accessToken - The access token.
- * @returns {Promise<Object>} The new user.
+ * @returns {Promise<Object>} The new permanent user.
  */
 const createPermanentUser = async (accessToken: string) => {
-  try {
     const userResponse = await TinkApiAxios.post(
       `/api/v1/user/create`,
       {
@@ -66,14 +78,11 @@ const createPermanentUser = async (accessToken: string) => {
       }
     );
 
-    const user = userResponse.data;
+    const permanentUser: TinkPermanentUser = userResponse.data;
 
-    console.log("\n\nCreate permanent user:", user);
+    log("\n\nCreate permanent user:", permanentUser);
 
-    return user;
-  } catch (error) {
-    console.error(error);
-  }
+    return permanentUser;
 };
 
 /**
@@ -107,9 +116,10 @@ const getAuthorizationCode = async (
     }
   );
 
-  const authorizationCode = authorizationCodeResponse.data;
+  const authorizationCode: TinkAuthorizationCode =
+    authorizationCodeResponse.data;
 
-  console.log("\n\nCreate authorization code:", authorizationCode);
+  log("\n\nCreate authorization code:", authorizationCode);
 
   return authorizationCode;
 };
@@ -125,6 +135,7 @@ const getUserGrantAuthorizationCode = async (
   userId: string,
   clientAccessToken: string
 ) => {
+  console.log("Getting grant authorization code for: ", userId);
   const grantAuthorizationResponse = await TinkApiAxios.post(
     `/api/v1/oauth/authorization-grant`,
     `user_id=${userId}&scope=credentials:read,accounts:read`,
@@ -136,40 +147,36 @@ const getUserGrantAuthorizationCode = async (
     }
   );
 
-  const grantAuthorization = grantAuthorizationResponse.data;
+  const grantAuthorization: TinkAuthorizationCode =
+    grantAuthorizationResponse.data;
 
-  console.log("\n\nCreate grant authorization:", grantAuthorization);
+  log("\n\nCreate grant authorization:", grantAuthorization);
 
   return grantAuthorization;
 };
 
 /**
- * Retrieves the user's access token with refresh token.
+ * Retrieves the user's access token.
  *
  * @param {string} code - The authorization code.
  * @returns {Promise<Object>} The user's access token.
  */
 const getUserAccessToken = async (code: string) => {
-  try {
-    const userAccessTokenResponse = await TinkApiAxios.post(
-      `/api/v1/oauth/token`,
-      {
-        body: `client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}&grant_type=authorization_code&scope=credentials:read,credentials:write&code=${code}`,
+  const userAccessTokenResponse = await TinkApiAxios.post(
+    `/api/v1/oauth/token`,
+    `client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}&grant_type=authorization_code&scope=credentials:read,credentials:write&code=${code}`,
+    {
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded; charset=utf-8",
       },
-      {
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded; charset=utf-8",
-        },
-      }
-    );
+    }
+  );
 
-    const userAccessToken = userAccessTokenResponse.data;
-    console.log("\n\nCreate user access token", userAccessToken);
+  const userAccessToken: TinkAccessToken = userAccessTokenResponse.data;
 
-    return userAccessToken;
-  } catch (error) {
-    console.log(error);
-  }
+  log("\n\nCreate user access token", userAccessToken);
+
+  return userAccessToken;
 };
 
 /**
@@ -189,12 +196,14 @@ const getUserCredentials = async (userAccessToken: string) => {
     }
   );
 
-  const userCredentials = userCredentialsResponse.data;
-  console.log("\n\nUser credentials", userCredentials);
+  const userCredentials: TinkCredentails = userCredentialsResponse.data;
+
+  log("\n\nUser credentials were fetched:", userCredentials);
 
   return userCredentials;
 };
 
+// TODO: Getting user accounts and balances (+transactions)
 const getUserAccounts = async (userAccessToken: string) => {
   const userAccountsResponse = await TinkApiAxios.get(`/data/v2/accounts`, {
     headers: {
