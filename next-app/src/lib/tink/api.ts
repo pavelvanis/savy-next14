@@ -52,7 +52,7 @@ const getClientAccessToken = async () => {
   );
   const clientAccessToken: TinkAccessToken = clientAccessTokenResponse.data;
 
-  log("\n\nCreate client access token:", clientAccessToken);
+  log("Create client access token:", clientAccessToken);
 
   return clientAccessToken;
 };
@@ -119,7 +119,7 @@ const getAuthorizationCode = async (
   const authorizationCode: TinkAuthorizationCode =
     authorizationCodeResponse.data;
 
-  log("\n\nCreate authorization code:", authorizationCode);
+  log("Create authorization code:", authorizationCode);
 
   return authorizationCode;
 };
@@ -198,7 +198,7 @@ const getUserCredentials = async (userAccessToken: string) => {
 
   const userCredentials: TinkCredentails = userCredentialsResponse.data;
 
-  log("\n\nUser credentials were fetched:", userCredentials);
+  log("User credentials were fetched:", userCredentials);
 
   return userCredentials;
 };
@@ -210,6 +210,10 @@ const getUserAccounts = async (userAccessToken: string) => {
       Authorization: `Bearer ${userAccessToken}`,
     },
   });
+
+  log("User accounts were fetched:", userAccountsResponse.data);
+
+  return userAccountsResponse.data;
 };
 
 const api = {
