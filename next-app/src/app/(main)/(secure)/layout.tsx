@@ -1,12 +1,11 @@
 import React from "react";
 import { redirect } from "next/navigation";
-import { getServerSession } from "next-auth";
 import { SecureFooter, SecureHeader } from "./_components";
-import authOptions from "@/lib/authOptions";
 import { DEFAULT_UNAUTHORIZED_REDIRECT } from "@/config/routes";
+import { auth } from "@/lib/auth";
 
 const SecureLayout = async ({ children }: React.PropsWithChildren) => {
-  const session = await getServerSession(authOptions);
+  const session = await auth();
 
   // Redirecting when there's no session
   if (!session) {
