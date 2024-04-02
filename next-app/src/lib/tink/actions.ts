@@ -1,4 +1,5 @@
 import api from "./api";
+import { TinkAuthorizationCode, TinkCredentails, TinkPermanentUser } from "@/types/types";
 
 if (!process.env.TINK_CLIENT_ID) {
   throw Error("Environment variable `TINK_CLIENT_ID` is not set.");
@@ -9,57 +10,80 @@ if (!process.env.TINK_CLIENT_SECRET) {
 }
 
 /**
- * Creates a new user in Tink.
+ * Fetches the client access token and create new permanent user.
  *
- * @returns {Promise<Object>} The new user.
+ * @returns {Promise<TinkPermanentUser>} The new permanent user.
  */
 const createPermanentUser = async () => {
-  const token = await api.getClientAccessToken();
-  const permanent_user = await api.createPermanentUser(token);
+  try {
+    const token = await api.getClientAccessToken();
+    const permanent_user = await api.createPermanentUser(token.access_token);
 
-  return permanent_user;
+    return permanent_user;
+  } catch (error) {
+    // TODO: Handle error & Create logger
+    console.log(error);
+    return null;
+  }
 };
 
 /**
  * Gets an authorization code for a user.
  *
  * @param {string} userId The user ID.
- * @returns {Promise<Object>} The authorization code.
+ * @returns {Promise<TinkAuthorizationCode>} The authorization code.
  */
 const generateAuthorizationCode = async (userId: string) => {
-  const token = await api.getClientAccessToken();
-  const authorization_code = await api.getAuthorizationCode(userId, token);
+  try {
+    const token = await api.getClientAccessToken();
+    const authorization_code = await api.getAuthorizationCode(
+      userId,
+      token.access_token
+    );
 
-  return authorization_code;
+    return authorization_code;
+  } catch (error) {
+    // TODO: Handle error & Create logger
+    console.log(error);
+    return null;
+  }
 };
 
 /**
  * Gets the credentials for a user.
  *
- * @param {string} userId The user ID.
- * @returns {Promise<Object>} The user credentials.
+ * @param {string} userId The permanent user ID.
+ * @returns {Promise<TinkCredentails>} The user credentials.
  */
 const getCredentials = async (userId: string) => {
-  const clientAccessToken = await api.getClientAccessToken();
-  const userGrantAuthorizationCode = await api.getUserGrantAuthorizationCode(
-    userId,
-    clientAccessToken
-  );
-  const userAccessToken = await api.getUserAccessToken(
-    userGrantAuthorizationCode.code
-  );
-  const userCredentials = await api.getUserCredentials(
-    userAccessToken
-  );
+  try {
+    const clientAccessToken = await api.getClientAccessToken();
+    const userGrantAuthorizationCode = await api.getUserGrantAuthorizationCode(
+      userId,
+      clientAccessToken.access_token
+    );
+    const userAccessToken = await api.getUserAccessToken(
+      userGrantAuthorizationCode.code
+    );
+    const userCredentials = await api.getUserCredentials(
+      userAccessToken.access_token
+    );
 
-  return userCredentials;
+    return userCredentials;
+  } catch (error) {
+    // TODO: Handle error & Create logger
+    console.log(error);
+    return null;
+  }
 };
 
+// TODO: Implement getAccounts
 const getAccounts = async (userId: string) => {
+  // TODO
   const clientAccessToken = await api.getClientAccessToken();
   const userGrantAuthorizationCode = await api.getUserGrantAuthorizationCode(
     userId,
-    clientAccessToken
+    clientAccessToken.access_token
   );
   const userAccessToken = await api.getUserAccessToken(
     userGrantAuthorizationCode.code
