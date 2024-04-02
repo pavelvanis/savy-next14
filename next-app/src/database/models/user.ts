@@ -10,11 +10,17 @@ interface IUserMethods {
 
 const UserSchema = new Schema<User, {}, IUserMethods>(
   {
+    // Tink properties
     permanentUserId: {
       type: String,
       unique: true,
-      required: [true, "User ID is required"],
+      required: [true, "Permanent User ID is required"],
     },
+    credentialsId: {
+      type: String,
+      // unique: true,
+    },
+    // User credentials
     firstName: {
       type: String,
       required: [true, "Name is required"],
@@ -37,11 +43,12 @@ const UserSchema = new Schema<User, {}, IUserMethods>(
   }
 );
 
-// Compare password
+/**
+ * Asynchronously compares the provided password with the user's hashed password.
+ */
 UserSchema.methods.comparePassword = async function (password: string) {
   return await bcrypt.compare(password, this.password);
 };
-
 // Hash password before saving
 UserSchema.pre("save", async function (next) {
   if (!this.isModified("password")) return next();

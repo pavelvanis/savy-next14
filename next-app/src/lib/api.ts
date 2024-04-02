@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
 import { checkSession } from "@/lib/auth";
-import { ApiResponse } from "@/types/types";
 
 // Help methods for api routes
 
@@ -20,7 +19,7 @@ if (process.env.NODE_ENV === "production") {
 export const Authorize = async (
   req: NextRequest,
   res: NextResponse,
-  next: (body: any) => Promise<ApiResponse>
+  next: (body: any) => any
 ) => {
   const { ...body } = await req.json();
 

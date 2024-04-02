@@ -17,7 +17,7 @@ const authOptions: NextAuthConfig = {
       // console.log("jwt callback", { token, user, account, profile });
 
       if (trigger === "update" && session) {
-        console.log("Updating session:  ", session);
+        // console.log("Updating session:  ", session);
         return { ...token, user: session.user };
       }
 

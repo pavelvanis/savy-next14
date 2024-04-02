@@ -1,7 +1,5 @@
-import authOptions from "@/lib/authOptions";
-import { getServerSession } from "next-auth";
-import { useSession } from "next-auth/react";
 import { NextRequest, NextResponse } from "next/server";
+import { auth, unstable_update } from "@/lib/auth";
 
 /**
  * Handler for Tink callbacks
@@ -9,21 +7,27 @@ import { NextRequest, NextResponse } from "next/server";
 export const GET = async (req: NextRequest) => {
   try {
     // Check session
-    const session = await getServerSession(authOptions);
+    const session = await auth();
     if (!session) {
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
-
-    const { update } = useSession();
 
     // Take params
     const params = req.nextUrl.searchParams;
     console.log(params);
 
     const state = params.get("state");
+    // TODO: Validate state
+
     const credentialsId = params.get("credentialsId");
 
-    update({ credentialsId });
+    if (credentialsId) {
+      const updated = await unstable_update({
+        user: { ...session.user, credentialsId },
+      });
+      // console.log("updated", updated);
+      // return NextResponse.redirect(new URL("/web", req.url));
+    }
 
     return NextResponse.json({ message: "Hello from callback" });
   } catch (error) {
