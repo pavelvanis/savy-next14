@@ -57,16 +57,5 @@ export const getAuthSession = async () => {
     redirect(DEFAULT_UNAUTHORIZED_REDIRECT);
   }
 
-  const newPermanentuser = await createPermanentUser();
-
-  const testSession = {
-    ...session,
-    user: { ...session.user, permanentUserId: newPermanentuser.user_id },
-  };
-
-  if (process.env.NODE_ENV === "development") {
-    return testSession;
-  }
-
   return session;
 };
