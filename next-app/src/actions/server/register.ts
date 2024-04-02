@@ -41,14 +41,17 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
     // Create permanent user (Tink API)
     const permanentUser = await createPermanentUser();
 
+    if(!permanentUser) return {error: "Failed to create permanent user!"}
+
     // Create user (database)
     const createdUser = await UserModel.create({
-      ...sanitizedFields,
       permanentUserId: permanentUser.user_id,
+      ...sanitizedFields,
     });
 
     return { success: "You have been registred!" };
   } catch (error) {
+    console.log("Error in register action:");
     console.log(error);
     return { error: "Something went wrong!" };
   }
