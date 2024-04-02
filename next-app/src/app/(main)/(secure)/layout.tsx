@@ -13,9 +13,9 @@ const SecureLayout = async ({ children }: React.PropsWithChildren) => {
   }
 
   return (
-    <div className="max-w-6xl mx-auto">
+    <div className=" min-h-screen max-w-6xl mx-auto flex flex-col">
       <SecureHeader />
-      <main className=" min-h-screen flex flex-col justify-center items-center">
+      <main className=" flex-1 flex flex-col justify-center items-center">
         {children}
       </main>
       <SecureFooter />
