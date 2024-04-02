@@ -1,5 +1,9 @@
 import api from "./api";
-import { TinkAuthorizationCode, TinkCredentails, TinkPermanentUser } from "@/types/types";
+import {
+  TinkAuthorizationCode,
+  TinkCredentails,
+  TinkPermanentUser,
+} from "@/types/types";
 
 if (!process.env.TINK_CLIENT_ID) {
   throw Error("Environment variable `TINK_CLIENT_ID` is not set.");
@@ -51,7 +55,7 @@ const generateAuthorizationCode = async (userId: string) => {
 
 /**
  * Gets the credentials for a user.
- *
+ * 
  * @param {string} userId The permanent user ID.
  * @returns {Promise<TinkCredentails>} The user credentials.
  */
@@ -77,9 +81,13 @@ const getCredentials = async (userId: string) => {
   }
 };
 
-// TODO: Implement getAccounts
+/**
+ * Fetches the accounts of a specific user.
+ * 
+ * @param userId - The ID of the user whose accounts are to be fetched.
+ * @returns A Promise that resolves with the user's accounts.
+ */
 const getAccounts = async (userId: string) => {
-  // TODO
   const clientAccessToken = await api.getClientAccessToken();
   const userGrantAuthorizationCode = await api.getUserGrantAuthorizationCode(
     userId,
@@ -88,6 +96,9 @@ const getAccounts = async (userId: string) => {
   const userAccessToken = await api.getUserAccessToken(
     userGrantAuthorizationCode.code
   );
+  const userAccounts = await api.getUserAccounts(userAccessToken.access_token);
+
+  return userAccounts;
 };
 
 export {
