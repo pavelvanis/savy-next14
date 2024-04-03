@@ -55,7 +55,6 @@ export type TinkCredential = {
 export type TinkCredentails = TinkCredential[];
 
 // - - - - - - - - - - - - - - - - - - - - - - - -
-// Account
 
 type TinkAmount = {
   currencyCode: string;
@@ -67,6 +66,9 @@ type TinkAmount = {
 
 type TinkBalances = {
   booked: {
+    amount: TinkAmount;
+  };
+  available: {
     amount: TinkAmount;
   };
 };
@@ -88,6 +90,9 @@ type TinkIdentifiers = {
   };
 };
 
+// - - - - - - - - - - - - - - - - - - - - - - - -
+// Account
+
 export type TinkAccount = {
   balances: TinkBalances;
   customerSegment: string;
@@ -106,3 +111,11 @@ export type TinkAccounts = {
 
 // - - - - - - - - - - - - - - - - - - - - - - - -
 // Balances
+
+export type TinkBalance = {
+  id: string;
+  name: string;
+  type: string;
+};
+
+

@@ -1,6 +1,6 @@
 import AccountsList from "@/components/web/accounts/accounts";
 import { getAuthSession } from "@/lib/auth";
-import { generateAuthorizationCode, getAccounts } from "@/lib/tink/actions";
+import { getAccounts } from "@/lib/tink/actions";
 import React from "react";
 
 /**
@@ -10,19 +10,10 @@ const AccountsPage = async () => {
   const { user } = await getAuthSession();
   const accounts = await getAccounts(user.permanentUserId);
 
-  const authorizationCode = await generateAuthorizationCode(
-    user.permanentUserId
-  );
-
   console.log("Accounts on the page: ", JSON.stringify(accounts, null, 2));
 
-  return (
-    <AccountsList
-      {...accounts}
-      authorizationCode={authorizationCode?.code}
-      userId={user.permanentUserId}
-    />
-  );
+  if (accounts) return <AccountsList {...accounts} />;
+  else return <div>Accounts could not be fetched</div>;
 };
 
 export default AccountsPage;

@@ -1,22 +1,23 @@
 import React from "react";
+import Link from "next/link";
+import { PlusIcon } from "lucide-react";
+import AccountCard from "./account-card";
+import { getAuthSession } from "@/lib/auth";
 import { TinkAccounts } from "@/types/types";
 import { Button, Typography } from "@/components/ui";
-import AccountCard from "./account-card";
-import { PlusIcon } from "lucide-react";
-import Link from "next/link";
 import { addCredentialsLink } from "@/lib/tink/link";
+import { generateAuthorizationCode } from "@/lib/tink/actions";
 
-type AccountsListProps = TinkAccounts & {
-  authorizationCode: string;
-  userId: string;
-};
+type AccountsListProps = TinkAccounts & {};
 
-const AccountsList: React.FC<AccountsListProps> = ({
+const AccountsList: React.FC<AccountsListProps> = async ({
   accounts,
-  authorizationCode,
-  userId,
   ...props
 }) => {
+  const { user } = await getAuthSession();
+  const authorizationCode = await generateAuthorizationCode(
+    user.permanentUserId
+  );
   return (
     <div className="mt-5 flex-1 w-full max-w-4xl">
       <div className="flex flex-col gap-y-6 h-full w-full">
@@ -31,13 +32,18 @@ const AccountsList: React.FC<AccountsListProps> = ({
               size="sm"
               className=" hover:bg-gray-200 transition-all duration-300"
             >
-              <Link
-                className=" flex items-center gap-2"
-                href={addCredentialsLink(authorizationCode, userId)}
-              >
-                <PlusIcon className="w-5 h-5" />
-                Add Account
-              </Link>
+              {authorizationCode && (
+                <Link
+                  className=" flex items-center gap-2"
+                  href={addCredentialsLink(
+                    authorizationCode?.code,
+                    user.permanentUserId
+                  )}
+                >
+                  <PlusIcon className="w-5 h-5" />
+                  Add Account
+                </Link>
+              )}
             </Button>
           </div>
         </div>

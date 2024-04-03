@@ -1,16 +1,17 @@
 import React from "react";
 import Link from "next/link";
 import { getAuthSession } from "@/lib/auth";
-import { Button, Typography } from "@/components/ui";
+import { Typography } from "@/components/ui";
 import { addCredentialsLink } from "@/lib/tink/link";
 import { generateAuthorizationCode } from "@/lib/tink/actions";
-import { getCredentials } from "@/actions/server/credentials";
-import { GetCredentailsButton } from "@/actions/server/get";
+import { GetAccountsButton, GetCredentailsButton } from "@/actions/server/get";
 
 const WebPage = async () => {
   const { user } = await getAuthSession();
 
   const auth_code = await generateAuthorizationCode(user.permanentUserId);
+
+  console.log("ID: ", process.env.TINK_CLIENT_ID);
 
   return (
     <div>
@@ -25,6 +26,7 @@ const WebPage = async () => {
         </Link>
       )}
       <GetCredentailsButton userId={user.permanentUserId} />
+      <GetAccountsButton userId={user.permanentUserId} />
     </div>
   );
 };

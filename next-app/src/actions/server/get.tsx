@@ -1,6 +1,6 @@
 "use client";
 import { Button } from "@/components/ui";
-import { getCredentials } from "./credentials";
+import { getAccountBalancesById, getAccounts, getCredentials } from "@/lib/tink/actions";
 
 export const GetCredentailsButton = ({ userId }: { userId: string }) => {
   const submit = async () => {
@@ -8,4 +8,12 @@ export const GetCredentailsButton = ({ userId }: { userId: string }) => {
   };
 
   return <Button onClick={submit}>get credentials</Button>;
+};
+
+export const GetAccountsButton = ({ userId }: { userId: string }) => {
+  const submit = async () => {
+    await getAccounts(userId);
+  };
+
+  return <Button onClick={submit}>get accounts</Button>;
 };
