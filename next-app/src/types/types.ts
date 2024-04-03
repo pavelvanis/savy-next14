@@ -18,6 +18,23 @@ export interface IUser {
 // ----------------------------------------------
 // Tink API types
 
+export type TinkError = {
+  statusCode: number;
+  message: string;
+};
+
+type Success<T> = {
+  data: T;
+  error: null;
+};
+
+type Failure = {
+  data: null;
+  error: TinkError;
+};
+
+export type TinkResponse<T> = Success<T> | Failure;
+
 // Tink objects
 export type TinkPermanentUser = {
   user_id: string;
@@ -117,5 +134,3 @@ export type TinkBalance = {
   name: string;
   type: string;
 };
-
-
