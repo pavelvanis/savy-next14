@@ -1,5 +1,7 @@
 import {
   TinkAccessToken,
+  TinkAccount,
+  TinkAccounts,
   TinkAuthorizationCode,
   TinkCredentails,
   TinkPermanentUser,
@@ -29,17 +31,13 @@ const log = function (...args: any[]) {
 // Methods to interact with Tink API
 
 /**
- * Get client access token for the client
- * @returns Access token for the client
+ * Fetches a client access token from the Tink API.
+ *
+ * @param {string[]} scopes - The scopes for which the access token is requested. Multiple scopes can be passed.
+ * @returns {Promise<TinkAccessToken>} The client access token.
  */
-const getClientAccessToken = async () => {
-  const scopes = [
-    "authorization:grant,user:read,user:create", // needed for creating permanent users
-    "credentials:read", // needed for fetching user credentials
-    "payment:read", // needed for fetching payment request transfers
-    "link-session:read", // reading sessions
-    "accounts:read", // needed for fetching account details
-  ].join(",");
+const getClientAccessToken = async (...scopes: string[]) => {
+  scopes.join(",");
 
   const clientAccessTokenResponse = await TinkApiAxios.post(
     `/api/v1/oauth/token`,
@@ -61,47 +59,44 @@ const getClientAccessToken = async () => {
  * Creates a new permanent user in Tink.
  *
  * @param {string} accessToken - The access token.
- * @returns {Promise<Object>} The new permanent user.
+ * @returns {Promise<TinkPermanentUser>} The new permanent user.
  */
 const createPermanentUser = async (accessToken: string) => {
-    const userResponse = await TinkApiAxios.post(
-      `/api/v1/user/create`,
-      {
-        locale: LOCALE,
-        market: MARKET,
+  const userResponse = await TinkApiAxios.post(
+    `/api/v1/user/create`,
+    {
+      locale: LOCALE,
+      market: MARKET,
+    },
+    {
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+        Authorization: `Bearer ${accessToken}`,
       },
-      {
-        headers: {
-          "Content-Type": "application/json; charset=utf-8",
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }
-    );
+    }
+  );
 
-    const permanentUser: TinkPermanentUser = userResponse.data;
+  const permanentUser: TinkPermanentUser = userResponse.data;
 
-    log("\n\nCreate permanent user:", permanentUser);
+  log("\n\nCreate permanent user:", permanentUser);
 
-    return permanentUser;
+  return permanentUser;
 };
 
 /**
- * Creates a new permanent user.
+ * Fetches an authorization code for a user from the Tink API.
  *
- * @param {string} accessToken - The access token.
- * @returns {Promise<Object>} The newly created user.
+ * @param {string} userId - The ID of the user.
+ * @param {string} clientAccessToken - The access token of the client.
+ * @param {string[]} scopes - The scopes for which the authorization code is requested. Multiple scopes can be passed.
+ * @returns {Promise<TinkAuthorizationCode>} A Promise that resolves with the authorization code.
  */
 const getAuthorizationCode = async (
   userId: string,
-  clientAccessToken: string
+  clientAccessToken: string,
+  ...scopes: string[]
 ) => {
-  const scopes = [
-    "providers:read,user:read,authorization:read", // base tink link scopes
-    "credentials:read,credentials:refresh,credentials:write", // needed to enable add/refresh/authenticate credentials
-    "payment:read,transfer:read,transfer:execute", // needed for executing payment requests - creating a transfers
-    "link-session:read", // reading sessions
-    "accounts:read,transactions:read,balances:read", // needed for fetching account details
-  ].join(",");
+  scopes.join(",");
 
   const idHint = "John Doe"; // TODO: change to the user's name
 
@@ -129,16 +124,19 @@ const getAuthorizationCode = async (
  *
  * @param {string} userId - The user's ID.
  * @param {string} clientAccessToken - The client access token.
- * @returns {Promise<Object>} The grant authorization code.
+ * @param {string[]} scopes - The scopes for which the authorization code is requested. Multiple scopes can be passed.
+ * @returns {Promise<TinkAuthorizationCode>}The grant authorization code.
  */
 const getUserGrantAuthorizationCode = async (
   userId: string,
-  clientAccessToken: string
+  clientAccessToken: string,
+  ...scopes: string[]
 ) => {
-  console.log("Getting grant authorization code for: ", userId);
+  scopes.join(",");
+
   const grantAuthorizationResponse = await TinkApiAxios.post(
     `/api/v1/oauth/authorization-grant`,
-    `user_id=${userId}&scope=credentials:read,accounts:read`,
+    `user_id=${userId}&scope=${scopes}`,
     {
       headers: {
         Authorization: `Bearer ${clientAccessToken}`,
@@ -156,15 +154,17 @@ const getUserGrantAuthorizationCode = async (
 };
 
 /**
- * Retrieves the user's access token.
+ * Retrieves the user's access token. You must put needed scopes into function when generating authorization code.
  *
  * @param {string} code - The authorization code.
- * @returns {Promise<Object>} The user's access token.
+ * @returns {Promise<TinkAccessToken>} The user's access token.
  */
-const getUserAccessToken = async (code: string) => {
+const getUserAccessToken = async (code: string, ...scopes: string[]) => {
+  scopes.join(",");
+
   const userAccessTokenResponse = await TinkApiAxios.post(
     `/api/v1/oauth/token`,
-    `client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}&grant_type=authorization_code&scope=credentials:read,credentials:write&code=${code}`,
+    `client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}&grant_type=authorization_code&code=${code}&scope=${scopes}`,
     {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded; charset=utf-8",
@@ -183,7 +183,7 @@ const getUserAccessToken = async (code: string) => {
  * Retrieves the user's credentials.
  *
  * @param {string} userAccessToken - The user's access token.
- * @returns {Promise<Object>} The user's credentials.
+ * @returns {Promise<TinkCredentails>} The user's credentials.
  */
 const getUserCredentials = async (userAccessToken: string) => {
   const userCredentialsResponse = await TinkApiAxios.get(
@@ -203,7 +203,12 @@ const getUserCredentials = async (userAccessToken: string) => {
   return userCredentials;
 };
 
-// TODO: Getting user accounts and balances (+transactions)
+/**
+ * Retrieves the user's accounts.
+ *
+ * @param {string} userAccessToken - The user's access token.
+ * @returns {Promise<TinkAccounts>} The user's accounts.
+ */
 const getUserAccounts = async (userAccessToken: string) => {
   const userAccountsResponse = await TinkApiAxios.get(`/data/v2/accounts`, {
     headers: {
@@ -213,7 +218,63 @@ const getUserAccounts = async (userAccessToken: string) => {
 
   log("User accounts were fetched:", userAccountsResponse.data);
 
+  const userAccounts: TinkAccounts = userAccountsResponse.data;
+
+  return userAccounts;
+};
+
+/**
+ * Retrieves the user's account filtered by id.
+ *
+ * @param {string} userAccessToken - The user's access token.
+ * @param {string} accountId - The account id.
+ * @returns {Promise<TinkAccount>} The filtered account.
+ */
+const getUserAccountById = async (
+  userAccessToken: string,
+  accountId: string
+) => {
+  const userAccountsResponse = await TinkApiAxios.get(
+    `/data/v2/accounts/${accountId}`,
+    {
+      headers: {
+        Authorization: `Bearer ${userAccessToken}`,
+      },
+    }
+  );
+
+  log("User account was fetched:", userAccountsResponse.data);
+
+  const userAccount: TinkAccount = userAccountsResponse.data;
+
   return userAccountsResponse.data;
+};
+
+/**
+ * Retrieves balances for the account filtered by id.
+ *
+ * @param {string} userAccessToken - The user's access token.
+ * @param {string} accountId - The account id.
+ * @returns {Promise<any>} The balances for filtered account.
+ */
+const getUserBalancesById = async (
+  userAccessToken: string,
+  accountId: string
+) => {
+  const getUserBalancesResponse = await TinkApiAxios.get(
+    `/api/v1/accounts/${accountId}/balances`,
+    {
+      headers: {
+        Authorization: `Bearer ${userAccessToken}`,
+      },
+    }
+  );
+
+  log("User balances were fetched:", getUserBalancesResponse.data);
+
+  const userBalancesById = getUserBalancesResponse.data;
+
+  return userBalancesById;
 };
 
 const api = {
@@ -224,6 +285,8 @@ const api = {
   getUserAccessToken,
   getUserCredentials,
   getUserAccounts,
+  getUserAccountById,
+  getUserBalancesById,
 };
 
 export default api;
