@@ -48,6 +48,11 @@ const AccountsList: React.FC<AccountsListProps> = async ({
           </div>
         </div>
         {/* Accounts */}
+        {accounts.length === 0 && (
+          <Typography variant="lead" className="font-semibold">
+            No accounts found
+          </Typography>
+        )}
         {accounts.map((acc, i) => (
           <AccountCard key={i} {...acc} />
         ))}
