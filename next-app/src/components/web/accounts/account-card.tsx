@@ -12,7 +12,7 @@ const AccountCard: React.FC<AccountCardProps> = ({ ...props }) => {
       {/* Card header */}
       <AccountHeader {...props} />
       {/* Card body */}
-      <AccountBody {...props} />
+      <AccountBody accountId={props.id} />
     </Card>
   );
 };
