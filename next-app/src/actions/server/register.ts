@@ -5,7 +5,7 @@ import { RegisterSchema } from "@/schemas";
 import { sanitize } from "@/lib/api";
 import { connectDB } from "@/lib/connect-db";
 import { UserModel } from "@/database/models";
-import { createPermanentUser } from "@/lib/tink/actions";
+import { createPermanentUser } from "@/actions/server/data/user";
 
 /**
  * This server action is used to register a new user.
@@ -41,11 +41,11 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
     // Create permanent user (Tink API)
     const permanentUser = await createPermanentUser();
 
-    if(!permanentUser) return {error: "Failed to create permanent user!"}
+    if (!permanentUser) return { error: "Failed to create permanent user!" };
 
     // Create user (database)
     const createdUser = await UserModel.create({
-      permanentUserId: permanentUser.user_id,
+      permanentUserId: permanentUser.data?.user_id,
       ...sanitizedFields,
     });
 
