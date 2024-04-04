@@ -5,6 +5,7 @@ import { signIn } from "next-auth/react";
 import { LoginSchema } from "@/schemas";
 import { loginValidation } from "@/actions/server/login-validation";
 
+// TODO: Make login server action
 export const login = async (values: z.infer<typeof LoginSchema>) => {
   try {
     const validation = await loginValidation(values);

@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 
 import { checkSession } from "@/lib/auth";
+import { AxiosError } from "axios";
+import { TinkError, TinkResponse } from "@/types/types";
 
 // Help methods for api routes
 
@@ -50,4 +52,28 @@ export const sanitize = (params: any) => {
  */
 export const errorHandler = () => {
   // TODO: Create function to handle errors
+};
+
+export const tinkErrorHandler = <T>(
+  error: any,
+  message?: string
+): TinkResponse<T> => {
+  if (error instanceof AxiosError && error.response) {
+    return {
+      error: {
+        statusCode: error.response.status,
+        message: message || error.response.statusText,
+      },
+      data: null,
+    };
+  } else {
+    // Handle the case when the error is not an AxiosError or when error.response is not defined
+    return {
+      error: {
+        statusCode: 500, // Use a default status code
+        message: message || "An error occurred", // Use a default message
+      },
+      data: null,
+    };
+  }
 };
