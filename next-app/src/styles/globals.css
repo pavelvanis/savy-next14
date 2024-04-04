@@ -3,3 +3,23 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Tailwind components */
+@layer components {
+  .container {
+    @apply max-w-6xl mx-auto;
+  }
+  .user-nav-link {
+    @apply hover:bg-gray-300 text-center h-full flex flex-grow items-center transition-all duration-300;
+  }
+  .user-nav-link-active {
+    @apply bg-gray-600 text-white;
+  }
+}
+
+/* Tailwind helper utilities */
+@layer utilities {
+  .flex-center{
+    @apply flex justify-center items-center;
+  }
+}
