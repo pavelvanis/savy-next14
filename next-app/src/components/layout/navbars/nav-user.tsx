@@ -1,10 +1,7 @@
 import React from "react";
-import Link from "next/link";
 import { cn } from "@/lib/utils";
-import { Typography } from "@/components/ui";
-import { userNavLinks } from "@/config/routes";
-import { getAuthSession } from "@/lib/auth";
 import CustomLink from "@/components/link";
+import { userNavLinks } from "@/config/routes";
 
 type UserNavProps = PropsWithClassName & {};
 

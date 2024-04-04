@@ -1,7 +1,7 @@
 import React from "react";
-import { getAuthSession } from "@/lib/auth";
-import { getAccountBalancesById, getAccountById } from "@/lib/tink/actions";
 import { notFound } from "next/navigation";
+import { getAuthSession } from "@/lib/auth";
+import { getAccountBalancesById, getAccountById } from "@/actions/server/data";
 
 type AccountIdPageProps = {
   params: {

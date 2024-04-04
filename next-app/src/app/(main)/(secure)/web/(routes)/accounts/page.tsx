@@ -1,11 +1,11 @@
 import React from "react";
-import { getAuthSession } from "@/lib/auth";
-import { generateAuthorizationCode, getAccounts } from "@/lib/tink/actions";
-import AccountsList from "@/components/web/accounts/accounts";
-import { Button, Typography } from "@/components/ui";
 import Link from "next/link";
 import { PlusIcon } from "lucide-react";
+import { getAuthSession } from "@/lib/auth";
+import AccountsList from "@/components/web/accounts/accounts";
+import { Button, Typography } from "@/components/ui";
 import { addCredentialsLink } from "@/lib/tink/link";
+import { getAccounts, generateAuthorizationCode } from "@/actions/server/data";
 
 /**
  * Page to show all connected accounts and their details
@@ -28,7 +28,7 @@ const AccountsPage = async () => {
           Accounts
         </Typography>
         <div>
-          {authorizationCode && (
+          {authorizationCode.data && (
             <Button
               variant="outlined"
               size="sm"
@@ -37,7 +37,7 @@ const AccountsPage = async () => {
               <Link
                 className=" flex items-center gap-2"
                 href={addCredentialsLink(
-                  authorizationCode?.code,
+                  authorizationCode.data.code,
                   user.permanentUserId
                 )}
               >
@@ -49,7 +49,7 @@ const AccountsPage = async () => {
         </div>
       </div>
       {accounts.data ? (
-        <AccountsList {...accounts.data}  />
+        <AccountsList {...accounts.data} />
       ) : (
         <Typography variant="lead" className="font-semibold">
           {accounts.error}
@@ -57,9 +57,6 @@ const AccountsPage = async () => {
       )}
     </div>
   );
-
-  // if (accounts) return <AccountsList {...accounts} />;
-  // else return <div>Accounts could not be fetched</div>;
 };
 
 export default AccountsPage;
