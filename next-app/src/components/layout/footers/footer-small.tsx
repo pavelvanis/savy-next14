@@ -1,15 +1,16 @@
 import React from "react";
-import { cn } from "@/lib/utils";
-import Image from "next/image";
-import { Typography } from "@/components/ui";
 import Link from "next/link";
+import Image from "next/image";
+import { cn } from "@/lib/utils";
+import { Typography } from "@/components/ui";
 import { GITHUB_REPO } from "@/config/general";
 
-const SecureFooter = ({ className }: PropsWithClassName) => {
+const AuthFooter = ({ className }: PropsWithClassName) => {
   return (
     <footer
-      className={cn("flex flex-col justify-between pb-4 px-8 mt-5", className)}
+      className={cn("flex flex-col justify-between pb-4 px-8", className)}
     >
+
       {/* Bottom footer */}
       <div className="flex justify-between mt-3">
         <Typography className=" text-sm" color="gray">
@@ -36,4 +37,4 @@ const SecureFooter = ({ className }: PropsWithClassName) => {
   );
 };
 
-export default SecureFooter;
+export default AuthFooter;

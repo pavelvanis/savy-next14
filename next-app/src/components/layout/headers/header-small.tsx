@@ -1,12 +1,12 @@
 import React from "react";
+import Image from "next/image";
 import { cn } from "@/lib/utils";
+import { auth } from "@/lib/auth";
 import { NavLink } from "@/components/navlink";
-import { Typography } from "@/components/ui";
 import { mainNavLinks } from "@/config/routes";
 import LoginSignout from "@/components/auth/header-session";
-import { auth } from "@/lib/auth";
 
-const PublicHeader = async ({ className }: PropsWithClassName) => {
+const SmallHeader = async ({ className }: PropsWithClassName) => {
   const session = await auth();
   return (
     <div
@@ -16,7 +16,13 @@ const PublicHeader = async ({ className }: PropsWithClassName) => {
       )}
     >
       {/* Logo */}
-      <Typography>Big logo here</Typography>
+      <Image
+        src="/logo.png"
+        width={64}
+        height={64}
+        alt="logo"
+        className="p-2"
+      />
       {/* Nav */}
       <nav>
         <ul className="flex gap-x-4">
@@ -33,4 +39,4 @@ const PublicHeader = async ({ className }: PropsWithClassName) => {
   );
 };
 
-export default PublicHeader;
+export default SmallHeader;

@@ -1,14 +1,14 @@
 import React from "react";
-import { PublicHeader, PublicFooter } from "./_components";
+import { FooterSmall, HeaderSmall } from "@/components/layout";
 
 const PublicLayout = ({ children }: React.PropsWithChildren) => {
   return (
     <div className="max-w-6xl mx-auto">
-      <PublicHeader />
+      <HeaderSmall />
       <main className=" min-h-screen flex flex-col justify-center items-center">
         {children}
       </main>
-      <PublicFooter />
+      <FooterSmall />
     </div>
   );
 };
