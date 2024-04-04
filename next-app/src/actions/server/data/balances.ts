@@ -20,21 +20,21 @@ const getAccountBalancesById = async (
   accountId: string
 ): Promise<TinkResponse<TinkBalances>> => {
   try {
-    const clientAccessToken = await tinkApi.getClientAccessToken(
+    const clientAccessToken = await tinkApi.fetchClientAccessToken(
       "authorization:grant",
       "accounts:read,transactions:read,user:read,balances:read"
     );
     const userGrantAuthorizationCode =
-      await tinkApi.getUserGrantAuthorizationCode(
+      await tinkApi.fetchUserGrantAuthorizationCode(
         userId,
         clientAccessToken.access_token,
         "accounts:read,transactions:read,user:read,balances:read"
       );
-    const userAccessToken = await tinkApi.getUserAccessToken(
+    const userAccessToken = await tinkApi.fetchUserAccessToken(
       userGrantAuthorizationCode.code,
       "accounts:read,transactions:read,user:read,balances:read"
     );
-    const balances: TinkBalances = await tinkApi.getUserBalancesById(
+    const balances: TinkBalances = await tinkApi.fetchUserBalancesById(
       userAccessToken.access_token,
       accountId
     );

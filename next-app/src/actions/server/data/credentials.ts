@@ -1,9 +1,9 @@
 "use server";
 
+import { tinkApi } from "@/actions/api";
 import { checkEnv } from "@/lib/utils";
 import { tinkErrorHandler } from "@/lib/api";
 import { TinkCredentails, TinkResponse } from "@/types/types";
-import { tinkApi } from "@/actions/api";
 
 // Check if the required environment variables are set
 checkEnv("TINK_CLIENT_ID", "TINK_CLIENT_SECRET");
@@ -18,20 +18,20 @@ const getCredentials = async (
   userId: string
 ): Promise<TinkResponse<TinkCredentails>> => {
   try {
-    const clientAccessToken = await tinkApi.getClientAccessToken(
+    const clientAccessToken = await tinkApi.fetchClientAccessToken(
       "authorization:grant",
       "accounts:read"
     );
     const userGrantAuthorizationCode =
-      await tinkApi.getUserGrantAuthorizationCode(
+      await tinkApi.fetchUserGrantAuthorizationCode(
         userId,
         clientAccessToken.access_token,
         "credentials:read"
       );
-    const userAccessToken = await tinkApi.getUserAccessToken(
+    const userAccessToken = await tinkApi.fetchUserAccessToken(
       userGrantAuthorizationCode.code
     );
-    const userCredentials = await tinkApi.getUserCredentials(
+    const userCredentials = await tinkApi.fetchUserCredentials(
       userAccessToken.access_token
     );
 

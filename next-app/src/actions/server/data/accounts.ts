@@ -17,19 +17,19 @@ const getAccounts = async (
   userId: string
 ): Promise<TinkResponse<TinkAccounts>> => {
   try {
-    const clientAccessToken = await tinkApi.getClientAccessToken(
+    const clientAccessToken = await tinkApi.fetchClientAccessToken(
       "authorization:grant"
     );
     const userGrantAuthorizationCode =
-      await tinkApi.getUserGrantAuthorizationCode(
+      await tinkApi.fetchUserGrantAuthorizationCode(
         userId,
         clientAccessToken.access_token,
         "accounts:read"
       );
-    const userAccessToken = await tinkApi.getUserAccessToken(
+    const userAccessToken = await tinkApi.fetchUserAccessToken(
       userGrantAuthorizationCode.code
     );
-    const userAccounts: TinkAccounts = await tinkApi.getUserAccounts(
+    const userAccounts: TinkAccounts = await tinkApi.fetchUserAccounts(
       userAccessToken.access_token
     );
 
@@ -51,20 +51,20 @@ const getAccountById = async (
   accountId: string
 ): Promise<TinkResponse<TinkAccount>> => {
   try {
-    const clientAccessToken = await tinkApi.getClientAccessToken(
+    const clientAccessToken = await tinkApi.fetchClientAccessToken(
       "authorization:grant",
       "accounts:read"
     );
     const userGrantAuthorizationCode =
-      await tinkApi.getUserGrantAuthorizationCode(
+      await tinkApi.fetchUserGrantAuthorizationCode(
         userId,
         clientAccessToken.access_token,
         "accounts:read"
       );
-    const userAccessToken = await tinkApi.getUserAccessToken(
+    const userAccessToken = await tinkApi.fetchUserAccessToken(
       userGrantAuthorizationCode.code
     );
-    const account: TinkAccount = await tinkApi.getUserAccountById(
+    const account: TinkAccount = await tinkApi.fetchUserAccountById(
       userAccessToken.access_token,
       accountId
     );

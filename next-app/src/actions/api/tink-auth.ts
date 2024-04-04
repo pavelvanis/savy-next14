@@ -18,7 +18,7 @@ checkEnv(
  * @param {string[]} scopes - The scopes for which the access token is requested. Multiple scopes can be passed.
  * @returns {Promise<TinkAccessToken>} The client access token.
  */
-const getClientAccessToken = async (...scopes: string[]) => {
+const fetchClientAccessToken = async (...scopes: string[]) => {
   scopes.join(",");
 
   const clientAccessTokenResponse = await TinkApiAxios.post(
@@ -38,6 +38,33 @@ const getClientAccessToken = async (...scopes: string[]) => {
 };
 
 /**
+ * Retrieves the user's access token.
+ *
+ * @param {string} code - The authorization code.
+ * @param {string[]} scopes - The scopes for which the access token is requested. Multiple scopes can be passed.
+ * @returns {Promise<TinkAccessToken>} The user's access token.
+ */
+const fetchUserAccessToken = async (code: string, ...scopes: string[]) => {
+  scopes.join(",");
+
+  const userAccessTokenResponse = await TinkApiAxios.post(
+    `/api/v1/oauth/token`,
+    `client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}&grant_type=authorization_code&code=${code}&scope=${scopes}`,
+    {
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded; charset=utf-8",
+      },
+    }
+  );
+
+  const userAccessToken: TinkAccessToken = userAccessTokenResponse.data;
+
+  log("\n\nCreate user access token", userAccessToken);
+
+  return userAccessToken;
+};
+
+/**
  * Fetches an authorization code for a user from the Tink API.
  *
  * @param {string} userId - The ID of the user.
@@ -45,7 +72,7 @@ const getClientAccessToken = async (...scopes: string[]) => {
  * @param {string[]} scopes - The scopes for which the authorization code is requested. Multiple scopes can be passed.
  * @returns {Promise<TinkAuthorizationCode>} A Promise that resolves with the authorization code.
  */
-const getAuthorizationCode = async (
+const fetchAuthorizationCode = async (
   userId: string,
   clientAccessToken: string,
   ...scopes: string[]
@@ -74,29 +101,42 @@ const getAuthorizationCode = async (
 };
 
 /**
- * Retrieves the user's access token. You must put needed scopes into function when generating authorization code.
+ * Gets the user's grant authorization code.
  *
- * @param {string} code - The authorization code.
- * @returns {Promise<TinkAccessToken>} The user's access token.
+ * @param {string} userId - The user's ID.
+ * @param {string} clientAccessToken - The client access token.
+ * @param {string[]} scopes - The scopes for which the authorization code is requested. Multiple scopes can be passed.
+ * @returns {Promise<TinkAuthorizationCode>}The grant authorization code.
  */
-const getUserAccessToken = async (code: string, ...scopes: string[]) => {
+const fetchUserGrantAuthorizationCode = async (
+  userId: string,
+  clientAccessToken: string,
+  ...scopes: string[]
+) => {
   scopes.join(",");
 
-  const userAccessTokenResponse = await TinkApiAxios.post(
-    `/api/v1/oauth/token`,
-    `client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}&grant_type=authorization_code&code=${code}&scope=${scopes}`,
+  const grantAuthorizationResponse = await TinkApiAxios.post(
+    `/api/v1/oauth/authorization-grant`,
+    `user_id=${userId}&scope=${scopes}`,
     {
       headers: {
+        Authorization: `Bearer ${clientAccessToken}`,
         "Content-Type": "application/x-www-form-urlencoded; charset=utf-8",
       },
     }
   );
 
-  const userAccessToken: TinkAccessToken = userAccessTokenResponse.data;
+  const grantAuthorization: TinkAuthorizationCode =
+    grantAuthorizationResponse.data;
 
-  log("\n\nCreate user access token", userAccessToken);
+  log("\n\nCreate grant authorization:", grantAuthorization);
 
-  return userAccessToken;
+  return grantAuthorization;
 };
 
-export { getClientAccessToken, getAuthorizationCode, getUserAccessToken };
+export {
+  fetchClientAccessToken,
+  fetchAuthorizationCode,
+  fetchUserAccessToken,
+  fetchUserGrantAuthorizationCode,
+};

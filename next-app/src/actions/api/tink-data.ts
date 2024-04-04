@@ -8,7 +8,7 @@ import { TinkAccount, TinkAccounts, TinkBalances, TinkCredentails } from "@/type
  * @param {string} userAccessToken - The user's access token.
  * @returns {Promise<TinkCredentails>} The user's credentials.
  */
-const getUserCredentials = async (userAccessToken: string) => {
+const fetchUserCredentials = async (userAccessToken: string) => {
   const userCredentialsResponse = await TinkApiAxios.get(
     `/api/v1/credentials/list`,
     {
@@ -32,7 +32,7 @@ const getUserCredentials = async (userAccessToken: string) => {
  * @param {string} userAccessToken - The user's access token.
  * @returns {Promise<TinkAccounts>} The user's accounts.
  */
-const getUserAccounts = async (userAccessToken: string) => {
+const fetchUserAccounts = async (userAccessToken: string) => {
   const userAccountsResponse = await TinkApiAxios.get(`/data/v2/accounts`, {
     headers: {
       Authorization: `Bearer ${userAccessToken}`,
@@ -53,7 +53,7 @@ const getUserAccounts = async (userAccessToken: string) => {
  * @param {string} accountId - The account id.
  * @returns {Promise<TinkAccount>} The filtered account.
  */
-const getUserAccountById = async (
+const fetchUserAccountById = async (
   userAccessToken: string,
   accountId: string
 ) => {
@@ -80,7 +80,7 @@ const getUserAccountById = async (
  * @param {string} accountId - The account id.
  * @returns {Promise<TinkBalances>} The balances for filtered account.
  */
-const getUserBalancesById = async (
+const fetchUserBalancesById = async (
   userAccessToken: string,
   accountId: string
 ) => {
@@ -101,8 +101,8 @@ const getUserBalancesById = async (
 };
 
 export {
-  getUserCredentials,
-  getUserAccounts,
-  getUserAccountById,
-  getUserBalancesById,
+  fetchUserCredentials,
+  fetchUserAccounts,
+  fetchUserAccountById,
+  fetchUserBalancesById,
 };

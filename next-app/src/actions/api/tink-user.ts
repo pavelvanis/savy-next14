@@ -18,7 +18,7 @@ checkEnv(
  * @param {string} accessToken - The access token.
  * @returns {Promise<TinkPermanentUser>} The new permanent user.
  */
-const createPermanentUser = async (accessToken: string) => {
+const fetchNewPermanentUser = async (accessToken: string) => {
   const userResponse = await TinkApiAxios.post(
     `/api/v1/user/create`,
     {
@@ -40,4 +40,4 @@ const createPermanentUser = async (accessToken: string) => {
   return permanentUser;
 };
 
-export { createPermanentUser };
+export { fetchNewPermanentUser };
