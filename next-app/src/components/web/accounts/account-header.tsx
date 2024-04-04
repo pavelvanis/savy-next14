@@ -19,7 +19,7 @@ const AccountHeader: React.FC<AccountHeaderProps> = ({
   const { scale, unscaledValue } = value;
   const { iban } = identifiers.iban;
   return (
-    <div className={cn("flex flex-col gap-y-1.5 border-b border-gray-200 pb-2 ", className)}>
+    <div className={cn("flex flex-col gap-y-1.5 border-b border-gray-200 pb-4 ", className)}>
       {/* Top */}
       <div className="flex justify-between">
         <div className="flex gap-x-8">
@@ -30,7 +30,7 @@ const AccountHeader: React.FC<AccountHeaderProps> = ({
             value={customerSegment}
           />
         </div>
-        <Typography className="font-bold text-xl">
+        <Typography className="text-black font-bold text-xl">
           {getAmount(scale, unscaledValue)} {currencyCode}
         </Typography>
       </div>
