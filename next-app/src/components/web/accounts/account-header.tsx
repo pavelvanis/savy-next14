@@ -1,6 +1,6 @@
 import React from "react";
 import { BarChart3Icon, FileBarChart2Icon } from "lucide-react";
-import { Typography, Chip } from "@/components/ui";
+import { Typography, Chip, CardHeader } from "@/components/ui";
 import { cn, getAmount } from "@/lib/utils";
 import { TinkAccount } from "@/types/types";
 import { Action } from "@/components";
@@ -19,7 +19,7 @@ const AccountHeader: React.FC<AccountHeaderProps> = ({
   const { scale, unscaledValue } = value;
   const { iban } = identifiers.iban;
   return (
-    <div className={cn("flex flex-col gap-y-1.5 border-b border-gray-200 pb-4 ", className)}>
+    <CardHeader className={cn("flex flex-col gap-y-1.5", className)}>
       {/* Top */}
       <div className="flex justify-between">
         <div className="flex gap-x-8">
@@ -47,7 +47,7 @@ const AccountHeader: React.FC<AccountHeaderProps> = ({
           </Action>
         </div>
       </div>
-    </div>
+    </CardHeader>
   );
 };
 

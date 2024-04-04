@@ -8,7 +8,7 @@ type AccountCardProps = TinkAccount & {};
 
 const AccountCard: React.FC<AccountCardProps> = ({ ...props }) => {
   return (
-    <Card className=" border border-gray-200 p-5 w-full">
+    <Card>
       {/* Card header */}
       <AccountHeader {...props} />
       {/* Card body */}
