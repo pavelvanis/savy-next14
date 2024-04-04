@@ -7,7 +7,7 @@ import { authNavLinks } from "@/config/routes";
 const AuthHeader = ({ className }: PropsWithClassName) => {
   return (
     <header
-      className={cn("h-16 flex justify-between align-center px-8", className)}
+      className={cn("container h-16 flex justify-between align-center px-8", className)}
     >
       <div className="flex justify-center items-center">
         <Image

@@ -8,7 +8,7 @@ import { GITHUB_REPO } from "@/config/general";
 const AuthFooter = ({ className }: PropsWithClassName) => {
   return (
     <footer
-      className={cn("flex flex-col justify-between pb-4 px-8", className)}
+      className={cn("container flex flex-col justify-between pb-4 px-8", className)}
     >
 
       {/* Bottom footer */}
