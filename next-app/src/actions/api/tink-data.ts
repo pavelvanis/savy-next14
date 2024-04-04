@@ -1,6 +1,12 @@
 import { log } from "@/lib/utils";
 import { TinkApiAxios } from "@/lib/axios";
-import { TinkAccount, TinkAccounts, TinkBalances, TinkCredentails } from "@/types/types";
+import {
+  TinkAccount,
+  TinkAccounts,
+  TinkBalances,
+  TinkCredentials,
+  TinkTransactions,
+} from "@/types/types";
 
 /**
  * Retrieves the user's credentials.
@@ -19,7 +25,7 @@ const fetchUserCredentials = async (userAccessToken: string) => {
     }
   );
 
-  const userCredentials: TinkCredentails = userCredentialsResponse.data;
+  const userCredentials: TinkCredentials = userCredentialsResponse.data;
 
   log("User credentials were fetched:", userCredentials);
 
@@ -84,7 +90,7 @@ const fetchUserBalancesById = async (
   userAccessToken: string,
   accountId: string
 ) => {
-  const getUserBalancesResponse = await TinkApiAxios.get(
+  const userBalancesResponse = await TinkApiAxios.get(
     `/api/v1/accounts/${accountId}/balances`,
     {
       headers: {
@@ -93,11 +99,36 @@ const fetchUserBalancesById = async (
     }
   );
 
-  const userBalancesById: TinkBalances = getUserBalancesResponse.data;
+  const userBalancesById: TinkBalances = userBalancesResponse.data;
 
   log("User balances were fetched:", userBalancesById);
 
   return userBalancesById;
+};
+
+/**
+ * Retrieves the user's transactions. Need `transactions:read` scope.
+ *
+ * @param {string} userAccessToken - The user's access token.
+ * @returns {Promise<TinkTransactions>} The user's transactions.
+ */
+const fetchUserTransactions = async (
+  userAccessToken: string
+): Promise<TinkTransactions> => {
+  const userTransactionsResponse = await TinkApiAxios.get(
+    "/data/v2/transactions",
+    {
+      headers: {
+        Authorization: `Bearer ${userAccessToken}`,
+      },
+    }
+  );
+
+  const userTransactions: TinkTransactions = userTransactionsResponse.data;
+
+  log("User transactions were fetched:", userTransactions);
+
+  return userTransactions;
 };
 
 export {
@@ -105,4 +136,5 @@ export {
   fetchUserAccounts,
   fetchUserAccountById,
   fetchUserBalancesById,
+  fetchUserTransactions,
 };

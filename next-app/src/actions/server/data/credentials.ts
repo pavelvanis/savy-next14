@@ -3,7 +3,7 @@
 import { tinkApi } from "@/actions/api";
 import { checkEnv } from "@/lib/utils";
 import { tinkErrorHandler } from "@/lib/api";
-import { TinkCredentails, TinkResponse } from "@/types/types";
+import { TinkCredentials, TinkResponse } from "@/types/types";
 
 // Check if the required environment variables are set
 checkEnv("TINK_CLIENT_ID", "TINK_CLIENT_SECRET");
@@ -16,7 +16,7 @@ checkEnv("TINK_CLIENT_ID", "TINK_CLIENT_SECRET");
  */
 const getCredentials = async (
   userId: string
-): Promise<TinkResponse<TinkCredentails>> => {
+): Promise<TinkResponse<TinkCredentials>> => {
   try {
     const clientAccessToken = await tinkApi.fetchClientAccessToken(
       "authorization:grant",

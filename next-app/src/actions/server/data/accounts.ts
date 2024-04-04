@@ -1,11 +1,8 @@
 "use server";
 
 import { tinkApi } from "@/actions/api";
-import { checkEnv } from "@/lib/utils";
 import { tinkErrorHandler } from "@/lib/api";
 import { TinkAccount, TinkAccounts, TinkResponse } from "@/types/types";
-
-checkEnv("TINK_CLIENT_ID", "TINK_CLIENT_SECRET");
 
 /**
  * Fetches the accounts of a specific user.
