@@ -1,5 +1,5 @@
 import React from "react";
-import { auth, getAuthSession } from "@/lib/auth";
+import { getAuthSession } from "@/lib/auth";
 import { getAccountBalancesById, getAccountById } from "@/lib/tink/actions";
 import { notFound } from "next/navigation";
 
@@ -10,7 +10,6 @@ type AccountIdPageProps = {
 };
 
 const AccountIdPage = async ({ params }: AccountIdPageProps) => {
-  console.log(params);
   const { user } = await getAuthSession();
 
   const account = await getAccountById(user.permanentUserId, params.id);
@@ -19,14 +18,17 @@ const AccountIdPage = async ({ params }: AccountIdPageProps) => {
     params.id
   );
 
-  if (!account || !balances) {
-    return notFound();
-  }
+  if (balances.error) return notFound();
 
   console.log("User account: \n", JSON.stringify(account, null, 2));
   console.log("User balances: \n", JSON.stringify(balances, null, 2));
 
-  return <div>AccountIdPage</div>;
+  return (
+    <div>
+      <pre>{JSON.stringify(account, null, 2)}</pre>
+      <pre>{JSON.stringify(balances, null, 2)}</pre>
+    </div>
+  );
 };
 
 export default AccountIdPage;
