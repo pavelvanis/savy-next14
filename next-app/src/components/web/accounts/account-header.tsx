@@ -11,7 +11,7 @@ const AccountHeader: React.FC<AccountHeaderProps> = ({
   name,
   identifiers,
   balances,
-  customerSegment,
+  type,
   className,
   ...props
 }) => {
@@ -27,7 +27,7 @@ const AccountHeader: React.FC<AccountHeaderProps> = ({
           <Chip
             variant="ghost"
             className=" font-medium "
-            value={customerSegment}
+            value={type}
           />
         </div>
         <Typography className="text-black font-bold text-xl">
