@@ -1,6 +1,6 @@
-import { Typography } from "@/components/ui";
-import Image from "next/image";
 import React from "react";
+import Image from "next/image";
+import { Typography } from "@/components/ui";
 
 const NotFound = () => {
   return (

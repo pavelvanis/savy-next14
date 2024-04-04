@@ -16,10 +16,10 @@ export const authenticateCredentialsLink = (
   userId: string,
   credentialsId: string
 ) => {
-  const params = [
+  const scopes = [
     `client_id=${CLIENT_ID}`,
     `redirect_uri=${TinkConfig.callback}`,
-    "scope=user:read,credentials:read",
+    "scope=user:read,credentials:read,transactions:read,balances:read,accounts:read",
     `market=${TinkConfig.market}`,
     `locale=${TinkConfig.locale}`,
     `state=${userId}`,
@@ -28,7 +28,7 @@ export const authenticateCredentialsLink = (
     `test=${TEST}`,
   ];
 
-  return `${TinkConfig.linkBaseUrl}/1.0/credentials/authenticate?${params.join(
+  return `${TinkConfig.linkBaseUrl}/1.0/credentials/authenticate?${scopes.join(
     "&"
   )}`;
 };
@@ -40,10 +40,10 @@ export const addCredentialsLink = (
   authorizationCode: string,
   userId: string
 ) => {
-  const params = [
+  const scopes = [
     `client_id=${CLIENT_ID}`,
     `redirect_uri=${TinkConfig.callback}`,
-    "scope=user:read,credentials:read",
+    "scope=user:read,credentials:read,transactions:read,balances:read,accounts:read",
     `market=${TinkConfig.market}`,
     `locale=${TinkConfig.locale}`,
     `state=${userId}`,
@@ -51,5 +51,26 @@ export const addCredentialsLink = (
     `test=${TEST}`,
   ];
 
-  return `${TinkConfig.linkBaseUrl}/1.0/credentials/add?${params.join("&")}`;
+  return `${TinkConfig.linkBaseUrl}/1.0/credentials/add?${scopes.join("&")}`;
+};
+
+export const authorizeCredentialsLink = (
+  authorizationCode: string,
+  userId: string,
+  credentialsId: string
+) => {
+  const scopes = [
+    `client_id=${CLIENT_ID}`,
+    `redirect_uri=${TinkConfig.callback}`,
+    "scope=user:read,credentials:read,transactions:read,balances:read,accounts:read",
+    `market=${TinkConfig.market}`,
+    `locale=${TinkConfig.locale}`,
+    `state=${userId}`,
+    `authorization_code=${authorizationCode}`,
+    `test=${TEST}`,
+  ];
+
+  return `${TinkConfig.linkBaseUrl}/1.0/credentials/authenticate?${scopes.join(
+    "&"
+  )}`;
 };

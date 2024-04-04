@@ -4,7 +4,10 @@ import { PlusIcon } from "lucide-react";
 import { getAuthSession } from "@/lib/auth";
 import AccountsList from "@/components/web/accounts/accounts";
 import { Button, Typography } from "@/components/ui";
-import { addCredentialsLink } from "@/lib/tink/link";
+import {
+  addCredentialsLink,
+  authenticateCredentialsLink,
+} from "@/lib/tink/link";
 import { getAccounts, generateAuthorizationCode } from "@/actions/server/data";
 
 /**
@@ -13,9 +16,14 @@ import { getAccounts, generateAuthorizationCode } from "@/actions/server/data";
 const AccountsPage = async () => {
   const { user } = await getAuthSession();
 
+  console.log(user);
+
   const authorizationCode = await generateAuthorizationCode(
     user.permanentUserId
   );
+
+  console.log(authorizationCode);
+
   const accounts = await getAccounts(user.permanentUserId);
 
   console.log("Accounts on the page: ", JSON.stringify(accounts, null, 2));

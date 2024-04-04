@@ -32,6 +32,7 @@ export const webNavLinks: NavLinkProps[] = [
   { href: "#", title: "Cards" },
 ];
 
+// Links for navbar in user layout
 export const userNavLinks: NavLinkProps[] = [
   { href: "/web", title: "Home" },
   { href: "/web/accounts", title: "Accounts" },
