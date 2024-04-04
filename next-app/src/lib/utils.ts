@@ -31,5 +31,38 @@ export const getAmount = (
     return "NaN";
   }
 
+  // TODO: change the format
   return amount.toLocaleString("en-US").replace(/,/g, " ");
+};
+
+/**
+ * Checks if the provided environment variables are set.
+ *
+ * @param {...string[]} arg - The names of the environment variables to check.
+ * @throws Will throw an error if any of the provided environment variables is not set.
+ *
+ * @example
+ * checkEnv('MONDODB_URI', 'CLIENT_ID');
+ */
+export const checkEnv = (...arg: string[]) => {
+  const unsetEnv = arg.some(e => !process.env[e]);
+
+  if (unsetEnv) {
+    throw Error(`Environment variable \`${unsetEnv}\` is not set.`);
+  }
+};
+
+const LOG = false;
+
+// TODO: Create logger
+/**
+ * Function which logs the arguments to the console.
+ * Does not log in production.
+ */
+export const log = function (...args: any[]) {
+  if (process.env.NODE_ENV === "production" || !LOG) return;
+  args.forEach((arg) => {
+    console.log(arg);
+  });
+  console.log("\n\n");
 };
