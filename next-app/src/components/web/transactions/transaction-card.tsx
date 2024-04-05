@@ -1,5 +1,5 @@
 import { Card, Typography } from "@/components/ui";
-import { getAmount } from "@/lib/utils";
+import { cn, getAmount } from "@/lib/utils";
 import { TinkTransaction } from "@/types/tink";
 import { UtensilsIcon } from "lucide-react";
 import React from "react";
@@ -11,6 +11,9 @@ const TransactionCard: React.FC<TransactionCardProps> = ({
   dates,
   amount: { value, currencyCode },
 }) => {
+  const formatedValue = getAmount(value.scale, value.unscaledValue);
+  const positiveValue = parseFloat(formatedValue) > 0;
+
   return (
     <Card className="flex flex-row gap-x-7">
       <div className="flex-none min-w-24">
@@ -18,7 +21,7 @@ const TransactionCard: React.FC<TransactionCardProps> = ({
           {dates.booked}
         </Typography>
       </div>
-      <div className="flex gap-x-5 justify-center">
+      <div className="flex gap-x-6 justify-center">
         <Typography className="font-semibold min-w-28 text-center">
           {descriptions.original}
         </Typography>
@@ -28,8 +31,14 @@ const TransactionCard: React.FC<TransactionCardProps> = ({
         </Typography>
       </div>
       <div className="flex-1">
-        <Typography className="text-black font-bold text-xl text-end">
-          {getAmount(value.scale, value.unscaledValue)} {currencyCode}
+        <Typography
+          className={cn(
+            "text-black font-bold text-xl text-end",
+            positiveValue ? "text-green-700" : "text-red-700"
+          )}
+        >
+          {positiveValue && "+"}
+          {formatedValue} {currencyCode}
         </Typography>
       </div>
     </Card>
