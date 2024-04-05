@@ -8,7 +8,7 @@ interface IUserMethods {
   comparePassword: (password: string) => Promise<boolean>;
 }
 
-const UserSchema = new Schema<User, {}, IUserMethods>(
+const UserSchema = new Schema<User, IUserMethods>(
   {
     // Tink properties
     permanentUserId: {
@@ -59,4 +59,4 @@ UserSchema.pre("save", async function (next) {
 
 const UserModel = mongoose.models.user || mongoose.model("user", UserSchema);
 
-export default UserModel as Model<User, {}, IUserMethods>;
+export default UserModel as Model<User, IUserMethods>;
