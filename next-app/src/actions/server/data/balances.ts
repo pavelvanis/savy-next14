@@ -1,12 +1,8 @@
 "use server";
 
-import { checkEnv } from "@/lib/utils";
+import { tinkApi } from "@/actions/api";
 import { tinkErrorHandler } from "@/lib/api";
 import { TinkBalances, TinkResponse } from "@/types/types";
-import { tinkApi } from "@/actions/api";
-
-// Check if the required environment variables are set
-checkEnv("TINK_CLIENT_ID", "TINK_CLIENT_SECRET");
 
 /**
  * Fetches the balances of a specific account of a user.
