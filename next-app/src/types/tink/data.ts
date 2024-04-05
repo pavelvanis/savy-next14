@@ -96,9 +96,23 @@ export type TinkTransaction = {
   };
 };
 
+export type TinkCategory = {
+  code: string;
+  defaultChild: boolean;
+  id: string;
+  parent: string | null;
+  primaryName: string | null;
+  searchTerms: string | null;
+  secondaryName: string | null;
+  sortOrder: number;
+  type: string;
+  typeName: string;
+};
+
 export type TinkCredentials = TinkCredential[];
 export type TinkAccounts = { accounts: TinkAccount[]; nextPageToken: string };
 export type TinkTransactions = {
   nextPageToken: string;
   transactions: TinkTransaction[];
 };
+export type TinkCategories = TinkCategory[];
