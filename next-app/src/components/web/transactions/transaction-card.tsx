@@ -1,3 +1,4 @@
+import { findCategoryById } from "@/actions/server/data/categories";
 import { Card, Typography } from "@/components/ui";
 import { cn, getAmount } from "@/lib/utils";
 import { TinkTransaction } from "@/types/tink";
@@ -6,13 +7,16 @@ import React from "react";
 
 type TransactionCardProps = PropsWithClassName & TinkTransaction & {};
 
-const TransactionCard: React.FC<TransactionCardProps> = ({
+const TransactionCard: React.FC<TransactionCardProps> = async ({
   descriptions,
+  categories,
   dates,
   amount: { value, currencyCode },
 }) => {
   const formatedValue = getAmount(value.scale, value.unscaledValue);
   const positiveValue = parseFloat(formatedValue) > 0;
+
+  const category = await findCategoryById(categories?.pfm.id);
 
   return (
     <Card className="flex flex-row gap-x-7">
@@ -26,8 +30,10 @@ const TransactionCard: React.FC<TransactionCardProps> = ({
           {descriptions.original}
         </Typography>
         <Typography className="flex items-center gap-2">
+          {/* TODO: Change the placeholder for real category */}
+          {category?.data?.primaryName}
           Food & Drinks
-          <UtensilsIcon className="size-4 text-gray-500" />
+          <UtensilsIcon className="size-4 text-gray-400" />
         </Typography>
       </div>
       <div className="flex-1">

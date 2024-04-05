@@ -1,9 +1,9 @@
 import React from "react";
+import { ArrowLeftRightIcon } from "lucide-react";
 import { getAuthSession } from "@/lib/auth";
 import { Typography } from "@/components/ui";
 import { getTransactions } from "@/actions/server/data";
 import TransactionList from "@/components/web/transactions/transactions";
-import { ArrowLeftRightIcon } from "lucide-react";
 
 /**
  * Page to show all transaction history
@@ -13,7 +13,7 @@ const TransactionsPage = async () => {
   const transactions = await getTransactions(user.permanentUserId);
   console.log(
     "Transactions: ",
-    JSON.stringify(transactions.data?.transactions[0], null, 2)
+    JSON.stringify(transactions.data?.transactions, null, 2)
   );
   return (
     <div className="page-container">
