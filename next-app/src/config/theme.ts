@@ -16,4 +16,13 @@ export const theme = {
       },
     },
   },
+  list: {
+    styles: {
+      base: {
+        list: {
+          minWidth: "min-w-36"
+        }
+      }
+    }
+  }
 };
