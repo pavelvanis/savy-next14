@@ -2,12 +2,16 @@ import React from "react";
 import AccountCard from "./account-card";
 import { Typography } from "@/components/ui";
 import { TinkAccounts } from "@/types/types";
+import { cn } from "@/lib/utils";
 
-type AccountsListProps = TinkAccounts & {};
+type AccountsListProps = TinkAccounts & PropsWithClassName & {};
 
-const AccountsList: React.FC<AccountsListProps> = async ({ accounts }) => {
+const AccountsList: React.FC<AccountsListProps> = async ({
+  className,
+  accounts,
+}) => {
   return (
-    <div className="flex flex-col gap-y-6 h-full w-full mt-3">
+    <div className={cn("list-col", className)}>
       {/* Accounts */}
       {accounts.length === 0 && (
         <Typography variant="lead" className="font-semibold">

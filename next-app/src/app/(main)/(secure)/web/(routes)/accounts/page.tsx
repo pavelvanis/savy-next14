@@ -1,13 +1,10 @@
 import React from "react";
 import Link from "next/link";
-import { PlusIcon } from "lucide-react";
+import { PlusIcon, WalletIcon } from "lucide-react";
 import { getAuthSession } from "@/lib/auth";
 import AccountsList from "@/components/web/accounts/accounts";
 import { Button, Typography } from "@/components/ui";
-import {
-  addCredentialsLink,
-  authenticateCredentialsLink,
-} from "@/lib/tink/link";
+import { addCredentialsLink } from "@/lib/tink/link";
 import { getAccounts, generateAuthorizationCode } from "@/actions/server/data";
 
 /**
@@ -16,25 +13,24 @@ import { getAccounts, generateAuthorizationCode } from "@/actions/server/data";
 const AccountsPage = async () => {
   const { user } = await getAuthSession();
 
-  console.log(user);
-
   const authorizationCode = await generateAuthorizationCode(
     user.permanentUserId
   );
-
-  console.log(authorizationCode);
 
   const accounts = await getAccounts(user.permanentUserId);
 
   console.log("Accounts on the page: ", JSON.stringify(accounts, null, 2));
 
   return (
-    <div className=" max-w-4xl flex-1 w-full ">
+    <div className="page-container">
       {/* Header */}
-      <div className="flex justify-between items-center w-full ">
-        <Typography variant="h2" className="font-bold mb-2">
-          Accounts
-        </Typography>
+      <div className="page-header ">
+        <div className="flex items-center gap-x-4">
+          <Typography variant="h2" className="font-bold">
+            Accounts
+          </Typography>
+          <WalletIcon className="size-8" />
+        </div>
         <div>
           {authorizationCode.data && (
             <Button
@@ -57,7 +53,7 @@ const AccountsPage = async () => {
         </div>
       </div>
       {accounts.data ? (
-        <AccountsList {...accounts.data} />
+        <AccountsList className="page-body" {...accounts.data} />
       ) : (
         <Typography variant="lead" className="font-semibold">
           {accounts.error}
