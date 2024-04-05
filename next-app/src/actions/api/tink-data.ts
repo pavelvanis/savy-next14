@@ -4,6 +4,7 @@ import {
   TinkAccount,
   TinkAccounts,
   TinkBalances,
+  TinkCategories,
   TinkCredentials,
   TinkTransactions,
 } from "@/types/types";
@@ -107,8 +108,9 @@ const fetchUserBalancesById = async (
 };
 
 /**
- * Retrieves the user's transactions. Need `transactions:read` scope.
+ * Retrieves the user's transactions.
  *
+ * @scopes `transactions:read`
  * @param {string} userAccessToken - The user's access token.
  * @returns {Promise<TinkTransactions>} The user's transactions.
  */
@@ -131,10 +133,34 @@ const fetchUserTransactions = async (
   return userTransactions;
 };
 
+/**
+ * Retrieves the user's categories.
+ *
+ * @scopes `user:read`
+ * @param {string} userAccessToken - The user's access token.
+ * @returns {Promise<TinkCategories>} The user's categories.
+ */
+const fetchCategories = async (
+  userAccessToken: string
+): Promise<TinkCategories> => {
+  const categoriesResponse = await TinkApiAxios.get("/api/v1/categories", {
+    headers: {
+      Authorization: `Bearer ${userAccessToken}`,
+    },
+  });
+
+  const categories: TinkCategories = categoriesResponse.data;
+
+  log("Categories were fetched:", categories);
+
+  return categories;
+};
+
 export {
   fetchUserCredentials,
   fetchUserAccounts,
   fetchUserAccountById,
   fetchUserBalancesById,
   fetchUserTransactions,
+  fetchCategories,
 };
