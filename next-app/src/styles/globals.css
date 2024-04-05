@@ -15,11 +15,24 @@
   .user-nav-link-active {
     @apply bg-gray-600 text-white;
   }
+  /* List pages */
+  .page-container {
+    @apply max-w-3xl flex-1 w-full;
+  }
+  .page-header {
+    @apply flex justify-between items-center w-full mb-6;
+  }
+  .page-body {
+  }
 }
 
 /* Tailwind helper utilities */
 @layer utilities {
-  .flex-center{
+  .flex-center {
     @apply flex justify-center items-center;
+  }
+
+  .list-col {
+    @apply flex flex-col gap-y-5;
   }
 }
