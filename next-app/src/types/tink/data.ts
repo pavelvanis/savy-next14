@@ -41,8 +41,8 @@ export type TinkAccount = {
   name: string;
   type: string;
   balances: {
-    booked: CurrencyValue;
-    available: CurrencyValue;
+    booked: { amount: CurrencyValue };
+    available: { amount: CurrencyValue };
   };
   identifiers: Identifiers;
   dates: {
@@ -97,5 +97,8 @@ export type TinkTransaction = {
 };
 
 export type TinkCredentials = TinkCredential[];
-export type TinkAccounts = { accounts: TinkAccount[]; nextPageToken: string; };
-export type TinkTransactions = { nextPageToken: string; transactions: TinkTransaction[]; };
+export type TinkAccounts = { accounts: TinkAccount[]; nextPageToken: string };
+export type TinkTransactions = {
+  nextPageToken: string;
+  transactions: TinkTransaction[];
+};
