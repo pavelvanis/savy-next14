@@ -17,7 +17,7 @@
   }
   /* List pages */
   .page-container {
-    @apply max-w-3xl flex-1 w-full;
+    @apply max-w-4xl flex-1 w-full;
   }
   .page-header {
     @apply flex justify-between items-center w-full mb-6;

@@ -37,5 +37,5 @@ export const userNavLinks: NavLinkProps[] = [
   { href: "/web", title: "Home" },
   { href: "/web/accounts", title: "Accounts" },
   { href: "/web/transactions", title: "Transactions" },
-  { href: "/web/cards", title: "Cards" },
+  { href: "/web/settings", title: "Settings" },
 ];
