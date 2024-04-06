@@ -4,6 +4,7 @@ import { getAuthSession } from "@/lib/auth";
 import { Typography } from "@/components/ui";
 import { getTransactions } from "@/actions/server/data";
 import TransactionList from "@/components/web/transactions/transactions";
+import { TransactionSkeleton } from "@/components/layout/skeletons";
 
 /**
  * Page to show all transaction history

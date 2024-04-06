@@ -58,7 +58,7 @@ export const tinkErrorHandler = <T>(
   error: any,
   message?: string
 ): TinkResponse<T> => {
-  console.log(error);
+  // console.log(error);
   if (error instanceof AxiosError && error.response) {
     return {
       error: {

@@ -1,8 +1,7 @@
 import NextAuth from "next-auth";
 import { redirect } from "next/navigation";
-import { DEFAULT_UNAUTHORIZED_REDIRECT } from "@/config/routes";
 import authOptions from "./authOptions";
-import { createPermanentUser } from "./tink/actions";
+import { DEFAULT_UNAUTHORIZED_REDIRECT } from "@/config/routes";
 
 // ------------------------------------------------------------
 // NextAuth Handlers

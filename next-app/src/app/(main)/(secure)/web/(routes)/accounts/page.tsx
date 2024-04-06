@@ -2,9 +2,9 @@ import React from "react";
 import Link from "next/link";
 import { PlusIcon, WalletIcon } from "lucide-react";
 import { getAuthSession } from "@/lib/auth";
-import AccountsList from "@/components/web/accounts/accounts";
 import { Button, Typography } from "@/components/ui";
 import { addCredentialsLink } from "@/lib/tink/link";
+import AccountsList from "@/components/web/accounts/accounts";
 import { getAccounts, generateAuthorizationCode } from "@/actions/server/data";
 
 /**
@@ -56,7 +56,7 @@ const AccountsPage = async () => {
         <AccountsList className="page-body" {...accounts.data} />
       ) : (
         <Typography variant="lead" className="font-semibold">
-          {accounts.error}
+          {accounts.error.message}
         </Typography>
       )}
     </div>
