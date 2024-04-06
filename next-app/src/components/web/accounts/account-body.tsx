@@ -7,7 +7,7 @@ type AccountBodyProps = PropsWithClassName & { accountId: string };
 
 const AccountBody: React.FC<AccountBodyProps> = ({ className, accountId }) => {
   return (
-    <CardBody className={cn(" space-x-3", className)}>
+    <CardBody className={cn("flex flex-wrap gap-x-3 gap-y-1", className)}>
       <Button className=" bg-gray-800 hover:bg-gray-900 transition-all">
         <Link href="#">New transaction</Link>
       </Button>

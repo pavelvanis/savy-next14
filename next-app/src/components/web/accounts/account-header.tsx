@@ -1,9 +1,9 @@
 import React from "react";
 import { BarChart3Icon, FileBarChart2Icon } from "lucide-react";
-import { Typography, Chip, CardHeader } from "@/components/ui";
+import { Action } from "@/components";
 import { cn, getAmount } from "@/lib/utils";
 import { TinkAccount } from "@/types/types";
-import { Action } from "@/components";
+import { Typography, Chip, CardHeader } from "@/components/ui";
 
 type AccountHeaderProps = TinkAccount & PropsWithClassName & {};
 
@@ -19,14 +19,14 @@ const AccountHeader: React.FC<AccountHeaderProps> = ({
   const { scale, unscaledValue } = value;
   const { iban } = identifiers.iban;
   return (
-    <CardHeader className={cn("flex flex-col gap-y-1.5", className)}>
+    <CardHeader className={cn("flex flex-col gap-y-3", className)}>
       {/* Top */}
-      <div className="flex justify-between">
-        <div className="flex gap-x-8">
+      <div className="flex justify-between gap-y-1 flex-wrap">
+        <div className="flex gap-x-4">
           <Typography className=" text-lg font-bold">{name}</Typography>
           <Chip
             variant="ghost"
-            className=" font-medium "
+            className=" font-medium hidden sm:block "
             value={type}
           />
         </div>
@@ -35,7 +35,7 @@ const AccountHeader: React.FC<AccountHeaderProps> = ({
         </Typography>
       </div>
       {/* bottom */}
-      <div className="flex justify-between">
+      <div className="flex justify-between gap-y-1 flex-wrap">
         <Typography className=" font-semibold">{iban}</Typography>
         {/* Actions */}
         <div className="flex gap-x-2">

@@ -17,10 +17,11 @@
   }
   /* List pages */
   .page-container {
-    @apply max-w-4xl flex-1 w-full;
+    @apply max-w-4xl flex-1 w-full px-4 xl:px-0;
   }
   .page-header {
-    @apply flex justify-between items-center w-full mb-6;
+    @apply flex flex-wrap justify-between items-center gap-x-5 gap-y-1 w-full mb-6;
+    
   }
   .page-body {
   }
@@ -35,6 +36,11 @@
   .list-col {
     @apply flex flex-col gap-y-5;
   }
+  .icon {
+    @apply size-6;
+  }
+
+  /* Skeleton */
   .skeleton {
     @apply bg-gray-200 rounded-lg;
   }

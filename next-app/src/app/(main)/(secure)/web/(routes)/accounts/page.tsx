@@ -36,7 +36,7 @@ const AccountsPage = async () => {
             <Button
               variant="outlined"
               size="sm"
-              className=" hover:bg-gray-200 transition-all duration-300"
+              className="py-1 px-2 sm:py-2 sm:px-4"
             >
               <Link
                 className=" flex items-center gap-2"
@@ -46,7 +46,7 @@ const AccountsPage = async () => {
                 )}
               >
                 <PlusIcon className="size-5" />
-                Add Account
+                <span className="hidden sm:block">Add Account</span>
               </Link>
             </Button>
           )}

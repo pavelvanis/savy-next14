@@ -21,6 +21,15 @@ const AccountsList: React.FC<AccountsListProps> = async ({
       {accounts.map((acc, i) => (
         <AccountCard key={i} {...acc} />
       ))}
+      {accounts.map((acc, i) => (
+        <AccountCard key={i} {...acc} />
+      ))}
+      {accounts.map((acc, i) => (
+        <AccountCard key={i} {...acc} />
+      ))}
+      {accounts.map((acc, i) => (
+        <AccountCard key={i} {...acc} />
+      ))}
     </section>
   );
 };
