@@ -10,10 +10,10 @@
     @apply max-w-6xl mx-auto;
   }
   .user-nav-link {
-    @apply hover:bg-gray-300 text-center h-full flex flex-grow items-center transition-all duration-300;
+    @apply hover:bg-gradient-to-br from-gray-200 to-gray-300 hover:text-black text-center h-full flex flex-grow items-center transition-all duration-300;
   }
   .user-nav-link-active {
-    @apply bg-gray-600 text-white;
+    @apply bg-gradient-to-br from-gray-300 via-gray-400 to-gray-500 font-normal;
   }
   /* List pages */
   .page-container {
@@ -21,7 +21,6 @@
   }
   .page-header {
     @apply flex flex-wrap justify-between items-center gap-x-5 gap-y-1 w-full mb-6;
-    
   }
   .page-body {
   }
@@ -37,7 +36,7 @@
     @apply flex flex-col gap-y-5;
   }
   .icon {
-    @apply size-6;
+    @apply size-6 text-gray-700;
   }
 
   /* Skeleton */

@@ -6,6 +6,11 @@ export const NEXTAUTH_ROUTES: string[] = ["/dashboard", "/admin", "/settings"];
 // Default redirect after login
 export const DEFAULT_LOGIN_REDIRECT = "/web";
 
+/**
+ * The route for the home page
+ */
+export const HOME_ROUTE = "/web";
+
 // Default redirect when user is not authorized
 export const DEFAULT_UNAUTHORIZED_REDIRECT = "/";
 
@@ -42,7 +47,6 @@ export const webNavLinks: NavLinkProps[] = [
  * Links for user navbar
  */
 export const userNavLinks: NavLinkProps[] = [
-  { href: "/web", title: "Home" },
   { href: "/web/accounts", title: "Accounts" },
   { href: "/web/transactions", title: "Transactions" },
   { href: "/web/settings", title: "Settings" },
