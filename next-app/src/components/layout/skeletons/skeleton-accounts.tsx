@@ -1,8 +1,8 @@
-import { Typography } from "@/components/ui";
+import { Card, Typography } from "@/components/ui";
 
 export const AccountSkeleton = () => {
   return (
-    <div className="max-w-full animate-pulse bg-gray-50 rounded-xl h-40 p-4 flex flex-col justify-between">
+    <Card className="max-w-full animate-pulse bg-gray-50 rounded-xl h-40 p-4 flex flex-col justify-between">
       {/* Top */}
       <div>
         {/* Description | Amount */}
@@ -74,6 +74,6 @@ export const AccountSkeleton = () => {
           &nbsp;
         </Typography>
       </div>
-    </div>
+    </Card>
   );
 };
