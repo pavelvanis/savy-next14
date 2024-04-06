@@ -1,23 +1,16 @@
-import { Typography } from "@/components/ui";
+import { Card, Typography } from "@/components/ui";
 
 export const TransactionSkeleton = () => {
   return (
-    <div className="max-w-full animate-pulse flex justify-between bg-gray-50 rounded-lg p-4">
-      <div className="flex items-center flex-row gap-x-7">
-        {/* Date */}
-        <div className="flex-none min-w-28">
-          <Typography className="h-4 w-24 skeleton">&nbsp;</Typography>
-        </div>
-        {/* Details */}
-        <div className="flex items-center gap-x-10 justify-center">
-          <Typography className="h-3 w-24 skeleton">&nbsp;</Typography>
-          <Typography className="h-3 w-32 skeleton">&nbsp;</Typography>
-        </div>
-      </div>
+    <Card className="flex flex-row gap-x-7 gap-y-2.5 flex-wrap justify-between items-center skeleton-bg">
+      {/* Date */}
+      <Typography className="h-3.5 max-w-24 skeleton">&nbsp;</Typography>
+      {/* Name */}
+      <Typography className="h-3 max-w-24 skeleton">&nbsp;</Typography>
+      {/* Type */}
+      <Typography className="h-3 max-w-32 skeleton">&nbsp;</Typography>
       {/* Amount */}
-      <div className="">
-        <Typography className="h-5 w-32 skeleton">&nbsp;</Typography>
-      </div>
-    </div>
+      <Typography className="h-5 max-w-32 skeleton">&nbsp;</Typography>
+    </Card>
   );
 };

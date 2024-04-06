@@ -1,7 +1,7 @@
-import { Typography } from "@/components/ui";
-import { cn } from "@/lib/utils";
-import { TinkTransactions } from "@/types/tink";
 import React from "react";
+import { cn } from "@/lib/utils";
+import { Typography } from "@/components/ui";
+import { TinkTransactions } from "@/types/tink";
 import TransactionCard from "./transaction-card";
 
 type TransactionListProps = PropsWithClassName & TinkTransactions & {};
