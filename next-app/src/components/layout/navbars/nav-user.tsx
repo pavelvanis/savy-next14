@@ -1,5 +1,5 @@
 import React from "react";
-import { AlignRightIcon, HomeIcon } from "lucide-react";
+import { AlignRightIcon, EllipsisIcon, HomeIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import CustomLink from "@/components/link";
 import { HOME_ROUTE, userNavLinks } from "@/config/routes";
@@ -29,7 +29,8 @@ const UserNav: React.FC<UserNavProps> = async ({ className }) => {
           variant="text"
           className=" sm:hidden user-nav-link max-w-36 flex-center rounded-e-none"
         >
-          <AlignRightIcon className="icon" />
+          {/* <AlignRightIcon className="icon" /> */}
+          <EllipsisIcon className="icon" />
         </Button>
         <ul className="hidden sm:flex items-center h-full w-full">
           {userNavLinks.map((link, i) => (

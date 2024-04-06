@@ -10,10 +10,10 @@
     @apply max-w-6xl mx-auto;
   }
   .user-nav-link {
-    @apply hover:bg-gradient-to-br from-gray-200 to-gray-300 hover:text-black text-center h-full flex flex-grow items-center transition-all duration-300;
+    @apply hover:bg-gradient-to-br from-gray-100 to-gray-300 hover:text-black text-center h-full flex flex-grow items-center transition-all duration-300;
   }
   .user-nav-link-active {
-    @apply bg-gradient-to-br from-gray-300 via-gray-400 to-gray-500 font-normal;
+    @apply bg-gradient-to-br from-gray-300 via-gray-200 to-gray-400 font-normal;
   }
   /* List pages */
   .page-container {

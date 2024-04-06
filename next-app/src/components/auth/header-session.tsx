@@ -6,13 +6,17 @@ import { KeyRoundIcon, LogOutIcon, UsersRoundIcon } from "lucide-react";
 import Signout from "@/components/auth/signout";
 import { Button } from "@/components/ui";
 import { useSession } from "next-auth/react";
+import { cn } from "@/lib/utils";
 
 /**
  * If user is authenticated, show signout button, else show login and register button
  * @param {boolean} state Initializing state of session if authenticated *(true/false)*
  * @returns
  */
-const LoginSignout = ({ state }: { state: boolean }) => {
+const LoginSignout = ({
+  state,
+  ...props
+}: { state: boolean } & PropsWithClassName) => {
   const session = useSession();
   const [login, setLogin] = React.useState<boolean>(state);
 
@@ -25,38 +29,30 @@ const LoginSignout = ({ state }: { state: boolean }) => {
   }, [session.status]);
 
   if (login) {
-    return <LogOut />;
-  } else return <LoginRegister />;
+    return <LogOut {...props} />;
+  } else return <LoginRegister {...props} />;
 };
 
 export default LoginSignout;
 
-const LoginRegister = () => (
-  <div className="flex gap-x-3">
-    <Button
-      variant="outlined"
-      size="sm"
-      className="flex gap-x-2 items-center hover:bg-gray-100 transition-all"
-    >
+const LoginRegister = ({ className }: PropsWithClassName) => (
+  <div className={cn("flex gap-x-3", className)}>
+    <Button variant="outlined" size="sm" className="flex gap-x-2 items-center">
       <KeyRoundIcon className="w-4 h-4" />
       <Link href="/login">Log in</Link>
     </Button>
-    <Button
-      variant="outlined"
-      size="sm"
-      className="flex gap-x-2 items-center hover:bg-gray-100 transition-all"
-    >
+    <Button variant="outlined" size="sm" className="flex gap-x-2 items-center">
       <UsersRoundIcon className="w-4 h-4" />
       <Link href="/register">Register</Link>
     </Button>
   </div>
 );
 
-const LogOut = () => (
+const LogOut = ({ className }: PropsWithClassName) => (
   <Signout
     variant="text"
     size="sm"
-    className="flex gap-x-2 items-center bg-gray-100 hover:bg-gray-300 transition-all"
+    className={cn("flex gap-x-2 items-center", className)}
   >
     <LogOutIcon className="w-4 h-4" />
   </Signout>
