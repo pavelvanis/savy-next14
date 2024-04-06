@@ -109,7 +109,7 @@ export type TinkCategory = {
   typeName: string;
 };
 
-export type TinkCredentials = TinkCredential[];
+export type TinkCredentials = { credentials: TinkCredential[] };
 export type TinkAccounts = { accounts: TinkAccount[]; nextPageToken: string };
 export type TinkTransactions = {
   nextPageToken: string;
