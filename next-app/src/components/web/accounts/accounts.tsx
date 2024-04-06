@@ -1,8 +1,8 @@
 import React from "react";
+import { cn } from "@/lib/utils";
 import AccountCard from "./account-card";
 import { Typography } from "@/components/ui";
 import { TinkAccounts } from "@/types/types";
-import { cn } from "@/lib/utils";
 
 type AccountsListProps = TinkAccounts & PropsWithClassName & {};
 
@@ -18,15 +18,6 @@ const AccountsList: React.FC<AccountsListProps> = async ({
           You don&apos;t have any accounts connected yet
         </Typography>
       )}
-      {accounts.map((acc, i) => (
-        <AccountCard key={i} {...acc} />
-      ))}
-      {accounts.map((acc, i) => (
-        <AccountCard key={i} {...acc} />
-      ))}
-      {accounts.map((acc, i) => (
-        <AccountCard key={i} {...acc} />
-      ))}
       {accounts.map((acc, i) => (
         <AccountCard key={i} {...acc} />
       ))}
