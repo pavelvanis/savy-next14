@@ -11,7 +11,7 @@ export const theme = {
           textTransform: "uppercase",
           fontWeight: "font-medium",
           hover: "hover:font-bold",
-          transition: "transition-all",  
+          transition: "transition-all",
         },
       },
     },
@@ -20,9 +20,25 @@ export const theme = {
     styles: {
       base: {
         list: {
-          minWidth: "min-w-36"
-        }
-      }
-    }
-  }
+          minWidth: "min-w-36",
+        },
+      },
+    },
+  },
+  button: {
+    styles: {
+      base: {
+        initial: {
+          duration: "duration-200",
+        },
+      },
+      variants: {
+        outlined: {
+          gray: {
+            hover: "hover:bg-gray-200",
+          },
+        },
+      },
+    },
+  },
 };
