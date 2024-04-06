@@ -15,9 +15,14 @@ const LoadingAccountsPage = () => {
           <WalletIcon className="size-8" />
         </div>
         <div>
-          <Button variant="outlined" size="sm" disabled>
+          <Button
+            variant="outlined"
+            size="sm"
+            className="py-1 px-2 sm:py-2 sm:px-4"
+            disabled
+          >
             <PlusIcon className="size-5" />
-            Add Account
+            <span className="hidden sm:block">Add Account</span>
           </Button>
         </div>
       </div>

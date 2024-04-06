@@ -1,79 +1,53 @@
-import { Card, Typography } from "@/components/ui";
+import { Card, CardHeader, CardBody, Typography } from "@/components/ui";
 
 export const AccountSkeleton = () => {
   return (
-    <Card className="max-w-full animate-pulse bg-gray-50 rounded-xl h-40 p-4 flex flex-col justify-between">
-      {/* Top */}
-      <div>
-        {/* Description | Amount */}
-        <div className="flex justify-between">
+    <Card className="skeleton-bg">
+      {/* Header */}
+      <CardHeader className="flex flex-col gap-y-3">
+        {/* Top */}
+        <div className="flex justify-between items-center gap-y-1.5 gap-x-3 flex-wrap">
           {/* Description */}
-          <div className="flex gap-x-10 mb-2">
-            <Typography
-              as="div"
-              className="mb-1 h-4 w-40 rounded-lg bg-gray-300"
-            >
+          <div className="flex items-center gap-x-4">
+            <Typography as="div" className=" h-3 min-w-28 skeleton">
               &nbsp;
             </Typography>
             <Typography
               as="div"
-              className="mb-1 h-4 w-20 rounded-lg bg-gray-300"
+              className=" h-3 min-w-20 hidden sm:block skeleton"
             >
               &nbsp;
             </Typography>
           </div>
           {/* Amount */}
-          <div>
-            <Typography
-              as="div"
-              className="mb-1 h-4 w-32 rounded-lg bg-gray-300"
-            >
-              &nbsp;
-            </Typography>
-          </div>
-        </div>
-        {/* Iban | Actions */}
-        <div className="flex justify-between">
-          {/* Iban */}
-          <Typography as="div" className="mb-2 h-3 w-56 rounded-lg bg-gray-300">
+          <Typography as="div" className=" h-4 max-w-24 skeleton">
             &nbsp;
           </Typography>
-          {/* Actions */}
+        </div>
+        {/* Bottom */}
+        <div className="flex justify-between items-center gap-y-1.5 gap-x-4 flex-wrap">
+          <Typography as="div" className=" h-3 max-w-40 skeleton">
+            &nbsp;
+          </Typography>
           <div className="flex gap-x-2">
-            <Typography
-              as="div"
-              className="mb-2 h-5 w-7 rounded-lg bg-gray-300"
-            >
+            <Typography as="div" className=" h-5 min-w-5 skeleton">
               &nbsp;
             </Typography>
-            <Typography
-              as="div"
-              className="mb-2 h-5 w-7 rounded-lg bg-gray-300"
-            >
+            <Typography as="div" className=" h-5 min-w-5 skeleton">
               &nbsp;
             </Typography>
           </div>
         </div>
-      </div>
-      <hr className="bg-gray-300 h-[3px]" />
-      {/* Bottom */}
-      <div className="flex gap-x-10">
-        {/* Buttons */}
-        <Typography
-          as="div"
-          variant="paragraph"
-          className=" h-8 w-32 rounded-lg bg-gray-300"
-        >
+      </CardHeader>
+      {/* Body */}
+      <CardBody className="flex flex-wrap gap-x-3 gap-y-1">
+        <Typography as="div" className=" h-8 max-w-32 skeleton">
           &nbsp;
         </Typography>
-        <Typography
-          as="div"
-          variant="paragraph"
-          className=" h-8 w-24 rounded-lg bg-gray-300"
-        >
+        <Typography as="div" className=" h-8 max-w-24 skeleton">
           &nbsp;
         </Typography>
-      </div>
+      </CardBody>
     </Card>
   );
 };
