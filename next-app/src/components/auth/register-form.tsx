@@ -17,13 +17,12 @@ import {
 } from "@/components/ui";
 import { RegisterSchema } from "@/schemas";
 import { FormError } from "@/components/form-error";
-import { login } from "@/actions/client/login";
 import { register as registerAction } from "@/actions/server/register";
 import { DEFAULT_LOGIN_REDIRECT } from "@/config/routes";
 
 const RegisterForm = () => {
   const [globalFormError, setGlobalFormError] = React.useState("");
-  const [isPending, startTransition] = React.useState(false);
+  const [isPending, startTransition] = React.useTransition();
 
   const router = useRouter();
 
@@ -39,28 +38,16 @@ const RegisterForm = () => {
   const onSubmit = (values: z.infer<typeof RegisterSchema>) => {
     setGlobalFormError("");
 
-    startTransition(true);
-
-    registerAction(values)
-      .then((data) => {
+    startTransition(() => {
+      registerAction(values).then((data) => {
         if (data?.error) {
           setGlobalFormError(data.error);
-        }
-        if (data?.success) {
-          login(values).then((data) => {
-            if ("error" in data) {
-              router.push("/login");
-            } else if ("success" in data) {
-              reset();
-              router.push(DEFAULT_LOGIN_REDIRECT);
-            }
-          });
+        } else {
           reset();
+          router.push(DEFAULT_LOGIN_REDIRECT);
         }
-      })
-      .finally(() => {
-        startTransition(false);
       });
+    });
   };
 
   return (
