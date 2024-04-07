@@ -1,9 +1,8 @@
 import React from "react";
-import { AlignRightIcon, EllipsisIcon, HomeIcon } from "lucide-react";
+import { HomeIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import CustomLink from "@/components/link";
 import { HOME_ROUTE, userNavLinks } from "@/config/routes";
-import { Button } from "@/components/ui";
 
 type UserNavProps = PropsWithClassName & {};
 

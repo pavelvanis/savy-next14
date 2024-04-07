@@ -12,7 +12,7 @@ export const HeaderPublicNavList: React.FC<HeaderNavListProps> = ({
   return (
     <List className={cn("gap-x-4", className)}>
       {headerNavLinks.map((link, i) => (
-        <NavLink {...link} />
+        <NavLink key={i} {...link} />
       ))}
     </List>
   );
@@ -24,7 +24,7 @@ export const HeaderAuthNavList: React.FC<HeaderNavListProps> = ({
   return (
     <List className={cn("gap-x-4", className)}>
       {headerNavLinks.map((link, i) => (
-        <NavLink {...link} />
+        <NavLink key={i} {...link} />
       ))}
     </List>
   );

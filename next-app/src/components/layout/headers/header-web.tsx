@@ -33,9 +33,9 @@ const HeaderWeb = async ({ className }: PropsWithClassName) => {
             </Typography>
           )}
           {/* Menu */}
-          <HeaderMenu>
+          <HeaderMenu >
             <HeaderPublicMenuList />
-            <HeaderUserMenuList loginState={!!session} />
+            <HeaderUserMenuList className="sm:hidden" loginState={!!session} />
             <HeaderAuthMenuList loginState={!!session} />
           </HeaderMenu>
 

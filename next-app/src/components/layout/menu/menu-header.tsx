@@ -15,6 +15,7 @@ export const HeaderMenu: React.FC<HeaderMenuProps> = ({
   children,
   hidden = "md",
 }) => {
+  const hiddenClass = `${hidden}:hidden`;
   return (
     <Menu allowHover>
       <MenuHandler>
@@ -22,7 +23,7 @@ export const HeaderMenu: React.FC<HeaderMenuProps> = ({
           variant="text"
           className={cn(
             "user-nav-link max-w-8 max-h-8 ",
-            `${hidden}:hidden`,
+            hiddenClass,
             className
           )}
         >

@@ -19,7 +19,7 @@ export const HeaderPublicMenuList: React.FC<HeaderNavListProps> = ({
           </Typography>
         </MenuLinkItem>
       ))}
-      <hr className="my-1" />
+      <hr className="my-1.5" />
     </div>
   );
 };
@@ -38,7 +38,7 @@ export const HeaderUserMenuList: React.FC<
             {link.icon && <link.icon className="menu-icon" />}
           </MenuLinkItem>
         ))}
-        <hr className="my-1" />
+        <hr className="my-1.5" />
       </div>
     );
 };
