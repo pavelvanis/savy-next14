@@ -8,7 +8,7 @@ const AuthLayout = async ({ children }: React.PropsWithChildren) => {
 
   return (
     <>
-      <HeaderAuth className=" fixed w-screen top-0 left-1/2 -translate-x-1/2 z-[9999]" />
+      <HeaderAuth />
       <main className=" min-h-screen container flex flex-col justify-center items-center">
         {session ? <Signout /> : children}
       </main>
