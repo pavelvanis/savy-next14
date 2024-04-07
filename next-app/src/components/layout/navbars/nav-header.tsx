@@ -9,7 +9,7 @@ const HeaderNavList: React.FC<HeaderNavListProps> = ({ className }) => {
   return (
     <List className={cn("", className)}>
       {headerNavLinks.map((link, i) => (
-        <Typography className="whitespace-nowrap">{link.title}</Typography>
+        <Typography key={i} className="whitespace-nowrap">{link.title}</Typography>
       ))}
     </List>
   );
