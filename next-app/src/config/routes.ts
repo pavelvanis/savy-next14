@@ -30,18 +30,9 @@ export const authNavLinks: NavLinkProps[] = [
  */
 export const headerNavLinks: NavLinkProps[] = [
   { href: "/", title: "Home" },
-  { href: "", title: "Integration" },
-  { href: "/security", title: "Security" },
+  { href: "#", title: "Integration" },
+  { href: "#", title: "Security" },
   { href: "#", title: "Services" },
-];
-
-/**
- * Links for haeder in web layout
- */
-export const webNavLinks: NavLinkProps[] = [
-  { href: "/web", title: "Balances" },
-  { href: "#", title: "Transactions" },
-  { href: "#", title: "Cards" },
 ];
 
 /**
