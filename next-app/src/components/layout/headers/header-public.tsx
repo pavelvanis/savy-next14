@@ -1,15 +1,20 @@
 import React from "react";
 import Image from "next/image";
+import {
+  HeaderAuthMenuList,
+  HeaderPublicMenuList,
+  HeaderUserMenuList,
+} from "@/components/layout/menu";
 import { cn } from "@/lib/utils";
 import { auth } from "@/lib/auth";
-import { webNavLinks } from "@/config/routes";
-import { NavLink } from "@/components/navlink";
 import LoginSignout from "@/components/auth/header-session";
+import { HeaderMenu } from "../menu";
+import { HeaderPublicNavList } from "../navbars";
 
 const SmallHeader = async ({ className }: PropsWithClassName) => {
   const session = await auth();
   return (
-    <div
+    <header
       className={cn(
         "bg-red-5 h-16 flex px-5 items-center justify-between",
         className
@@ -23,19 +28,20 @@ const SmallHeader = async ({ className }: PropsWithClassName) => {
         alt="logo"
         className="p-2"
       />
+
       {/* Nav */}
-      <nav>
-        <ul className="flex gap-x-4">
-          {webNavLinks.map((link, i) => (
-            <li key={i}>
-              <NavLink key={i} {...link} className="w-20" />
-            </li>
-          ))}
-        </ul>
-      </nav>
+      <HeaderPublicNavList className="flex-row hidden sm:flex" />
+
+      {/* Menu */}
+      <HeaderMenu className="" hidden="md" loginState={!!session}>
+        <HeaderPublicMenuList className="sm:hidden" />
+        <HeaderUserMenuList loginState={!!session} />
+        <HeaderAuthMenuList loginState={!!session} />
+      </HeaderMenu>
+
       {/* Login & Register | Signout */}
-      <LoginSignout state={!!session} />
-    </div>
+      <LoginSignout className="hidden md:flex" state={!!session} />
+    </header>
   );
 };
 
