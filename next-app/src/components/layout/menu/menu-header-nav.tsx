@@ -12,8 +12,8 @@ export const HeaderPublicMenuList: React.FC<HeaderNavListProps> = ({
 }) => {
   return (
     <div className={cn(className)}>
-      {headerNavLinks.map((link) => (
-        <MenuLinkItem href={link.href} key={link.href}>
+      {headerNavLinks.map((link, i) => (
+        <MenuLinkItem href={link.href} key={i}>
           <Typography className="whitespace-nowrap text-sm">
             {link.title}
           </Typography>
@@ -30,11 +30,12 @@ export const HeaderUserMenuList: React.FC<
   if (loginState)
     return (
       <div className={cn(className)}>
-        {userNavLinks.map((link) => (
-          <MenuLinkItem href={link.href} key={link.href}>
+        {userNavLinks.map((link, i) => (
+          <MenuLinkItem href={link.href} key={i}>
             <Typography className="whitespace-nowrap font-normal">
               {link.title}
             </Typography>
+            {link.icon && <link.icon className="menu-icon" />}
           </MenuLinkItem>
         ))}
         <hr className="my-1" />
@@ -54,7 +55,7 @@ export const HeaderAuthMenuList: React.FC<
 const LogOut = () => (
   <LogoutButton>
     <MenuItem className=" bg-gradient-to-br from-white to-red-50 border border-red-50 ">
-      <Typography className="whitespace-nowrap font-normal">Signout</Typography>
+      <Typography className="whitespace-nowrap font-medium">Signout</Typography>
       <LogOutIcon className="menu-icon" />
     </MenuItem>
   </LogoutButton>

@@ -11,7 +11,7 @@ export const {
   auth,
   unstable_update,
   signIn,
-  signOut
+  signOut,
 } = NextAuth({ ...authOptions });
 
 // ------------------------------------------------------------
@@ -46,6 +46,9 @@ export const checkSession = async (
   callback?.(response);
   return response;
 };
+
+// ------------------------------------------------------------
+// Session handler
 
 /**
  * Return a session of the user. If the session is not found, it will redirect to the unauthorized page.

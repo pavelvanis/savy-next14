@@ -31,7 +31,7 @@ const TransactionsPage = async () => {
         <TransactionList className="page-body" {...transactions.data} />
       ) : (
         <Typography variant="lead" className="font-semibold">
-          {transactions.error}
+          {transactions.error.message}
         </Typography>
       )}
     </div>

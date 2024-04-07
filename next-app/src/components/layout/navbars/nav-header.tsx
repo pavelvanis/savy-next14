@@ -17,3 +17,16 @@ export const HeaderPublicNavList: React.FC<HeaderNavListProps> = ({
     </List>
   );
 };
+
+export const HeaderAuthNavList: React.FC<HeaderNavListProps> = ({
+  className,
+}) => {
+  return (
+    <List className={cn("gap-x-4", className)}>
+      {headerNavLinks.map((link, i) => (
+        <NavLink {...link} />
+      ))}
+    </List>
+  );
+};
+

@@ -7,7 +7,6 @@ type Hidden = "sm" | "md" | "lg" | "xl" | "2xl";
 
 type HeaderMenuProps = PropsWithClassName &
   React.PropsWithChildren & {
-    loginState: boolean;
     hidden?: Hidden;
   };
 

@@ -3,7 +3,12 @@ import { auth } from "@/lib/auth";
 import { cn } from "@/lib/utils";
 import { Typography } from "@/components/ui";
 import LoginSignout from "@/components/auth/header-session";
-import { HeaderMenu } from "@/components/layout/menu";
+import {
+  HeaderAuthMenuList,
+  HeaderMenu,
+  HeaderPublicMenuList,
+  HeaderUserMenuList,
+} from "@/components/layout/menu";
 import { HeaderPublicNavList } from "../navbars";
 
 const HeaderWeb = async ({ className }: PropsWithClassName) => {
@@ -19,17 +24,22 @@ const HeaderWeb = async ({ className }: PropsWithClassName) => {
         {/* Logo */}
         <Typography className="whitespace-nowrap">Big logo here</Typography>
         {/* Nav */}
-        <div className="flex-1 flex-center flex-wrap gap-x-4 gap-y-2">
+        <div className="flex-1 flex justify-between items-center flex-wrap gap-y-2">
           <HeaderPublicNavList className="hidden md:flex flex-row gap-x-4 mx-auto" />
           {/* Login & Register | Signout */}
           {session && (
-            <Typography className="ms-auto whitespace-nowrap text-xl font-semibold">
+            <Typography className="ms-auto whitespace-nowrap text-xl font-semibold me-4">
               {session.user.firstName} {session.user.lastName}
             </Typography>
           )}
           {/* Menu */}
-          <HeaderMenu loginState={!!session} />
+          <HeaderMenu>
+            <HeaderPublicMenuList />
+            <HeaderUserMenuList loginState={!!session} />
+            <HeaderAuthMenuList loginState={!!session} />
+          </HeaderMenu>
 
+          {/* Login & Register | Signout */}
           <LoginSignout className="hidden md:block" state={!!session} />
         </div>
       </header>
