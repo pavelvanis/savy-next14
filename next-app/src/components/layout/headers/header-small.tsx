@@ -2,8 +2,8 @@ import React from "react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { auth } from "@/lib/auth";
+import { webNavLinks } from "@/config/routes";
 import { NavLink } from "@/components/navlink";
-import { mainNavLinks } from "@/config/routes";
 import LoginSignout from "@/components/auth/header-session";
 
 const SmallHeader = async ({ className }: PropsWithClassName) => {
@@ -26,7 +26,7 @@ const SmallHeader = async ({ className }: PropsWithClassName) => {
       {/* Nav */}
       <nav>
         <ul className="flex gap-x-4">
-          {mainNavLinks.map((link, i) => (
+          {webNavLinks.map((link, i) => (
             <li key={i}>
               <NavLink key={i} {...link} className="w-20" />
             </li>
