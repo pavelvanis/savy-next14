@@ -7,4 +7,4 @@ export * from "./spinner";
 export * from "./chip";
 export * from "./badge";
 export * from "./list";
-// export * from "./form";
+export * from "./menu";
