@@ -1,10 +1,16 @@
 "use server";
 
 import * as z from "zod";
-import { RegisterSchema } from "@/schemas";
+import { login } from "./login";
 import { sanitize } from "@/lib/api";
+import { RegisterSchema } from "@/schemas";
 import { connectDB } from "@/lib/connect-db";
 import { UserModel } from "@/database/models";
+import {
+  isRedirectError,
+  redirect,
+} from "next/dist/client/components/redirect";
+import { DEFAULT_LOGIN_REDIRECT } from "@/config/routes";
 import { createPermanentUser } from "@/actions/server/data/user";
 
 /**
@@ -49,10 +55,22 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
       ...sanitizedFields,
     });
 
+    if (createdUser) {
+      const loginResponse = await login({
+        email: createdUser.email,
+        password: sanitizedFields.password,
+      });
+      return { error: loginResponse.error };
+    }
+
     return { success: "You have been registred!" };
   } catch (error) {
-    console.log("Error in register action:");
-    console.log(error);
-    return { error: "Something went wrong!" };
+    if (isRedirectError(error)) {
+      redirect(DEFAULT_LOGIN_REDIRECT);
+    } else {
+      console.log("Error in register action:");
+      console.log(error);
+      return { error: "Something went wrong!" };
+    }
   }
 };
