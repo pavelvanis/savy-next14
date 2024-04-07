@@ -47,4 +47,20 @@ export const theme = {
       },
     },
   },
+  menu: {
+    styles: {
+      base: {
+        menu: {
+          padding: "p-1.5",
+          rounded: "rounded-lg",
+        },
+        item: {
+          initial: {
+            rounded: "rounded-lg",
+            padding: "py-1.5 px-3",
+          },
+        },
+      },
+    },
+  },
 };
