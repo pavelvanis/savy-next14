@@ -63,7 +63,10 @@ export const tinkErrorHandler = <T>(
     return {
       error: {
         statusCode: error.response.status,
-        message: message || error.response.statusText,
+        message:
+          error.response.data.errorMessage ||
+          message ||
+          error.response.statusText,
       },
       data: null,
     };
