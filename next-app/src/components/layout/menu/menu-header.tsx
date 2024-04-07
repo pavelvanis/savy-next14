@@ -1,87 +1,36 @@
 import React from "react";
-import {
-  Menu,
-  MenuHandler,
-  IconButton,
-  MenuList,
-  MenuItem,
-  Typography,
-  MenuLinkItem,
-} from "@/components/ui";
-import {
-  AlignRightIcon,
-  BookOpenTextIcon,
-  KeyRoundIcon,
-  LogOutIcon,
-} from "lucide-react";
-import { headerNavLinks, userNavLinks } from "@/config/routes";
-import { logout } from "@/actions/server/logout";
-import { LogoutButton } from "@/components/auth/logout-button";
+import { AlignRightIcon } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { Menu, MenuHandler, IconButton, MenuList } from "@/components/ui";
 
-type HeaderMenuProps = PropsWithClassName & {
-  loginState: boolean;
-};
+type Hidden = "sm" | "md" | "lg" | "xl" | "2xl";
+
+type HeaderMenuProps = PropsWithClassName &
+  React.PropsWithChildren & {
+    loginState: boolean;
+    hidden?: Hidden;
+  };
 
 export const HeaderMenu: React.FC<HeaderMenuProps> = ({
   className,
-  loginState,
+  children,
+  hidden = "md",
 }) => {
   return (
-    <Menu open allowHover>
+    <Menu allowHover>
       <MenuHandler>
         <IconButton
           variant="text"
-          className="user-nav-link max-w-8 max-h-8 md:hidden "
+          className={cn(
+            "user-nav-link max-w-8 max-h-8 ",
+            `${hidden}:hidden`,
+            className
+          )}
         >
           <AlignRightIcon className="icon" />
         </IconButton>
       </MenuHandler>
-      <MenuList className={className}>
-        {headerNavLinks.map((link, i) => (
-          <MenuLinkItem href={link.href} key={link.title}>
-            <Typography className="whitespace-nowrap text-sm">
-              {link.title}
-            </Typography>
-          </MenuLinkItem>
-        ))}
-        <div className="sm:hidden active:select-none focus:outline-none ">
-          <hr className=" my-1" />
-          {userNavLinks.map((link, i) => (
-            <MenuLinkItem href={link.href} key={link.title}>
-              <Typography className="whitespace-nowrap font-normal">
-                {link.title}
-              </Typography>
-              {link.icon && <link.icon className="menu-icon" />}
-            </MenuLinkItem>
-          ))}
-        </div>
-        <hr className=" my-1" />
-        {loginState ? <LogOut /> : <LoginRegister />}
-      </MenuList>
+      <MenuList className={cn(className)}>{children}</MenuList>
     </Menu>
   );
 };
-
-const LogOut = () => (
-  <LogoutButton>
-    <MenuItem className=" bg-gradient-to-br from-white to-red-50 border border-red-50 ">
-      <Typography className="whitespace-nowrap font-normal">Signout</Typography>
-      <LogOutIcon className="menu-icon" />
-    </MenuItem>
-  </LogoutButton>
-);
-
-const LoginRegister = () => (
-  <>
-    <MenuLinkItem href="/login">
-      <Typography className="whitespace-nowrap font-medium">Login</Typography>
-      <KeyRoundIcon className="menu-icon" />
-    </MenuLinkItem>
-    <MenuLinkItem href="/register">
-      <Typography className="whitespace-nowrap font-medium">
-        Register
-      </Typography>
-      <BookOpenTextIcon className="menu-icon" />
-    </MenuLinkItem>
-  </>
-);
