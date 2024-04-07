@@ -58,6 +58,7 @@ export const theme = {
           initial: {
             rounded: "rounded-lg",
             padding: "py-1.5 px-3",
+            flex: "flex items-center justify-between gap-x-2 group",
           },
         },
       },
