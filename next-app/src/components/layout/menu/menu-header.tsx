@@ -4,6 +4,7 @@ import {
   MenuHandler,
   IconButton,
   MenuList,
+  MenuItem,
   Typography,
   MenuLinkItem,
 } from "@/components/ui";
@@ -14,6 +15,8 @@ import {
   LogOutIcon,
 } from "lucide-react";
 import { headerNavLinks, userNavLinks } from "@/config/routes";
+import { logout } from "@/actions/server/logout";
+import { LogoutButton } from "@/components/auth/logout-button";
 
 type HeaderMenuProps = PropsWithClassName & {
   loginState: boolean;
@@ -24,7 +27,7 @@ export const HeaderMenu: React.FC<HeaderMenuProps> = ({
   loginState,
 }) => {
   return (
-    <Menu allowHover>
+    <Menu open allowHover>
       <MenuHandler>
         <IconButton
           variant="text"
@@ -60,13 +63,12 @@ export const HeaderMenu: React.FC<HeaderMenuProps> = ({
 };
 
 const LogOut = () => (
-  <MenuLinkItem
-    href="/logout"
-    className=" bg-gradient-to-br from-white to-red-50 border border-red-50 "
-  >
-    <Typography className="whitespace-nowrap font-normal">Signout</Typography>
-    <LogOutIcon className="menu-icon" />
-  </MenuLinkItem>
+  <LogoutButton>
+    <MenuItem className=" bg-gradient-to-br from-white to-red-50 border border-red-50 ">
+      <Typography className="whitespace-nowrap font-normal">Signout</Typography>
+      <LogOutIcon className="menu-icon" />
+    </MenuItem>
+  </LogoutButton>
 );
 
 const LoginRegister = () => (

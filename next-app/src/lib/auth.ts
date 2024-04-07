@@ -10,6 +10,8 @@ export const {
   handlers: { GET, POST },
   auth,
   unstable_update,
+  signIn,
+  signOut
 } = NextAuth({ ...authOptions });
 
 // ------------------------------------------------------------
