@@ -3,35 +3,32 @@ import CredentialProvider from "next-auth/providers/credentials";
 import { LoginSchema } from "@/schemas";
 import { UserModel } from "@/database/models";
 
-import { AdapterUser } from "next-auth/adapters";
-import { IUser } from "@/types/types";
-
-const authOptions: NextAuthConfig = {
+export const authOptions = {
   // Set max age to 24 hours
   jwt: {
     maxAge: 60 * 60 * 24,
   },
-  session: {},
+  session:{strategy: "jwt"},
+  // Set pages
+  pages: { signIn: "/login" },
   callbacks: {
+    // Add user to session after sign in
     async jwt({ token, user, trigger, session }) {
-      // console.log("jwt callback", { token, user, account, profile });
-
-      if (trigger === "update" && session) {
-        // console.log("Updating session:  ", session);
-        return { ...token, user: session.user };
-      }
-
-      // Calls when user logged in
       if (user) {
-        return { user: user };
+        return {
+          user: {
+            email: user.email,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            permanentUserId: user.permanentUserId,
+          },
+        };
       }
-      return token;
+      return { ...token, user: session.user };
     },
+    // Return user to session
     async session({ session, token }) {
-      // console.log("session callback", { session, token });
-
-      // Add user and csrf token to session
-      session.user = token.user as AdapterUser & IUser;
+      session.user = token.user;
 
       return session;
     },
@@ -60,6 +57,4 @@ const authOptions: NextAuthConfig = {
       },
     }),
   ],
-};
-
-export default authOptions;
+} satisfies NextAuthConfig;

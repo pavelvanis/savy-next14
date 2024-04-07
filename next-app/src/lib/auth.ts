@@ -1,6 +1,6 @@
 import NextAuth from "next-auth";
 import { redirect } from "next/navigation";
-import authOptions from "./authOptions";
+import { authOptions } from "./auth.config";
 import { DEFAULT_UNAUTHORIZED_REDIRECT } from "@/config/routes";
 
 // ------------------------------------------------------------
@@ -9,7 +9,7 @@ import { DEFAULT_UNAUTHORIZED_REDIRECT } from "@/config/routes";
 export const {
   handlers: { GET, POST },
   auth,
-  unstable_update,
+  update,
   signIn,
   signOut,
 } = NextAuth({ ...authOptions });

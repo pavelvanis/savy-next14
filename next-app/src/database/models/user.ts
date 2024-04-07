@@ -2,23 +2,21 @@ import { IUser } from "@/types/types";
 import bcrypt from "bcrypt";
 import mongoose, { Model, Schema } from "mongoose";
 
-interface User extends IUser, mongoose.Document {}
+interface User extends IUser, mongoose.Document {
+  password: string;
+}
 
 interface IUserMethods {
   comparePassword: (password: string) => Promise<boolean>;
 }
 
-const UserSchema = new Schema<User, IUserMethods>(
+const UserSchema = new Schema<User,{}, IUserMethods>(
   {
     // Tink properties
     permanentUserId: {
       type: String,
       unique: true,
       required: [true, "Permanent User ID is required"],
-    },
-    credentialsId: {
-      type: String,
-      // unique: true,
     },
     // User credentials
     firstName: {
@@ -59,4 +57,4 @@ UserSchema.pre("save", async function (next) {
 
 const UserModel = mongoose.models.user || mongoose.model("user", UserSchema);
 
-export default UserModel as Model<User, IUserMethods>;
+export default UserModel as Model<User, {}, IUserMethods>;
