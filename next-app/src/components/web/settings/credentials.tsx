@@ -7,7 +7,6 @@ import { addCredentialsLink } from "@/lib/tink/link";
 import { Button, Card, Typography } from "@/components/ui";
 import { TinkCredential, TinkCredentials } from "@/types/tink";
 import { generateAuthorizationCode } from "@/actions/server/data";
-import { CredentialsSkeleton } from "@/components/layout/skeletons/";
 
 type SettingsCredentialsProps = PropsWithClassName & TinkCredentials & {};
 
@@ -32,7 +31,7 @@ const SettingsCredentials: React.FC<SettingsCredentialsProps> = async ({
           </Typography>
         </div>
         {authorizationCode?.data && (
-          <Button variant="outlined" size="sm" className="">
+          <Button variant="outlined" size="sm" className="btn-hover">
             <Link
               className=" flex items-center gap-2"
               href={addCredentialsLink(
