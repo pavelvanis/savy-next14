@@ -18,10 +18,7 @@ const MenuLinkItem = React.forwardRef<
   <Link {...props} ref={ref} className="user-nav-link rounded-lg ">
     <MenuItem
       {...props}
-      className={cn(
-        "flex items-center justify-between hover:bg-inherit transition-all gap-x-2 group",
-        className
-      )}
+      className={cn(" hover:bg-inherit transition-all", className)}
     />
   </Link>
 ));
