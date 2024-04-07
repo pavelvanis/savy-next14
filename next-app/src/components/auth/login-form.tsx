@@ -4,20 +4,15 @@ import { z } from "zod";
 import React from "react";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
-import { useRouter } from "next/navigation";
-
+import { LoginSchema } from "@/schemas";
+import { login } from "@/actions/server/login";
+import { FormError } from "@/components/form-error";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Card, Typography, Button, Input, Spinner } from "@/components/ui";
-import { FormError } from "@/components/form-error";
-import { LoginSchema } from "@/schemas";
-import { login } from "@/actions/client/login";
-import { DEFAULT_LOGIN_REDIRECT } from "@/config/routes";
 
 const LoginForm = () => {
   const [globalFormError, setGlobalFormError] = React.useState("");
   const [isPending, startTransition] = React.useTransition();
-
-  const router = useRouter();
 
   const {
     register,
@@ -32,14 +27,18 @@ const LoginForm = () => {
     setGlobalFormError("");
 
     startTransition(() => {
-      login(values).then((data) => {
-        if ("error" in data) {
-          setGlobalFormError(data.error);
-        } else if ("success" in data) {
-          reset();
-          router.push(DEFAULT_LOGIN_REDIRECT);
-        }
-      });
+      login(values)
+        .then((data) => {
+          if (data?.error) {
+            console.log(data);
+            setGlobalFormError(data.error);
+          } else {
+            reset();
+          }
+        })
+        .catch((error) => {
+          console.log("Something.... :", error);
+        });
     });
   };
 
