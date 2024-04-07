@@ -4,10 +4,12 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Typography } from "@/components/ui";
+import { LucideIcon } from "lucide-react";
 
 export type NavLinkProps = PropsWithClassName & {
   href: string;
   title: string;
+  icon?: LucideIcon;
 };
 
 export const NavLink = ({ title, className, ...props }: NavLinkProps) => {
