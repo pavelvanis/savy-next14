@@ -1,18 +1,19 @@
 import React from "react";
 import { cn } from "@/lib/utils";
+import { List } from "@/components/ui";
+import { NavLink } from "@/components/navlink";
 import { headerNavLinks } from "@/config/routes";
-import { List, Typography } from "@/components/ui";
 
 type HeaderNavListProps = PropsWithClassName & {};
 
-const HeaderNavList: React.FC<HeaderNavListProps> = ({ className }) => {
+export const HeaderPublicNavList: React.FC<HeaderNavListProps> = ({
+  className,
+}) => {
   return (
-    <List className={cn("", className)}>
+    <List className={cn("gap-x-4", className)}>
       {headerNavLinks.map((link, i) => (
-        <Typography key={i} className="whitespace-nowrap">{link.title}</Typography>
+        <NavLink {...link} />
       ))}
     </List>
   );
 };
-
-export default HeaderNavList;

@@ -1,10 +1,10 @@
 import React from "react";
 import { auth } from "@/lib/auth";
 import { cn } from "@/lib/utils";
-import { HeaderNavList } from "../navbars";
 import { Typography } from "@/components/ui";
 import LoginSignout from "@/components/auth/header-session";
 import { HeaderMenu } from "@/components/layout/menu";
+import { HeaderPublicNavList } from "../navbars";
 
 const HeaderWeb = async ({ className }: PropsWithClassName) => {
   const session = await auth();
@@ -20,7 +20,7 @@ const HeaderWeb = async ({ className }: PropsWithClassName) => {
         <Typography className="whitespace-nowrap">Big logo here</Typography>
         {/* Nav */}
         <div className="flex-1 flex-center flex-wrap gap-x-4 gap-y-2">
-          <HeaderNavList className="hidden md:flex flex-row gap-x-4 mx-auto" />
+          <HeaderPublicNavList className="hidden md:flex flex-row gap-x-4 mx-auto" />
           {/* Login & Register | Signout */}
           {session && (
             <Typography className="ms-auto whitespace-nowrap text-xl font-semibold">
