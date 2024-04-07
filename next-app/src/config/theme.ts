@@ -35,13 +35,13 @@ export const theme = {
       variants: {
         outlined: {
           gray: {
-            hover: "hover:bg-gray-500/10",
-            active: "active:bg-gray-500/30",
+            cursor: "cursor-pointer",
           },
         },
         text: {
           gray: {
-            hover: "hover:bg-gradient-to-br from-gray-100 to-gray-400",
+            hover:
+              "hover:bg-gradient-to-br hover:from-gray-100 hover:to-gray-400",
           },
         },
       },

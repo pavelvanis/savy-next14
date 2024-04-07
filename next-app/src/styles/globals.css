@@ -33,13 +33,18 @@
   .list-col {
     @apply flex flex-col gap-y-5;
   }
-  
+
   /* Icons */
   .icon {
     @apply size-6 text-gray-700;
   }
   .menu-icon {
     @apply size-4 text-gray-600 group-hover:text-gray-800 transition-all;
+  }
+
+  /* Buttons */
+  .btn-hover {
+    @apply transition-all hover:bg-gradient-to-br from-gray-100 to-gray-200;
   }
 
   /* Skeleton */
