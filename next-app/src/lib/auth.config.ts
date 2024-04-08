@@ -1,11 +1,10 @@
 import { NextAuthConfig, User } from "next-auth";
 import CredentialProvider from "next-auth/providers/credentials";
+import { IUser } from "@/types/types";
 import { LoginSchema } from "@/schemas";
 import { UserModel } from "@/database/models";
-import { IUser } from "@/types/types";
-import email from "next-auth/providers/email";
 
-export const authOptions = {
+export const authOptions: NextAuthConfig = {
   // Set max age to 24 hours
   jwt: {
     maxAge: 60 * 60 * 24,
@@ -30,7 +29,6 @@ export const authOptions = {
     },
     // Return user to session
     async session({ session, token }) {
-
       session.user = token.user as IUser;
 
       return session;
@@ -60,4 +58,4 @@ export const authOptions = {
       },
     }),
   ],
-} satisfies NextAuthConfig;
+};

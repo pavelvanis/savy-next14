@@ -1,5 +1,5 @@
-import { IUser } from "@/types/types";
 import bcrypt from "bcrypt";
+import { IUser } from "@/types/types";
 import mongoose, { Model, Schema } from "mongoose";
 
 interface User extends IUser, mongoose.Document {

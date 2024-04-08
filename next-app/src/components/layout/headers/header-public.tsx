@@ -33,7 +33,7 @@ const SmallHeader = async ({ className }: PropsWithClassName) => {
       <HeaderPublicNavList className="flex-row hidden sm:flex" />
 
       {/* Menu */}
-      <HeaderMenu className="ms-auto" hidden="md">
+      <HeaderMenu className="ms-auto md:hidden">
         <HeaderPublicMenuList className="sm:hidden" />
         <HeaderUserMenuList loginState={!!session} />
         <HeaderAuthMenuList loginState={!!session} />
