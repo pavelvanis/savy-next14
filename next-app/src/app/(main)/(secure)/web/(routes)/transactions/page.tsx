@@ -1,9 +1,14 @@
 import React from "react";
 import { ArrowLeftRightIcon } from "lucide-react";
 import { getAuthSession } from "@/lib/auth";
-import { Typography } from "@/components/ui";
 import { getTransactions } from "@/actions/server/data";
 import TransactionList from "@/components/web/transactions/transactions";
+import {
+  Page,
+  PageContentError,
+  PageNavbar,
+  PageNavbarProps,
+} from "@/components/layout/page-components";
 
 /**
  * Page to show all transaction history
@@ -11,30 +16,26 @@ import TransactionList from "@/components/web/transactions/transactions";
 const TransactionsPage = async () => {
   const { user } = await getAuthSession();
   const transactions = await getTransactions(user.permanentUserId);
-  console.log(
-    "Transactions: ",
-    JSON.stringify(transactions.data?.transactions, null, 2)
-  );
+
+  const transactionsNavbarProps: PageNavbarProps = {
+    title: {
+      children: "Transactions",
+      icon: ArrowLeftRightIcon,
+    },
+    button: false,
+  };
+
   return (
-    <div className="page-container">
-      {/* Page header */}
-      <div className="page-header">
-        <div className="flex items-center gap-x-4">
-          <Typography variant="h2" className="font-bold">
-            Transactions
-          </Typography>
-          <ArrowLeftRightIcon className="size-8" />
-        </div>
-      </div>
-      {/* List of transactions */}
+    <Page>
+      {/* Transactions header */}
+      <PageNavbar {...transactionsNavbarProps} />
+      {/* Content */}
       {transactions.data ? (
         <TransactionList className="page-body" {...transactions.data} />
       ) : (
-        <Typography variant="lead" className="font-semibold">
-          {transactions.error.message}
-        </Typography>
+        <PageContentError message={transactions.error.message} />
       )}
-    </div>
+    </Page>
   );
 };
 
