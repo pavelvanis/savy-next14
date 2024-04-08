@@ -16,8 +16,8 @@ const SettingsCredentialsList: React.FC<SettingsCredentialsProps> = async ({
           You don&apos;t have any credentials connected yet
         </Typography>
       )}
-      {credentials.map((credential) => (
-        <CredentialsCard {...credential} />
+      {credentials.map((credential, i) => (
+        <CredentialsCard key={i} {...credential} />
       ))}
     </section>
   );
