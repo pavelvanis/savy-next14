@@ -3,6 +3,7 @@ import "@/styles/globals.css";
 import type { Metadata } from "next";
 import { Inter, Red_Hat_Display } from "next/font/google";
 
+import { Toaster } from "sonner";
 import { ThemeProvider, SessionProvider } from "@/components/providers";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -23,7 +24,10 @@ export default function RootLayout({
     <html lang="en">
       <ThemeProvider>
         <SessionProvider>
-          <body className={font.className}>{children}</body>
+          <body className={font.className}>
+            <Toaster richColors closeButton visibleToasts={5} />
+            {children}
+          </body>
         </SessionProvider>
       </ThemeProvider>
     </html>
