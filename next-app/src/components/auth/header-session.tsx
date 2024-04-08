@@ -1,13 +1,6 @@
-"use client";
-
 import React from "react";
 import Link from "next/link";
-import {
-  BookOpenTextIcon,
-  KeyRoundIcon,
-  LogOutIcon,
-} from "lucide-react";
-import { useSession } from "next-auth/react";
+import { BookOpenTextIcon, KeyRoundIcon, LogOutIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui";
 import { LogoutButton } from "./logout-button";
@@ -21,18 +14,7 @@ const LoginSignout = ({
   state,
   ...props
 }: { state: boolean } & PropsWithClassName) => {
-  const session = useSession();
-  const [login, setLogin] = React.useState<boolean>(state);
-
-  React.useEffect(() => {
-    if (session.status === "authenticated") {
-      setLogin(true);
-    } else if (session.status !== "loading") {
-      setLogin(false);
-    }
-  }, [session.status]);
-
-  if (login) {
+  if (state) {
     return <LogOut {...props} />;
   } else return <LoginRegister {...props} />;
 };

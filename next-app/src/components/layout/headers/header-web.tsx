@@ -13,6 +13,7 @@ import { HeaderPublicNavList } from "../navbars";
 
 const HeaderWeb = async ({ className }: PropsWithClassName) => {
   const session = await auth();
+
   return (
     <div className=" bg-gradient-to-br from-white to-gray-100">
       <header
@@ -33,7 +34,7 @@ const HeaderWeb = async ({ className }: PropsWithClassName) => {
             </Typography>
           )}
           {/* Menu */}
-          <HeaderMenu >
+          <HeaderMenu>
             <HeaderPublicMenuList />
             <HeaderUserMenuList className="sm:hidden" loginState={!!session} />
             <HeaderAuthMenuList loginState={!!session} />
