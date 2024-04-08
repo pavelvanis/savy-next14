@@ -13,13 +13,13 @@ const SettingsMenuList: React.FC<HeaderNavListProps> = ({ className }) => {
       {settingsLinks.map((list, i) => (
         <>
           {list.map(({ ...props }, j) => (
-            <MenuLinkItem key={j} href={props.href}>
+            <MenuLinkItem key={props.title} href={props.href}>
               <Typography className="whitespace-nowrap text-sm">
                 {props.title}
               </Typography>
             </MenuLinkItem>
           ))}
-          {settingsLinks.length - 1 !== i && <hr className="my-1" />}
+          {settingsLinks.length - 1 !== i && <hr className="my-1" key={i} />}
         </>
       ))}
     </div>

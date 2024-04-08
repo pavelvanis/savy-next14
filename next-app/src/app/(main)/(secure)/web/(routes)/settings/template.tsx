@@ -44,7 +44,7 @@ const SettingsNavbar = ({ className }: PropsWithClassName) => (
           <>
             {list.map(({ ...props }, j) => (
               <CustomLink
-                key={j}
+                key={props.title}
                 onActive="bg-blue-gray-50 bg-opacity-40 rounded-lg"
                 href={props.href}
               >
