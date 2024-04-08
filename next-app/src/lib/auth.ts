@@ -57,6 +57,8 @@ export const checkSession = async (
 export const getAuthSession = async () => {
   const session = await auth();
 
+  console.log("Auth Session:\t", session);
+
   if (!session) {
     redirect(DEFAULT_UNAUTHORIZED_REDIRECT);
   }

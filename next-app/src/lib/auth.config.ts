@@ -2,17 +2,19 @@ import { NextAuthConfig, User } from "next-auth";
 import CredentialProvider from "next-auth/providers/credentials";
 import { LoginSchema } from "@/schemas";
 import { UserModel } from "@/database/models";
+import { IUser } from "@/types/types";
+import email from "next-auth/providers/email";
 
 export const authOptions = {
   // Set max age to 24 hours
   jwt: {
     maxAge: 60 * 60 * 24,
   },
-  session:{strategy: "jwt"},
+  session: { strategy: "jwt" },
   // Set pages
   pages: { signIn: "/login" },
   callbacks: {
-    // Add user to session after sign in
+    // Return a user if sign in
     async jwt({ token, user, trigger, session }) {
       if (user) {
         return {
@@ -24,11 +26,12 @@ export const authOptions = {
           },
         };
       }
-      return { ...token, user: session.user };
+      return { ...token };
     },
     // Return user to session
     async session({ session, token }) {
-      session.user = token.user;
+
+      session.user = token.user as IUser;
 
       return session;
     },

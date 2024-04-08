@@ -3,7 +3,6 @@ import { DefaultJWT } from "@auth/core/jwt";
 import { IUser } from "./types";
 
 declare module "next-auth" {
-
   interface Session {
     user: IUser;
   }
@@ -11,8 +10,8 @@ declare module "next-auth" {
   interface User extends IUser {}
 }
 
-declare module "@auth/core/jwt" {
-  interface JWT {
-    user: IUser & DefaultJWT;
-  }
-}
+// declare module "@auth/core/jwt" {
+//   interface JWT extends DefaultJWT {
+//     user: IUser;
+//   }
+// }
