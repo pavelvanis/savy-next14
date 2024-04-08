@@ -8,7 +8,14 @@ const Typography = React.forwardRef<
   React.ElementRef<typeof MTTypography>,
   React.ComponentPropsWithoutRef<typeof MTTypography>
 >(({ className, ...props }, ref) => {
-  return <MTTypography className={cn(" font-red", className)} {...props} ref={ref} />;
+  return (
+    <MTTypography className={cn(" font-red", className)} {...props} ref={ref} />
+  );
 });
 
 export { Typography };
+
+export {
+  type TypographyProps,
+  type TypographyStylesType,
+} from "@material-tailwind/react";
