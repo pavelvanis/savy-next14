@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { auth, unstable_update } from "@/lib/auth";
+import { auth, update } from "@/lib/auth";
 
 /**
  * Handler for Tink callbacks
@@ -22,8 +22,8 @@ export const GET = async (req: NextRequest) => {
     const credentialsId = params.get("credentialsId");
 
     if (credentialsId) {
-      const updated = await unstable_update({
-        user: { ...session.user, credentialsId },
+      const updated = await update({
+        user: { ...session.user },
       });
       // console.log("updated", updated);
       // return NextResponse.redirect(new URL("/web", req.url));
