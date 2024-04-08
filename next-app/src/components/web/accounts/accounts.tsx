@@ -12,12 +12,13 @@ const AccountsList: React.FC<AccountsListProps> = async ({
 }) => {
   return (
     <section className={cn("list-col", className)}>
-      {/* Accounts */}
+      {/* No accounts */}
       {accounts.length === 0 && (
         <Typography variant="lead" className="font-semibold">
           You don&apos;t have any accounts connected yet
         </Typography>
       )}
+      {/* Account list */}
       {accounts.map((acc, i) => (
         <AccountCard key={i} {...acc} />
       ))}
