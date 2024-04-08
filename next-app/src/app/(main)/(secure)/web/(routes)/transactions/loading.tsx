@@ -1,27 +1,35 @@
 import React from "react";
-import { WalletIcon } from "lucide-react";
-import { Typography } from "@/components/ui";
+import { ArrowLeftRightIcon } from "lucide-react";
+import {
+  Page,
+  PageNavbar,
+  PageNavbarProps,
+} from "@/components/layout/page-components";
 import { TransactionSkeleton } from "@/components/layout/skeletons";
 
 const LoadingTransactionsPage = () => {
+  const transactionsNavbarProps: PageNavbarProps = {
+    title: {
+      children: "Transactions",
+      icon: ArrowLeftRightIcon,
+    },
+    button: false,
+  };
+
   return (
-    <div className="page-container">
+    <Page>
       {/* Header */}
-      <div className="page-header ">
-        <div className="flex items-center gap-x-4">
-          <Typography variant="h2" className="font-bold">
-            Transaction
-          </Typography>
-          <WalletIcon className="size-8" />
-        </div>
-      </div>
+      <PageNavbar {...transactionsNavbarProps} />
+      {/* Skeletons of transactions */}
       <div className="page-body list-col">
         <TransactionSkeleton />
         <TransactionSkeleton />
         <TransactionSkeleton />
         <TransactionSkeleton />
+        <TransactionSkeleton />
+        <TransactionSkeleton />
       </div>
-    </div>
+    </Page>
   );
 };
 

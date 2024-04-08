@@ -10,7 +10,7 @@ export const TransactionSkeleton = () => {
       {/* Type */}
       <Typography className="h-3 max-w-32 skeleton">&nbsp;</Typography>
       {/* Amount */}
-      <Typography className="h-5 max-w-32 skeleton">&nbsp;</Typography>
+      <Typography className="h-5 max-w-32 ml-auto skeleton">&nbsp;</Typography>
     </Card>
   );
 };
