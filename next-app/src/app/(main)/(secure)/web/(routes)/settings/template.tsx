@@ -42,16 +42,16 @@ const SettingsNavbar = ({ className }: PropsWithClassName) => (
       <List>
         {settingsLinks.map((list, i) => (
           <>
-            {list.map(({ ...props }, i) => (
+            {list.map(({ ...props }, j) => (
               <CustomLink
-                key={i}
+                key={j}
                 onActive="bg-blue-gray-50 bg-opacity-40 rounded-lg"
                 href={props.href}
               >
                 <ListItem key={props.href}>{props.title}</ListItem>
               </CustomLink>
             ))}
-            {settingsLinks.length - 1 !== i && <ListDivider />}
+            {settingsLinks.length - 1 !== i && <ListDivider key={i} />}
           </>
         ))}
       </List>
