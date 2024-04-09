@@ -52,6 +52,7 @@ export const checkSession = async (
 
 /**
  * Return a session of the user. If the session is not found, it will redirect to the unauthorized page.
+ * @param {string} redirectUrl The URL to redirect if the session is not found. Default value could be set in the config as `DEFAULT_UNAUTHORIZED_REDIRECT`.
  * @returns The session of the user.
  */
 export const getAuthSession = async (
