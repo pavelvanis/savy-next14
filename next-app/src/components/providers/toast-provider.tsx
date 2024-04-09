@@ -14,7 +14,7 @@ interface ToastProviderHandlerProps extends React.PropsWithChildren {}
  * Toast provider handler component. Takes the searchParams and displays a
  * toast message based on the status and message.
  */
-const ToastProviderHandler: React.FC<ToastProviderHandlerProps> = ({
+const ToastHandlerProvider: React.FC<ToastProviderHandlerProps> = ({
   children,
 }) => {
   const params = useSearchParams();
@@ -26,7 +26,7 @@ const ToastProviderHandler: React.FC<ToastProviderHandlerProps> = ({
   const showToast = () => {
     // Check if status is valid
     if (status && ToastTypes.includes(status) && message) {
-      toast[status](message, { duration: 7000 });
+      toast[status](message, { duration: 10000 });
     }
     // Change url
     const newUrl = window.location.pathname;
@@ -43,4 +43,4 @@ const ToastProviderHandler: React.FC<ToastProviderHandlerProps> = ({
   return <>{children}</>;
 };
 
-export default ToastProviderHandler;
+export default ToastHandlerProvider;
