@@ -1,10 +1,14 @@
 import { NavLinkProps } from "@/components/navlink";
 import { SettingsIcon, WalletIcon, ArrowRightLeftIcon } from "lucide-react";
 
-// Routes will be inserted into the NextAuth middleware
+/**
+ * Routes which will be protected by auth middleware
+ */
 export const NEXTAUTH_ROUTES: string[] = ["/dashboard", "/admin", "/settings"];
 
-// Default redirect after login
+/**
+ * Default redirect after login
+ */
 export const DEFAULT_LOGIN_REDIRECT = "/web";
 
 /**
@@ -12,7 +16,9 @@ export const DEFAULT_LOGIN_REDIRECT = "/web";
  */
 export const HOME_ROUTE = "/web";
 
-// Default redirect when user is not authorized
+/**
+ * Default redirect when user is not authorized
+ */
 export const DEFAULT_UNAUTHORIZED_REDIRECT = "/";
 
 /**
@@ -40,7 +46,11 @@ export const headerNavLinks: NavLinkProps[] = [
  */
 export const userNavLinks: NavLinkProps[] = [
   { href: "/web/accounts", title: "Accounts", icon: WalletIcon },
-  { href: "/web/transactions", title: "Transactions", icon: ArrowRightLeftIcon },
+  {
+    href: "/web/transactions",
+    title: "Transactions",
+    icon: ArrowRightLeftIcon,
+  },
   { href: "/web/settings", title: "Settings", icon: SettingsIcon },
 ];
 
