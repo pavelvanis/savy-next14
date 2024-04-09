@@ -1,24 +1,39 @@
 import React from "react";
 import { PlusIcon } from "lucide-react";
-import { Typography, Button } from "@/components/ui";
+import { Typography } from "@/components/ui";
 import { CredentialsSkeleton } from "@/components/layout/skeletons";
+import {
+  Page,
+  PageNavbar,
+  PageNavbarProps,
+} from "@/components/layout/page-components";
 
 const SettingsCredentialsLoading = () => {
+  const credentialsNavbarProps: PageNavbarProps = {
+    title: {
+      children: "Credentials",
+      variant: "h3",
+      className: "font-semibold",
+    },
+    button: {
+      children: "Add Credentials",
+      icon: PlusIcon,
+      size: "sm",
+      link: null,
+    },
+  };
+
   return (
-    <div className="">
-      <div className=" page-header ">
-        <Typography variant="h3" className="font-semibold inline w-min">
-          Credentials
-        </Typography>
-        <Button variant="outlined" size="sm" className="">
-          <PlusIcon className="size-5" />
-          Add Credentials
-        </Button>
-      </div>
+    <Page>
+      {/* Navbar */}
+      <PageNavbar {...credentialsNavbarProps} />
+      {/* Skeletons of credentials */}
       <section className="list-col">
         <CredentialsSkeleton />
         <CredentialsSkeleton />
+        <CredentialsSkeleton />
       </section>
+      {/* Some helper texts for user */}
       <section className=" space-y-3 mt-7">
         <Typography className="text-sm text-gray-600">
           * A credentials object holds the information that is required when
@@ -26,7 +41,7 @@ const SettingsCredentialsLoading = () => {
           otherwise, the credentials object is valid for 90 days.
         </Typography>
       </section>
-    </div>
+    </Page>
   );
 };
 
