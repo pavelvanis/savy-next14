@@ -14,11 +14,12 @@ const CLIENT_ID = process.env.TINK_CLIENT_ID;
 export const authenticateCredentialsLink = (
   authorizationCode: string,
   userId: string,
-  credentialsId: string
+  credentialsId: string,
+  callbackUrl: string = TinkConfig.defaultCallback
 ) => {
   const scopes = [
     `client_id=${CLIENT_ID}`,
-    `redirect_uri=${TinkConfig.callback}`,
+    `redirect_uri=${callbackUrl}`,
     "scope=user:read,credentials:read,transactions:read,balances:read,accounts:read",
     `market=${TinkConfig.market}`,
     `locale=${TinkConfig.locale}`,
@@ -38,11 +39,12 @@ export const authenticateCredentialsLink = (
  */
 export const addCredentialsLink = (
   authorizationCode: string,
-  userId: string
+  userId: string,
+  callbackUrl: string = TinkConfig.defaultCallback
 ) => {
   const scopes = [
     `client_id=${CLIENT_ID}`,
-    `redirect_uri=${TinkConfig.callback}`,
+    `redirect_uri=${callbackUrl}`,
     "scope=user:read,credentials:read,transactions:read,balances:read,accounts:read",
     `market=${TinkConfig.market}`,
     `locale=${TinkConfig.locale}`,
@@ -57,11 +59,12 @@ export const addCredentialsLink = (
 export const authorizeCredentialsLink = (
   authorizationCode: string,
   userId: string,
-  credentialsId: string
+  credentialsId: string,
+  callbackUrl: string = TinkConfig.defaultCallback
 ) => {
   const scopes = [
     `client_id=${CLIENT_ID}`,
-    `redirect_uri=${TinkConfig.callback}`,
+    `redirect_uri=${callbackUrl}`,
     "scope=user:read,credentials:read,transactions:read,balances:read,accounts:read",
     `market=${TinkConfig.market}`,
     `locale=${TinkConfig.locale}`,
