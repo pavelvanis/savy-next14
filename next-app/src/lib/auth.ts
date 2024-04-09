@@ -54,11 +54,13 @@ export const checkSession = async (
  * Return a session of the user. If the session is not found, it will redirect to the unauthorized page.
  * @returns The session of the user.
  */
-export const getAuthSession = async () => {
+export const getAuthSession = async (
+  redirectUrl: string = DEFAULT_UNAUTHORIZED_REDIRECT
+) => {
   const session = await auth();
 
   if (!session) {
-    redirect(DEFAULT_UNAUTHORIZED_REDIRECT);
+    redirect(redirectUrl);
   }
 
   return session;
