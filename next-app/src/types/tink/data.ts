@@ -23,19 +23,6 @@ type Identifiers = {
   };
 };
 
-export type TinkCredential = {
-  id: string;
-  providerName: string;
-  type: string;
-  status: string;
-  statusUpdated: number;
-  statusPayload: string;
-  updated: number;
-  fields: Record<string, unknown>; // Same as fields: {}
-  sessionExpiryDate: number;
-  userId: string;
-};
-
 export type TinkAccount = {
   id: string;
   name: string;
@@ -109,7 +96,6 @@ export type TinkCategory = {
   typeName: string;
 };
 
-export type TinkCredentials = { credentials: TinkCredential[] };
 export type TinkAccounts = { accounts: TinkAccount[]; nextPageToken: string };
 export type TinkTransactions = {
   nextPageToken: string;
