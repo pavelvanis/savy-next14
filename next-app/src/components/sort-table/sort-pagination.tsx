@@ -1,12 +1,20 @@
+"use client";
+
 import {
   ChevronLeftIcon,
   ChevronRightIcon,
   ChevronsLeftIcon,
   ChevronsRightIcon,
 } from "lucide-react";
+import {
+  ButtonGroup,
+  IconButton,
+  Option,
+  Select,
+  Typography,
+} from "@/components/ui";
 import { cn } from "@/lib/utils";
 import { Table } from "@tanstack/react-table";
-import { ButtonGroup, IconButton, Typography } from "@material-tailwind/react";
 
 interface PaginationProps extends PropsWithClassName {
   table: Table<any>;
@@ -22,7 +30,7 @@ export const TablePagination: React.FC<PaginationProps> = ({
 }) => {
   return (
     <div
-      className={cn("flex justify-start gap-x-3 items-center mt-4", className)}
+      className={cn("flex justify-start gap-x-3 items-center", className)}
     >
       <PaginationButtons table={table} />
       <PaginationPageIndex table={table} />
@@ -43,7 +51,7 @@ export const PaginationButtons: React.FC<PaginationProps> = ({
     <ButtonGroup
       variant="text"
       className={cn(
-        " !divide-none border border-gray-400 rounded-lg",
+        " divide-gray-400/90 border border-gray-400 rounded-lg",
         className
       )}
     >
@@ -107,22 +115,34 @@ export const PaginationPageSizeSelect: React.FC<PaginationProps> = ({
   pageSizeOptions = defaultPageSizeOptions,
 }) => {
   return (
-    <select
-      className={cn(
-        "bg-white border border-gray-400 rounded-lg select-none focus:outline-none h-5 text-sm",
-        className
-      )}
-      value={table.getState().pagination.pageSize}
-      onChange={(e) => {
-        console.log("Changed");
-        table.setPageSize(Number(e.target.value));
-      }}
-    >
-      {pageSizeOptions.map((pageSize) => (
-        <option key={pageSize} value={pageSize}>
-          {pageSize}
-        </option>
-      ))}
-    </select>
+    <div className="ml-auto flex-center gap-2 ">
+      <Typography as="span" className="text-xs whitespace-nowrap">
+        Show rows:
+      </Typography>
+      <Select
+        offset={5}
+        containerProps={{
+          className: "w-14 h-6 right-0 ml-auto",
+        }}
+        labelProps={{
+          className: "hidden",
+        }}
+        className={cn(
+          "border border-gray-400 absolute top-1/2 right-0 -translate-y-1/2 px-1 py-0 h-6",
+          className
+        )}
+        menuProps={{ className: "p-1 space-y-1" }}
+        value={table.getState().pagination.pageSize.toString()}
+        onChange={(e) => {
+          table.setPageSize(Number(e));
+        }}
+      >
+        {pageSizeOptions.map((pageSize) => (
+          <Option key={pageSize} value={pageSize.toString()}>
+            {pageSize}
+          </Option>
+        ))}
+      </Select>
+    </div>
   );
 };
