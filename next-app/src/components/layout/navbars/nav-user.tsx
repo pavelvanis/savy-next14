@@ -10,7 +10,7 @@ const UserNav: React.FC<UserNavProps> = async ({ className }) => {
   return (
     <div
       className={cn(
-        " bg-gradient-to-br from-white to-gray-200 shadow-md border-y-[1.5px] border-gray-200",
+        " bg-gradient-to-br from-white to-gray-200/95 shadow-md border-y-[1.5px] border-gray-200",
         className
       )}
     >

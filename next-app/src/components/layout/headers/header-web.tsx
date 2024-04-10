@@ -15,13 +15,8 @@ const HeaderWeb = async ({ className }: PropsWithClassName) => {
   const session = await auth();
 
   return (
-    <div className=" bg-gradient-to-br from-white to-gray-100">
-      <header
-        className={cn(
-          " h-16 flex px-5 items-center justify-between container",
-          className
-        )}
-      >
+    <div className={cn(" bg-gradient-to-b from-white to-gray-100/95", className)}>
+      <header className=" h-16 flex px-5 items-center justify-between container">
         {/* Logo */}
         <Typography className="whitespace-nowrap">Big logo here</Typography>
         {/* Nav */}
