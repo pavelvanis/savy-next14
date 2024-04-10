@@ -1,7 +1,7 @@
 "use client";
 
-import { Button, IconButton } from "@material-tailwind/react";
+import { Button, IconButton, ButtonGroup } from "@material-tailwind/react";
 
-export { Button, IconButton };
+export { Button, IconButton, ButtonGroup };
 
 export { type ButtonProps } from "@material-tailwind/react";
