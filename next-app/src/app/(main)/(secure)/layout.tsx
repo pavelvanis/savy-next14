@@ -16,8 +16,8 @@ const SecureLayout = async ({ children }: React.PropsWithChildren) => {
   return (
     <ToastHandlerProvider>
       <div className=" min-h-screen flex flex-col">
-        <HeaderWeb />
-        <UserNav className="hidden sm:block" />
+        <HeaderWeb className="sticky top-0 sm:static z-50" />
+        <UserNav className="hidden sm:block sticky top-0 left-0 z-50" />
         <main className=" container flex-center flex-1 flex-col my-8">
           {children}
         </main>
