@@ -3,7 +3,7 @@
 export const TinkConfig = {
   apiBaseUrl: "https://api.tink.com",
   linkBaseUrl: "https://link.tink.com",
-  callback: "http://localhost:3000/api/callback/authorize",
+  defaultCallback: "http://localhost:3000/api/callback",
   market: "CZ",
   locale: "cs_CZ",
 };
