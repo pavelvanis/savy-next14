@@ -1,7 +1,49 @@
 import React from "react";
 import { cn } from "@/lib/utils";
-import { Card, Typography } from "@/components/ui";
+import { Typography } from "@/components/ui";
+import { ColumnDef } from "@tanstack/react-table";
+import { FilterSortTable } from "@/components/sort-table";
 import { TinkCredential, TinkCredentials } from "@/types/tink";
+import { CredentialsCard } from "@/components/sort-table/credential-card";
+
+const columns: ColumnDef<TinkCredential>[] = [
+  {
+    accessorKey: "id",
+    header: "Id",
+  },
+  {
+    accessorKey: "providerName",
+    header: "Provider",
+  },
+  {
+    accessorKey: "type",
+    header: "Type",
+  },
+  {
+    accessorKey: "status",
+    header: "Status",
+  },
+  {
+    accessorKey: "statusUpdated",
+    header: "Last update",
+  },
+  {
+    accessorKey: "statusPayload",
+    header: "Payload",
+  },
+  {
+    accessorKey: "updated",
+    header: "Updated",
+  },
+  {
+    accessorKey: "sessionExpiryDate",
+    header: "Session expires",
+  },
+  {
+    accessorKey: "userId",
+    header: "User id",
+  },
+];
 
 type SettingsCredentialsProps = PropsWithClassName & TinkCredentials & {};
 
@@ -16,37 +58,13 @@ const SettingsCredentialsList: React.FC<SettingsCredentialsProps> = async ({
           You don&apos;t have any credentials connected yet
         </Typography>
       )}
-      {credentials.map((credential, i) => (
-        <CredentialsCard key={i} {...credential} />
-      ))}
+      <FilterSortTable
+        Component={CredentialsCard}
+        data={credentials}
+        columns={columns}
+      />
     </section>
   );
 };
 
 export default SettingsCredentialsList;
-
-type CredentialsCard = PropsWithClassName & TinkCredential & {};
-
-// TODO: Make configurable loacale date
-const CredentialsCard: React.FC<CredentialsCard> = ({ ...props }) => {
-  return (
-    <Card className="p-3">
-      <div className="flex items-center justify-between flex-wrap w-full mb-2">
-        <Typography className="text-lg font-semibold text-black">
-          {props.providerName}
-        </Typography>
-        <Typography className="text-sm ">
-          Last update:{" "}
-          {new Date(props.statusUpdated).toLocaleDateString("cs-CZ")}
-        </Typography>
-      </div>
-      <ul className=" list-disc list-inside ms-1">
-        <li className=" antialiased font-normal">
-          Session expires:{" "}
-          {new Date(props.sessionExpiryDate).toLocaleDateString("cs-CZ")}
-        </li>
-        <li className=" antialiased font-normal">{props.statusPayload}</li>
-      </ul>
-    </Card>
-  );
-};
