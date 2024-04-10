@@ -3,48 +3,34 @@
 import React from "react";
 import {
   ColumnDef,
-  ColumnFiltersState,
-  flexRender,
-  getCoreRowModel,
-  getFilteredRowModel,
-  getPaginationRowModel,
-  getSortedRowModel,
-  PaginationState,
   SortingState,
   useReactTable,
-  VisibilityState,
+  PaginationState,
+  getCoreRowModel,
+  getSortedRowModel,
+  ColumnFiltersState,
+  getFilteredRowModel,
+  getPaginationRowModel,
 } from "@tanstack/react-table";
-import { CredentialsCard } from "./web/settings/credentials";
-import { TinkCredential } from "@/types/tink";
-import {
-  Button,
-  IconButton,
-  Input,
-  Select,
-  Option,
-  ButtonGroup,
-  Typography,
-} from "@material-tailwind/react";
-import {
-  ChevronLeftIcon,
-  ChevronRight,
-  ChevronRightIcon,
-  ChevronsLeftIcon,
-  ChevronsRightIcon,
-} from "lucide-react";
-import { TablePagination } from "./sort-table/sort-pagination";
+import { Input, Typography } from "@/components/ui";
+
+import { TablePagination } from "@/components/sort-table";
 
 interface FilterSortTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  Component: React.FC<TData>;
 }
 
 export const FilterSortTable = <TData, TValue>({
   data,
   columns,
+  Component,
 }: FilterSortTableProps<TData, TValue>) => {
   const [sorting, setSorting] = React.useState<SortingState>([]);
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
+  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
+    []
+  );
   const [pagination, setPagination] = React.useState<PaginationState>({
     pageIndex: 0,
     pageSize: 5,
@@ -83,7 +69,7 @@ export const FilterSortTable = <TData, TValue>({
   return (
     <div>
       {/* Header */}
-      <div className="mb-3">
+      <div className="">
         <Input
           label="Search by provider name..."
           value={
@@ -95,12 +81,16 @@ export const FilterSortTable = <TData, TValue>({
         />
       </div>
       {/* Body */}
-      <div className="flex flex-col gap-y-3">
-        {table.getRowModel().rows?.length
-          ? table.getRowModel().rows.map((row) => {
-              return <CredentialsCard {...(row.original as TinkCredential)} />;
-            })
-          : "No data"}
+      <div className="flex flex-col gap-y-3 my-5">
+        {table.getRowModel().rows?.length ? (
+          table.getRowModel().rows.map((row, i) => {
+            return <Component key={i} {...(row.original as any)} />;
+          })
+        ) : (
+          <Typography variant="lead" className="font-medium text-lg">
+            No results
+          </Typography>
+        )}
       </div>
       {/* Pagination */}
       <TablePagination table={table} />
