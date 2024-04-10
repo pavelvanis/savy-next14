@@ -13,6 +13,7 @@ import {
   PageNavbarProps,
 } from "@/components/layout/page-components";
 import { PlusIcon } from "lucide-react";
+import { TinkFlowHandler } from "@/lib/flow-handler";
 import { addCredentialsLink } from "@/lib/tink/link";
 import SettingsCredentialsList from "@/components/web/settings/credentials";
 
@@ -38,18 +39,27 @@ const SettingsCredentialsPage = async () => {
       children: "Add Credentials",
       icon: PlusIcon,
       size: "sm",
-      link: data ? addCredentialsLink(data.code, user.permanentUserId) : null,
+      link: data
+        ? addCredentialsLink(
+            data.code,
+            user.permanentUserId,
+            "http://localhost:3000/api/callback/credentials"
+          )
+        : null,
     },
   };
 
   return (
     <Page>
+      {/* Header */}
       <PageNavbar {...credentialsNavbarProps} />
+      {/* List of credentials */}
       {credentials.data ? (
         <SettingsCredentialsList className="page-body" {...credentials.data} />
       ) : (
         <PageContentError message={credentials.error.message} />
       )}
+      {/* Some helper texts for user */}
       <section className=" space-y-3 mt-7">
         <PageContentHelper>
           A credentials object holds the information that is required when
