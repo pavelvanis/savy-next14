@@ -8,6 +8,9 @@ const config = withMT({
   ],
   theme: {
     extend: {
+      animation: {
+        "spin-slow": "spin 1.5s linear infinite",
+      },
       fontFamily: {
         red: ["Red Hat Display", "sans-serif"],
       },
