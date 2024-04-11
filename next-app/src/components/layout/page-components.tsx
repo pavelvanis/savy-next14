@@ -124,7 +124,7 @@ export const PageNavbar: React.FC<PageNavbarProps> = ({
 export const PageContentError: React.FC<{ message: string }> = ({
   message,
 }) => (
-  <Typography variant="lead" className="font-semibold">
+  <Typography variant="lead" className=" font-medium">
     {message}
   </Typography>
 );
