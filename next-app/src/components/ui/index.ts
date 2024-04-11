@@ -9,3 +9,4 @@ export * from "./badge";
 export * from "./list";
 export * from "./menu";
 export * from "./select";
+export * from "./tooltip";
