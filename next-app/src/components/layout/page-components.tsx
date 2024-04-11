@@ -33,7 +33,7 @@ const createComponent = (
 };
 
 /** Main page component. Renders a <main> tag with the `"page-container"` class. */
-export const Page = createComponent("main", "page-container");
+export const Page = createComponent("div", "page-container");
 
 /** Page header component. Renders a <div> tag with the `"page-header"` class. */
 export const PageHeader = createComponent("div", "page-header");
