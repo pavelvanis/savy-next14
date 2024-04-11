@@ -53,11 +53,13 @@ const SettingsCredentialsList: React.FC<SettingsCredentialsProps> = async ({
 }) => {
   return (
     <section className={cn("list-col", className)}>
+      {/* No accounts */}
       {credentials.length === 0 && (
         <Typography variant="lead" className="font-medium text-lg">
           You don&apos;t have any credentials connected yet
         </Typography>
       )}
+      {/* Table of credentials */}
       <FilterSortTable
         Component={CredentialsCard}
         data={credentials}
