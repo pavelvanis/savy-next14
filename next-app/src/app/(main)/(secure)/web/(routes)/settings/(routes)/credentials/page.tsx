@@ -1,6 +1,4 @@
 import React from "react";
-import { getAuthSession } from "@/lib/auth";
-import { Typography } from "@/components/ui";
 import {
   generateAuthorizationCode,
   getCredentials,
@@ -13,7 +11,8 @@ import {
   PageNavbarProps,
 } from "@/components/layout/page-components";
 import { PlusIcon } from "lucide-react";
-import { TinkFlowHandler } from "@/lib/flow-handler";
+import { getAuthSession } from "@/lib/auth";
+import { Typography } from "@/components/ui";
 import { addCredentialsLink } from "@/lib/tink/link";
 import SettingsCredentialsList from "@/components/web/settings/credentials";
 
