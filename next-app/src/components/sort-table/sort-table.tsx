@@ -12,9 +12,11 @@ import {
   getFilteredRowModel,
   getPaginationRowModel,
 } from "@tanstack/react-table";
-import { Input, Typography } from "@/components/ui";
+import { Button, IconButton, Input, Typography } from "@/components/ui";
 
 import { TablePagination } from "@/components/sort-table";
+import { ChevronDownIcon } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 interface FilterSortTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -27,7 +29,12 @@ export const FilterSortTable = <TData, TValue>({
   columns,
   Component,
 }: FilterSortTableProps<TData, TValue>) => {
-  const [sorting, setSorting] = React.useState<SortingState>([]);
+  const [sorting, setSorting] = React.useState<SortingState>([
+    {
+      id: "statusUpdated",
+      desc: true,
+    },
+  ]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
   );
@@ -69,7 +76,7 @@ export const FilterSortTable = <TData, TValue>({
   return (
     <div>
       {/* Header */}
-      <div className="">
+      <div className="flex h-10 gap-x-3">
         <Input
           label="Search by provider name..."
           value={
@@ -79,6 +86,24 @@ export const FilterSortTable = <TData, TValue>({
             table.getColumn("providerName")?.setFilterValue(event.target.value)
           }
         />
+        <div
+          className=" px-2 py-0.5 border flex-center cursor-pointer rounded-lg border-blue-gray-200"
+          onClick={() => {
+            setSorting((prev) => [
+              {
+                id: "statusUpdated",
+                desc: prev[0].desc ? false : true,
+              },
+            ]);
+          }}
+        >
+          <Typography className="flex items-center gap-x-2 text-sm font-semibold whitespace-nowrap text-blue-gray-700">
+            Sort by last updated
+            <ChevronDownIcon
+              className={cn("size-4", !sorting[0].desc && "rotate-180")}
+            />
+          </Typography>
+        </div>
       </div>
       {/* Body */}
       <div className="flex flex-col gap-y-3 my-5">
