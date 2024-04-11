@@ -1,11 +1,37 @@
+"use client";
+
 import React from "react";
 import { UtensilsIcon } from "lucide-react";
 import { cn, getAmount } from "@/lib/utils";
 import { TinkTransaction } from "@/types/tink";
 import { Card, Typography } from "@/components/ui";
 import { findCategoryById } from "@/actions/server/data/categories";
+import { ColumnDef } from "@tanstack/react-table";
 
 type TransactionCardProps = PropsWithClassName & TinkTransaction & {};
+
+const transactionColumns: ColumnDef<TinkTransaction>[] = [
+  {
+    accessorKey: "id",
+    header: "Id",
+  },
+  {
+    accessorKey: "description",
+    header: "Description",
+  },
+  {
+    accessorKey: "category",
+    header: "Category",
+  },
+  {
+    accessorKey: "date",
+    header: "Date",
+  },
+  {
+    accessorKey: "amount",
+    header: "Amount",
+  },
+];
 
 const TransactionCard: React.FC<TransactionCardProps> = async ({
   descriptions,
