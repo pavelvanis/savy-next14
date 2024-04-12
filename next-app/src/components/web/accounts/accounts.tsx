@@ -1,71 +1,70 @@
+"use client";
 import React from "react";
-import { cn } from "@/lib/utils";
+import { cn, getAmount } from "@/lib/utils";
 import AccountCard from "./account-card";
 import { Typography } from "@/components/ui";
 import { TinkAccount, TinkAccounts } from "@/types/types";
-import { FilterSortTable } from "@/components/sort-table";
-import { ColumnDef } from "@tanstack/react-table";
+import {
+  ColumnDef,
+  getCoreRowModel,
+  getFilteredRowModel,
+  getPaginationRowModel,
+  getSortedRowModel,
+  useReactTable,
+} from "@tanstack/react-table";
+import {
+  ReactTable,
+  ReactTableBody,
+  ReactTablePagination,
+} from "@/components/sort-table/sort";
+import SortableAccountsHeader from "./accounts-sortable";
 
 type AccountsListProps = TinkAccounts & PropsWithClassName & {};
 
 const accountColumns: ColumnDef<TinkAccount>[] = [
   {
-    accessorKey: "id",
+    // accessorKey: "id",
     header: "Id",
+    id: "id",
+    accessorFn: (data) => data.id,
   },
   {
     accessorKey: "name",
     header: "Name",
   },
   {
-    accessorKey: "type",
-    header: "Type",
-  },
-  {
-    accessorKey: "currencyCode",
-    header: "Currency",
-  },
-  {
-    accessorKey: "balance",
-    header: "Balance",
-  },
-  {
-    accessorKey: "accountNumber",
-    header: "Account number",
-  },
-  {
-    accessorKey: "credentialsId",
-    header: "Credentials id",
-  },
-  {
-    accessorKey: "userId",
-    header: "User id",
-  },
-  {
-    accessorKey: "updated",
-    header: "Updated",
+    accessorKey: "amount",
+    accessorFn: (data) =>
+      getAmount(
+        data.balances.booked.amount.value.scale,
+        data.balances.booked.amount.value.unscaledValue
+      ),
   },
 ];
 
-const AccountsList: React.FC<AccountsListProps> = async ({
-  className,
-  accounts,
-}) => {
-  console.log(accounts[0]);
+const AccountsList: React.FC<AccountsListProps> = ({ className, accounts }) => {
+  const table = useReactTable({
+    data: accounts,
+    columns: accountColumns,
+    getCoreRowModel: getCoreRowModel(),
+    getSortedRowModel: getSortedRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+  });
   return (
     <section className={cn("list-col", className)}>
-      {/* No accounts */}
-      {accounts.length === 0 && (
+      {/* No accounts | Account list */}
+      {accounts.length === 0 ? (
         <Typography variant="lead" className="font-semibold text-lg">
-          You don&apos;t have any accounts connected yet
+          Not connected accounts
         </Typography>
+      ) : (
+        <ReactTable table={table} Component={AccountCard}>
+          <SortableAccountsHeader />
+          <ReactTableBody />
+          <ReactTablePagination />
+        </ReactTable>
       )}
-      {/* Table of accounts */}
-      <FilterSortTable
-        Component={AccountCard}
-        columns={accountColumns}
-        data={accounts}
-      />
     </section>
   );
 };

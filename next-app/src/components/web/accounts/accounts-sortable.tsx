@@ -1,8 +1,8 @@
 "use client";
 
 import React from "react";
-import { Input, Typography, Button } from "@/components/ui";
-import { useReactTableData } from "@/components/sort-table/sort";
+import { Input, Typography } from "@/components/ui";
+import { useReactTableData } from "@/components/react-table/";
 import { SortingState } from "@tanstack/react-table";
 import { ChevronDownIcon } from "lucide-react";
 import { cn } from "@/lib/utils";

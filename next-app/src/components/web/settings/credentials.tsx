@@ -2,9 +2,9 @@ import React from "react";
 import { cn } from "@/lib/utils";
 import { Typography } from "@/components/ui";
 import { ColumnDef } from "@tanstack/react-table";
-import { FilterSortTable } from "@/components/sort-table";
+import { FilterSortTable } from "@/components/react-table";
 import { TinkCredential, TinkCredentials } from "@/types/tink";
-import { CredentialsCard } from "@/components/sort-table/credential-card";
+import { CredentialsCard } from "./credential-card";
 
 const columns: ColumnDef<TinkCredential>[] = [
   {
