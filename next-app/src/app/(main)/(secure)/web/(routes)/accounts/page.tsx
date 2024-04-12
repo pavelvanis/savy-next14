@@ -30,7 +30,11 @@ const AccountsPage = async () => {
       children: "Add Account",
       icon: PlusIcon,
       link: data?.code
-        ? addCredentialsLink(data.code, user.permanentUserId)
+        ? addCredentialsLink(
+            data.code,
+            user.permanentUserId,
+            "http://localhost:3000/api/callback/credentials"
+          )
         : null,
     },
   };
