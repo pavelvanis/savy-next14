@@ -73,6 +73,7 @@ export const theme = {
       base: {
         container: {
           minWidth: "min-w-14",
+          width: "w-14",
           // height: "h-6",
         },
         select: {
