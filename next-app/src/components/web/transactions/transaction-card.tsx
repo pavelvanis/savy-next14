@@ -1,4 +1,4 @@
-"use client";
+// "use client";
 
 import React from "react";
 import { UtensilsIcon } from "lucide-react";
@@ -6,34 +6,10 @@ import { cn, getAmount } from "@/lib/utils";
 import { TinkTransaction } from "@/types/tink";
 import { Card, Typography } from "@/components/ui";
 import { findCategoryById } from "@/actions/server/data/categories";
-import { ColumnDef } from "@tanstack/react-table";
 
 type TransactionCardProps = PropsWithClassName & TinkTransaction & {};
 
-const transactionColumns: ColumnDef<TinkTransaction>[] = [
-  {
-    accessorKey: "id",
-    header: "Id",
-  },
-  {
-    accessorKey: "description",
-    header: "Description",
-  },
-  {
-    accessorKey: "category",
-    header: "Category",
-  },
-  {
-    accessorKey: "date",
-    header: "Date",
-  },
-  {
-    accessorKey: "amount",
-    header: "Amount",
-  },
-];
-
-const TransactionCard: React.FC<TransactionCardProps> = async ({
+const TransactionCard: React.FC<TransactionCardProps> = ({
   descriptions,
   categories,
   dates,
@@ -42,7 +18,7 @@ const TransactionCard: React.FC<TransactionCardProps> = async ({
   const formatedValue = getAmount(value.scale, value.unscaledValue);
   const positiveValue = parseFloat(formatedValue) > 0;
 
-  const category = await findCategoryById(categories?.pfm.id);
+  // const category = await findCategoryById(categories?.pfm.id);
 
   return (
     <Card className="flex flex-row gap-x-7 gap-y-1.5 flex-wrap items-center justify-between">
@@ -54,7 +30,7 @@ const TransactionCard: React.FC<TransactionCardProps> = async ({
       </Typography>
       <Typography className="flex items-center gap-2 whitespace-nowrap">
         {/* TODO: Change the placeholder for real category */}
-        {category?.data?.primaryName}
+        {/* {category?.data?.primaryName} */}
         Food & Drinks
         <UtensilsIcon className="size-4 text-gray-400" />
       </Typography>
