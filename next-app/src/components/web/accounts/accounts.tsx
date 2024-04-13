@@ -23,9 +23,8 @@ type AccountsListProps = TinkAccounts & PropsWithClassName & {};
 
 const accountColumns: ColumnDef<TinkAccount>[] = [
   {
-    // accessorKey: "id",
+    accessorKey: "id",
     header: "Id",
-    id: "id",
     accessorFn: (data) => data.id,
   },
   {
@@ -51,6 +50,7 @@ const AccountsList: React.FC<AccountsListProps> = ({ className, accounts }) => {
     getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
   });
+  
   return (
     <section className={cn("list-col", className)}>
       {/* No accounts | Account list */}
