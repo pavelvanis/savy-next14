@@ -66,9 +66,6 @@ export const theme = {
     },
   },
   select: {
-    valid: {
-      variants: ["standard", "outlined", "static"],
-    },
     styles: {
       base: {
         container: {
@@ -92,8 +89,8 @@ export const theme = {
           },
         },
         menu: {
-          // p: "p-1",
-          // spaceY: "space-y-1",
+          p: "p-1",
+          spaceY: "space-y-1",
         },
         option: {
           initial: {
