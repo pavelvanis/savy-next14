@@ -21,6 +21,9 @@ const AccountCard: React.FC<AccountCardProps> = ({ ...props }) => {
   const { value, currencyCode } = props.balances.booked.amount;
   const { scale, unscaledValue } = value;
   const { iban } = props.identifiers.iban;
+
+  const amount = getAmount(scale, unscaledValue);
+
   return (
     <Card>
       {/* Card header */}
@@ -36,7 +39,7 @@ const AccountCard: React.FC<AccountCardProps> = ({ ...props }) => {
             />
           </div>
           <Typography className="text-black font-bold text-xl">
-            {getAmount(scale, unscaledValue)} {currencyCode}
+            {amount.toLocaleString("en-US").replace(/,/g, " ")} {currencyCode}
           </Typography>
         </div>
         {/* bottom */}

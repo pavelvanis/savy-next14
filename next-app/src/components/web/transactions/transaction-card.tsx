@@ -41,7 +41,8 @@ const TransactionCard: React.FC<TransactionCardProps> = ({
         )}
       >
         {positiveValue && "+"}
-        {formatedValue} {currencyCode}
+        {formatedValue.toLocaleString("en-US").replace(/,/g, " ")}{" "}
+        {currencyCode}
       </Typography>
     </Card>
   );

@@ -13,6 +13,7 @@ import {
   ColumnDef,
   getCoreRowModel,
   getFilteredRowModel,
+  getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
@@ -63,7 +64,9 @@ const TransactionList: React.FC<TransactionListProps> = ({
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
   });
+
   return (
     <section className={cn("list-col", className)}>
       {/* Accounts */}

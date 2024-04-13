@@ -31,6 +31,8 @@ export const getAmount = (
     return "NaN";
   }
 
+  return amount
+
   // TODO: change the format
   return amount.toLocaleString("en-US").replace(/,/g, " ");
 };
