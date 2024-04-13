@@ -9,6 +9,7 @@ import {
   PageNavbar,
   PageNavbarProps,
 } from "@/components/layout/page-components";
+import { getCategories } from "@/actions/server/data/categories";
 
 /**
  * Page to show all transaction history

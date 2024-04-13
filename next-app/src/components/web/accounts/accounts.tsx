@@ -16,7 +16,7 @@ import {
   ReactTable,
   ReactTableBody,
   ReactTablePagination,
-} from "@/components/sort-table/sort";
+} from "@/components/react-table";
 import SortableAccountsHeader from "./accounts-sortable";
 
 type AccountsListProps = TinkAccounts & PropsWithClassName & {};
