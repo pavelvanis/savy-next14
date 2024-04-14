@@ -4,7 +4,8 @@ import {
   ReactTableHeader,
   ReactTableInput,
 } from "@/components/react-table/";
-import { Typography } from "@/components/ui";
+import { Button, IconButton, Typography } from "@/components/ui";
+import { ChevronRightIcon } from "lucide-react";
 
 interface SortableTransactionsHeaderProps {
   date: string;
@@ -25,12 +26,25 @@ const SortableTransactionsHeader: React.FC<SortableTransactionsHeaderProps> = ({
     <ReactTableHeader>
       <Typography
         variant="h4"
-        className="font-bold capitalize whitespace-nowrap mr-3 ms-1"
+        className="font-bold capitalize whitespace-nowrap mr-2 ms-1"
       >
         {formatedDate}
       </Typography>
-      <ReactTableInput column="description" label="Search by description..." />
-      <ReactTableButton column="amount" label="Sort by amount" />
+      <Button
+        size="sm"
+        variant="text"
+        className="bg-gray-300/30 hover:bg-gray-400/30 mr-4 flex-center gap-x-1 px-2.5 py-1.5"
+      >
+        <Typography className="text-xs font-medium">Details</Typography>
+        <ChevronRightIcon className="size-4" />
+      </Button>
+      <div className="flex flex-1 gap-x-2 ">
+        <ReactTableInput
+          column="description"
+          label="Search by description..."
+        />
+        <ReactTableButton column="amount" label="Sort by amount" />
+      </div>
     </ReactTableHeader>
   );
 };

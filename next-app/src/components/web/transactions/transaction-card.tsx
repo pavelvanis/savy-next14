@@ -21,7 +21,7 @@ const TransactionCard: React.FC<TransactionCardProps> = ({
   // const category = await findCategoryById(categories?.pfm.id);
 
   return (
-    <Card className="flex flex-row gap-x-7 gap-y-1.5 flex-wrap items-center justify-between">
+    <Card className="flex flex-row gap-x-4 gap-y-1.5 flex-wrap items-center justify-between">
       <Typography className=" font-semibold text-black  whitespace-nowrap uppercase">
         {new Date(dates.booked).toLocaleString("cs-CZ", { dateStyle: "long" })}
       </Typography>

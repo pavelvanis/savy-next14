@@ -97,5 +97,5 @@ export const ReactTableHeader: React.FC<ReactTableHeaderProps> = ({
   className,
   children,
 }) => {
-  return <div className={cn("flex gap-x-3 flex-wrap gap-y-1", className)}>{children}</div>;
+  return <div className={cn("flex gap-x-3 items-center flex-wrap gap-y-2", className)}>{children}</div>;
 };
