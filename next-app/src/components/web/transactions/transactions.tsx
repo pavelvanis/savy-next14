@@ -1,14 +1,10 @@
 "use client";
 
 import React from "react";
-import { cn, getAmount } from "@/lib/utils";
+import { getAmount } from "@/lib/utils";
 import { Typography } from "@/components/ui";
 import { TinkTransaction, TinkTransactions } from "@/types/tink";
-import {
-  ReactTable,
-  ReactTableBody,
-  ReactTablePagination,
-} from "@/components/react-table";
+import { ReactTable, ReactTableBody } from "@/components/react-table";
 import {
   ColumnDef,
   getCoreRowModel,
@@ -20,7 +16,10 @@ import {
 import SortableTransactionsHeader from "./transactions-sortable";
 import TransactionCard from "./transaction-card";
 
-type TransactionListProps = PropsWithClassName & TinkTransactions & {};
+type TransactionListProps = PropsWithClassName &
+  TinkTransactions & {
+    date: string;
+  };
 
 const transactionColumns: ColumnDef<TinkTransaction>[] = [
   {
@@ -55,7 +54,7 @@ const transactionColumns: ColumnDef<TinkTransaction>[] = [
 ];
 
 const TransactionList: React.FC<TransactionListProps> = ({
-  className,
+  date,
   transactions,
 }) => {
   const table = useReactTable({
@@ -67,22 +66,22 @@ const TransactionList: React.FC<TransactionListProps> = ({
     getPaginationRowModel: getPaginationRowModel(),
   });
 
-  return (
-    <section className={cn("list-col", className)}>
-      {/* Accounts */}
-      {transactions.length === 0 ? (
-        <Typography variant="lead" className="font-semibold">
-          No accounts found
-        </Typography>
-      ) : (
+  if (transactions.length < 1) {
+    return (
+      <Typography variant="lead" className="font-semibold">
+        No accounts found
+      </Typography>
+    );
+  } else {
+    return (
+      <section>
         <ReactTable Component={TransactionCard} table={table}>
-          <SortableTransactionsHeader />
-          <ReactTableBody />
-          <ReactTablePagination />
+          <SortableTransactionsHeader date={date} />
+          <ReactTableBody className="mt-3" />
         </ReactTable>
-      )}
-    </section>
-  );
+      </section>
+    );
+  }
 };
 
 export default TransactionList;

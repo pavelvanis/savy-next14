@@ -22,8 +22,8 @@ const TransactionCard: React.FC<TransactionCardProps> = ({
 
   return (
     <Card className="flex flex-row gap-x-7 gap-y-1.5 flex-wrap items-center justify-between">
-      <Typography className=" font-semibold text-black  whitespace-nowrap">
-        {dates.booked}
+      <Typography className=" font-semibold text-black  whitespace-nowrap uppercase">
+        {new Date(dates.booked).toLocaleString("cs-CZ", { dateStyle: "long" })}
       </Typography>
       <Typography className="font-semibold min-w-28 text-center  whitespace-nowrap">
         {descriptions.original}

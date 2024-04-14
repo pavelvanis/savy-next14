@@ -5,11 +5,13 @@ import { getTransactions } from "@/actions/server/data";
 import TransactionList from "@/components/web/transactions/transactions";
 import {
   Page,
+  PageBody,
   PageContentError,
   PageNavbar,
   PageNavbarProps,
 } from "@/components/layout/page-components";
-import { getCategories } from "@/actions/server/data/categories";
+import { groupBy } from "@/lib/utils";
+import { TinkTransaction } from "@/types/tink";
 
 /**
  * Page to show all transaction history
@@ -26,16 +28,34 @@ const TransactionsPage = async () => {
     button: false,
   };
 
+  const transactionsByMonth = groupBy(
+    transactions.data?.transactions || [],
+    (transaction: TinkTransaction) => {
+      const date = new Date(transaction.dates.booked);
+      return `${date.getFullYear()}-${date.getMonth() + 1}`;
+    }
+  );
+
   return (
     <Page>
       {/* Transactions header */}
       <PageNavbar {...transactionsNavbarProps} />
-      {/* Content */}
-      {transactions.data ? (
-        <TransactionList className="page-body" {...transactions.data} />
-      ) : (
-        <PageContentError message={transactions.error.message} />
-      )}
+      {/* Transactions list | Error message */}
+      <PageBody className="list-col">
+        {transactions.data ? (
+          Object.entries(transactionsByMonth).map(
+            ([date, filteredTransactions]) => (
+              <TransactionList
+                transactions={filteredTransactions}
+                nextPageToken={transactions.data.nextPageToken}
+                date={date}
+              />
+            )
+          )
+        ) : (
+          <PageContentError message={transactions.error.message} />
+        )}
+      </PageBody>
     </Page>
   );
 };
