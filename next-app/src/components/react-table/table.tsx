@@ -1,9 +1,9 @@
 "use client";
 
 import React from "react";
-import { ColumnDef, Table } from "@tanstack/react-table";
-import { Typography } from "../ui";
+import { Table } from "@tanstack/react-table";
 import { cn } from "@/lib/utils";
+import { Typography } from "../ui";
 import { TablePagination } from "./table-pagination";
 
 type ReactTableContextValue<TData> = {
@@ -11,12 +11,16 @@ type ReactTableContextValue<TData> = {
   Component: React.FC<TData>;
 };
 
+//
 // ------------------- Context -------------------------
+
 const ReactTableContext = React.createContext<ReactTableContextValue<any>>(
   {} as ReactTableContextValue<any>
 );
 
+//
 // ------------------- Use context -------------------------
+
 export const useReactTableData = <TData extends object>() => {
   const table = React.useContext(ReactTableContext);
 
@@ -27,7 +31,9 @@ export const useReactTableData = <TData extends object>() => {
   return table;
 };
 
+//
 // ------------------- Context provider -------------------------
+
 interface ReactTableProps<TData> extends React.PropsWithChildren {
   table: Table<TData>;
   Component: React.FC<TData>;
@@ -44,10 +50,14 @@ export const ReactTable = <TData extends object>({
   );
 };
 
+//
 // ------------------- React Table Body -------------------------
+
 interface ReactTableBodyProps extends PropsWithClassName {}
 
-export const ReactTableBody = ({ className }: ReactTableBodyProps) => {
+export const ReactTableBody: React.FC<ReactTableBodyProps> = ({
+  className,
+}) => {
   const { table, Component } = useReactTableData();
   return (
     <div className={cn("flex flex-col gap-y-3 my-5", className)}>
@@ -64,19 +74,28 @@ export const ReactTableBody = ({ className }: ReactTableBodyProps) => {
   );
 };
 
+//
 // ------------------- React Table Header -------------------------
+
 interface ReactTablePaginationProps extends PropsWithClassName {}
 
-export const ReactTablePagination = ({
+export const ReactTablePagination: React.FC<ReactTablePaginationProps> = ({
   className,
-}: ReactTablePaginationProps) => {
+}) => {
   const { table } = useReactTableData();
   return <TablePagination className={className} table={table} />;
 };
 
+//
 // ------------------- React Table Header -------------------------
-interface ReactTableHeaderProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[];
-}
 
-export const ReactTableHeader = () => {};
+interface ReactTableHeaderProps
+  extends React.PropsWithChildren,
+    PropsWithClassName {}
+
+export const ReactTableHeader: React.FC<ReactTableHeaderProps> = ({
+  className,
+  children,
+}) => {
+  return <div className={cn("flex h-10 gap-x-3", className)}>{children}</div>;
+};
