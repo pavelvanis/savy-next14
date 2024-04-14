@@ -91,6 +91,7 @@ export const ReactTableInput: React.FC<ReactTableInputProps> = ({
   return (
     <Input
       {...props}
+      containerProps={{ className: "flex-1" }}
       value={(table.getColumn(column)?.getFilterValue() as string) ?? ""}
       onChange={(event) =>
         table.getColumn(column)?.setFilterValue(event.target.value)
