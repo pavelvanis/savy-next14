@@ -1,10 +1,24 @@
+"use client";
+
 import React from "react";
 import { cn } from "@/lib/utils";
 import { Typography } from "@/components/ui";
-import { ColumnDef } from "@tanstack/react-table";
-import { FilterSortTable } from "@/components/react-table";
+import {
+  ColumnDef,
+  getCoreRowModel,
+  getFilteredRowModel,
+  getPaginationRowModel,
+  getSortedRowModel,
+  useReactTable,
+} from "@tanstack/react-table";
+import {
+  ReactTable,
+  ReactTableBody,
+  ReactTablePagination,
+} from "@/components/react-table";
 import { TinkCredential, TinkCredentials } from "@/types/tink";
 import { CredentialsCard } from "./credential-card";
+import SortableCredentialsHeader from "./credentials-sortable";
 
 const columns: ColumnDef<TinkCredential>[] = [
   {
@@ -47,24 +61,32 @@ const columns: ColumnDef<TinkCredential>[] = [
 
 type SettingsCredentialsProps = PropsWithClassName & TinkCredentials & {};
 
-const SettingsCredentialsList: React.FC<SettingsCredentialsProps> = async ({
+const SettingsCredentialsList: React.FC<SettingsCredentialsProps> = ({
   credentials,
   className,
 }) => {
+  const table = useReactTable({
+    data: credentials,
+    columns,
+    getCoreRowModel: getCoreRowModel(),
+    getSortedRowModel: getSortedRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+  });
   return (
     <section className={cn("list-col", className)}>
-      {/* No accounts */}
-      {credentials.length === 0 && (
+      {/* No accounts | Credentials list */}
+      {credentials.length === 0 ? (
         <Typography variant="lead" className="font-medium text-lg">
           You don&apos;t have any credentials connected yet
         </Typography>
+      ) : (
+        <ReactTable table={table} Component={CredentialsCard}>
+          <SortableCredentialsHeader />
+          <ReactTableBody />
+          <ReactTablePagination />
+        </ReactTable>
       )}
-      {/* Table of credentials */}
-      <FilterSortTable
-        Component={CredentialsCard}
-        data={credentials}
-        columns={columns}
-      />
     </section>
   );
 };
