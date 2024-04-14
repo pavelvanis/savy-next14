@@ -1,12 +1,16 @@
 import React from "react";
-import { ReactTableButton, ReactTableInput } from "@/components/react-table/";
+import {
+  ReactTableButton,
+  ReactTableHeader,
+  ReactTableInput,
+} from "@/components/react-table/";
 
 const SortableTransactionsHeader = () => {
   return (
-    <div className="flex h-10 gap-x-3">
+    <ReactTableHeader>
       <ReactTableInput column="description" label="Search by description..." />
-      <ReactTableButton id="amount" label="Sort by amount" />
-    </div>
+      <ReactTableButton column="amount" label="Sort by amount" />
+    </ReactTableHeader>
   );
 };
 
