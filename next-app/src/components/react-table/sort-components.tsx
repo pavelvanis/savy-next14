@@ -8,10 +8,10 @@ import {
 } from "lucide-react";
 import { useReactTableData } from "./table";
 import { Input, Select, Option, Typography } from "@material-tailwind/react";
+import { cn } from "@/lib/utils";
 
 //
-// React Table Button Component -------------------------------------------------
-//
+// ------------------- React Table Button Component -------------------------
 
 /**
  * SortButtonProps interface for SortButton component
@@ -19,8 +19,8 @@ import { Input, Select, Option, Typography } from "@material-tailwind/react";
  * @property {string} id - The id of the column that this button will sort
  * @property {string} label - The label to display on the button
  */
-interface ReactTableButtonProps {
-  id: string;
+interface ReactTableButtonProps extends PropsWithClassName {
+  column: string;
   label: string;
 }
 
@@ -30,20 +30,21 @@ interface ReactTableButtonProps {
  * The current state is indicated by an icon on the button.
  */
 export const ReactTableButton: React.FC<ReactTableButtonProps> = ({
-  id,
+  column,
   label,
+  className,
 }) => {
   const { table } = useReactTableData();
 
   // Get the current sorting state of the column
-  const sortingState = table.getColumn(id)?.getIsSorted().valueOf();
+  const sortingState = table.getColumn(column)?.getIsSorted().valueOf();
 
   return (
-    <div className="h-10 w-full max-w-40 relative">
+    <div className={cn("h-10 w-full max-w-40 relative", className)}>
       <button
         tabIndex={1}
         className="w-full h-full border border-blue-gray-200 focus:border-2 focus:border-gray-900 px-2 py-0.5 flex-center rounded-lg"
-        onClick={table.getColumn(id)?.getToggleSortingHandler()}
+        onClick={table.getColumn(column)?.getToggleSortingHandler()}
       >
         <Typography className="flex items-center gap-x-2 text-sm font-semibold whitespace-nowrap text-blue-gray-700">
           {label}
@@ -65,8 +66,7 @@ export const ReactTableButton: React.FC<ReactTableButtonProps> = ({
 };
 
 //
-// React Table Input Component -------------------------------------------------
-//
+// ------------------- React Table Input Component -------------------------
 
 /**
  * InputProps interface for Input component
@@ -74,7 +74,7 @@ export const ReactTableButton: React.FC<ReactTableButtonProps> = ({
  * @property {string} column - The id of the column that this input will filter
  * @property {string} label - The label to display on the input
  */
-interface ReactTableInputProps {
+interface ReactTableInputProps extends PropsWithClassName {
   column: string;
   label: string;
 }
@@ -100,10 +100,9 @@ export const ReactTableInput: React.FC<ReactTableInputProps> = ({
 };
 
 //
-// React Table Select Component -------------------------------------------------
-//
+// ------------------- React Table Select Component -------------------------
 
-interface ReactTableSelectProps {
+interface ReactTableSelectProps extends PropsWithClassName {
   column: string;
   options: React.ReactNode[] | string[];
   label: string;
