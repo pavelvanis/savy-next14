@@ -23,6 +23,9 @@ type Identifiers = {
   };
 };
 
+//
+// ----------------------------- Account -----------------------------
+
 export type TinkAccount = {
   id: string;
   name: string;
@@ -39,6 +42,11 @@ export type TinkAccount = {
   customerSegment: string;
 };
 
+export type TinkAccounts = { accounts: TinkAccount[]; nextPageToken: string };
+
+//
+// ----------------------------- Balances -----------------------------
+
 export type TinkBalances = {
   accountId: string;
   refreshed: number;
@@ -48,6 +56,9 @@ export type TinkBalances = {
     creditLimit: Balance | null;
   };
 };
+
+//
+// ----------------------------- Transactions -----------------------------
 
 export type TinkTransaction = {
   accountId: string;
@@ -83,6 +94,55 @@ export type TinkTransaction = {
   };
 };
 
+export type TinkTransactions = {
+  nextPageToken: string;
+  transactions: TinkTransaction[];
+};
+
+//
+// ----------------------------- Enrich Transactions -----------------------------
+
+type EnrichedData = {
+  brandIdentification: {
+    id: string;
+    logoUri: string;
+    name: string;
+    status: {
+      code: string;
+      message: string;
+    };
+  };
+  categories: {
+    pfm: {
+      id: string;
+    };
+    status: {
+      code: string;
+      message: string;
+    };
+  };
+  sustainability: {
+    co2InGrams: string;
+    status: {
+      code: string;
+      message: string;
+    };
+  };
+};
+
+export type TinkEnrichedTransaction = Omit<TinkTransaction, "categories"> & {
+  bookedDateTime: string;
+  enrichedData: EnrichedData;
+};
+
+export type TinkEnrichedTransactions = {
+  nextPageToken: string;
+  transactions: TinkEnrichedTransaction[];
+};
+
+//
+// ----------------------------- Category -----------------------------
+
 export type TinkCategory = {
   code: string;
   defaultChild: boolean;
@@ -96,9 +156,4 @@ export type TinkCategory = {
   typeName: string;
 };
 
-export type TinkAccounts = { accounts: TinkAccount[]; nextPageToken: string };
-export type TinkTransactions = {
-  nextPageToken: string;
-  transactions: TinkTransaction[];
-};
 export type TinkCategories = TinkCategory[];
