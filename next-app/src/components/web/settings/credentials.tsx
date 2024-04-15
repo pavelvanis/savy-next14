@@ -74,7 +74,7 @@ const SettingsCredentialsList: React.FC<SettingsCredentialsProps> = ({
     getPaginationRowModel: getPaginationRowModel(),
   });
   return (
-    <section className={cn("list-col", className)}>
+    <section className={cn("", className)}>
       {/* No accounts | Credentials list */}
       {credentials.length === 0 ? (
         <Typography variant="lead" className="font-medium text-lg">

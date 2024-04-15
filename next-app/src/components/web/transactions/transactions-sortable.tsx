@@ -4,13 +4,14 @@ import {
   ReactTableHeader,
   ReactTableInput,
 } from "@/components/react-table/";
-import { Button, IconButton, Typography } from "@/components/ui";
+import { Button, Typography } from "@/components/ui";
 import { ChevronRightIcon } from "lucide-react";
 
 interface SortableTransactionsHeaderProps {
   date: string;
 }
 
+// TODO: Change the date format for the clients locale
 const SortableTransactionsHeader: React.FC<SortableTransactionsHeaderProps> = ({
   date,
 }) => {

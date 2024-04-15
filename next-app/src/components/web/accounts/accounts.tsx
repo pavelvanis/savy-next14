@@ -1,4 +1,5 @@
 "use client";
+
 import React from "react";
 import { cn, getAmount } from "@/lib/utils";
 import AccountCard from "./account-card";
@@ -50,9 +51,9 @@ const AccountsList: React.FC<AccountsListProps> = ({ className, accounts }) => {
     getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
   });
-  
+
   return (
-    <section className={cn("list-col", className)}>
+    <section className={cn("", className)}>
       {/* No accounts | Account list */}
       {accounts.length === 0 ? (
         <Typography variant="lead" className="font-semibold text-lg">
