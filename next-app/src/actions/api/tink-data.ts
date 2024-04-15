@@ -6,6 +6,7 @@ import {
   TinkBalances,
   TinkCategories,
   TinkCredentials,
+  TinkEnrichedTransactions,
   TinkTransactions,
 } from "@/types/types";
 
@@ -156,11 +157,28 @@ const fetchCategories = async (
   return categories;
 };
 
+const fetchUserEnrichedTransactions = async (
+  userAccessToken: string
+): Promise<TinkEnrichedTransactions> => {
+  const enrichedTransactionsResponse = await TinkApiAxios.get(
+    "/enrichment/v1/transactions",
+    { headers: { Authorization: `Bearer ${userAccessToken}` } }
+  );
+
+  const enrichedTransactions: TinkEnrichedTransactions =
+    enrichedTransactionsResponse.data;
+
+  log("Enriched transactions were fetched:", enrichedTransactions);
+
+  return enrichedTransactions;
+};
+
 export {
   fetchUserCredentials,
   fetchUserAccounts,
   fetchUserAccountById,
   fetchUserBalancesById,
   fetchUserTransactions,
+  fetchUserEnrichedTransactions,
   fetchCategories,
 };

@@ -2,7 +2,11 @@
 
 import { tinkApi } from "@/actions/api";
 import { tinkErrorHandler } from "@/lib/api";
-import { TinkResponse, TinkTransactions } from "@/types/types";
+import {
+  TinkEnrichedTransactions,
+  TinkResponse,
+  TinkTransactions,
+} from "@/types/types";
 
 /**
  * Fetches the transactions of a specific user.
@@ -35,4 +39,35 @@ const getTransactions = async (
   }
 };
 
-export { getTransactions };
+const getEnrichedTransactions = async (
+  userId: string
+): Promise<TinkResponse<TinkEnrichedTransactions>> => {
+  try {
+    const clientAccessToken = await tinkApi.fetchClientAccessToken(
+      "authorization:grant",
+      "transactions:read",
+      "enrichment.transactions:read"
+    );
+    const userGrantAuthorizationCode =
+      await tinkApi.fetchUserGrantAuthorizationCode(
+        userId,
+        clientAccessToken.access_token,
+        "transactions:read",
+        "enrichment.transactions:read"
+      );
+    const userAccessToken = await tinkApi.fetchUserAccessToken(
+      userGrantAuthorizationCode.code
+    );
+    const userEnrichedTransactions: TinkEnrichedTransactions =
+      await tinkApi.fetchUserEnrichedTransactions(userAccessToken.access_token);
+
+    return { data: userEnrichedTransactions };
+  } catch (error) {
+    return tinkErrorHandler(
+      error,
+      "Error while fetching enriched transactions"
+    );
+  }
+};
+
+export { getTransactions, getEnrichedTransactions };
