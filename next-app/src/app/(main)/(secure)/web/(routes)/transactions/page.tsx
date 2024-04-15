@@ -1,7 +1,10 @@
 import React from "react";
 import { ArrowLeftRightIcon } from "lucide-react";
 import { getAuthSession } from "@/lib/auth";
-import { getTransactions } from "@/actions/server/data";
+import {
+  getEnrichedTransactions,
+  getTransactions,
+} from "@/actions/server/data";
 import TransactionList from "@/components/web/transactions/transactions";
 import {
   Page,
@@ -13,13 +16,7 @@ import {
 import { groupBy } from "@/lib/utils";
 import { TinkTransaction } from "@/types/tink";
 
-/**
- * Page to show all transaction history
- */
-const TransactionsPage = async () => {
-  const { user } = await getAuthSession();
-  const transactions = await getTransactions(user.permanentUserId);
-
+// Props for the transactions page navbar
   const transactionsNavbarProps: PageNavbarProps = {
     title: {
       children: "Transactions",
@@ -27,6 +24,13 @@ const TransactionsPage = async () => {
     },
     button: false,
   };
+
+/**
+ * Page to show all transaction history
+ */
+const TransactionsPage = async () => {
+  const { user } = await getAuthSession();
+  const transactions = await getTransactions(user.permanentUserId);
 
   const transactionsByMonth = groupBy(
     transactions.data?.transactions || [],

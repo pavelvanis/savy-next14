@@ -15,12 +15,14 @@ import {
 } from "@tanstack/react-table";
 import SortableTransactionsHeader from "./transactions-sortable";
 import TransactionCard from "./transaction-card";
+import TransacationsMonthNavbar from "./transactions-chart";
 
 type TransactionListProps = PropsWithClassName &
   TinkTransactions & {
     date: string;
   };
 
+// Transaction columns for React Table
 const transactionColumns: ColumnDef<TinkTransaction>[] = [
   {
     accessorKey: "id",
@@ -77,6 +79,7 @@ const TransactionList: React.FC<TransactionListProps> = ({
       <section>
         <ReactTable Component={TransactionCard} table={table}>
           <SortableTransactionsHeader date={date} />
+          <TransacationsMonthNavbar date={date} transactions={transactions} />
           <ReactTableBody className="mt-3" />
         </ReactTable>
       </section>
