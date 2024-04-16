@@ -16,7 +16,7 @@ export const BalanceText: React.FC<BalanceTextProps> = ({
   return (
     <Typography
       className={cn(
-        "text-center font-normal whitespace-nowrap",
+        "text-center font-semibold whitespace-nowrap",
         positive ? "text-green-800" : "text-red-800",
         className
       )}
