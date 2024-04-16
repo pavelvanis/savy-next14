@@ -13,11 +13,13 @@ export const BalanceText: React.FC<BalanceTextProps> = ({
   className,
 }) => {
   const positive = amount > 0;
+  const isZero = amount === 0;
   return (
     <Typography
       className={cn(
         "text-center font-semibold whitespace-nowrap",
         positive ? "text-green-800" : "text-red-800",
+        isZero && "text-gray-600",
         className
       )}
     >
