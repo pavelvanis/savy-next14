@@ -175,3 +175,21 @@ export const groupBy = <T>(
     return result;
   }, {});
 };
+
+export const groupByMonth = (transactions: TinkTransaction[] | []) =>
+  groupBy(transactions, (transaction: TinkTransaction) => {
+    const date = new Date(transaction.dates.booked);
+    return `${date.getFullYear()}-${date.getMonth() + 1}`;
+  });
+
+  
+  export const getFormatedDate = (date: string) => {
+    const [year, month] = date.split("-");
+    return new Date(
+      Number(year),
+      Number(month) - 1
+    ).toLocaleDateString("cs-CZ", {
+      month: "long",
+      year: "numeric",
+    });
+  }
