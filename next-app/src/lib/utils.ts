@@ -176,13 +176,22 @@ export const groupBy = <T>(
   }, {});
 };
 
+/**
+ * Groups an array of transactions by month.
+ * @param transactions - An array of TinkTransaction objects.
+ * @returns An object where each key is a month (in the format "YYYY-M") and the value is an array of transactions for that month.
+ */
 export const groupByMonth = (transactions: TinkTransaction[] | []) =>
   groupBy(transactions, (transaction: TinkTransaction) => {
     const date = new Date(transaction.dates.booked);
     return `${date.getFullYear()}-${date.getMonth() + 1}`;
   });
 
-  
+  /**
+ * Formats a date string into a more human-readable format.
+ * @param date - A date string in the format "YYYY-M".
+ * @returns The formatted date string, in the format "Month YYYY" (e.g., "January 2022").
+ */
   export const getFormatedDate = (date: string) => {
     const [year, month] = date.split("-");
     return new Date(
