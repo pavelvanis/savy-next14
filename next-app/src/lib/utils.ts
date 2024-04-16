@@ -1,3 +1,4 @@
+import { TinkTransaction } from "@/types/tink";
 import { ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
@@ -35,6 +36,92 @@ export const getAmount = (
 
   // TODO: change the format
   return amount.toLocaleString("en-US").replace(/,/g, " ");
+};
+
+/**
+ * Calculates the total income from an array of transactions. Sums all positives amounts.
+ * @param {TinkTransaction[]} transactions - An array of TinkTransaction objects.
+ * @returns The total income as a number.
+ */
+export const getIncomeAmount = (transactions: TinkTransaction[]): number => {
+  return transactions
+    .filter((transaction) => {
+      const amount = getAmount(
+        transaction.amount.value.scale,
+        transaction.amount.value.unscaledValue
+      );
+      return amount > 0;
+    })
+    .reduce((acc, transaction) => {
+      return (
+        acc +
+        getAmount(
+          transaction.amount.value.scale,
+          transaction.amount.value.unscaledValue
+        )
+      );
+    }, 0);
+};
+/**
+ * Calculates the total expenses from an array of transactions. Sums all negative amounts.
+ * @param {TinkTransaction[]} transactions - An array of TinkTransaction objects.
+ * @returns The total expenses as a number.
+ */
+export const getExpensesAmount = (transactions: TinkTransaction[]): number => {
+  return transactions
+    .filter((transaction) => {
+      const amount = getAmount(
+        transaction.amount.value.scale,
+        transaction.amount.value.unscaledValue
+      );
+      return amount < 0;
+    })
+    .reduce((acc, transaction) => {
+      return (
+        acc +
+        getAmount(
+          transaction.amount.value.scale,
+          transaction.amount.value.unscaledValue
+        )
+      );
+    }, 0);
+};
+
+/**
+ * Calculates the balance from an array of transactions. Sums all positive and negative amounts.
+ * @param {TinkTransaction[]} transactions - An array of TinkTransaction objects.
+ * @returns The balance as a number.
+ */
+export const getBalance = (transactions: TinkTransaction[]): number => {
+  return transactions.reduce((acc, transaction) => {
+    return (
+      acc +
+      getAmount(
+        transaction.amount.value.scale,
+        transaction.amount.value.unscaledValue
+      )
+    );
+  }, 0);
+};
+
+/**
+ * Formats a given amount and currency code into a string.
+ * @param amount - The amount to format.
+ * @param currencyCode - The currency code to append to the amount.
+ * @returns The formatted amount as a string.
+ */
+// TODO: Make the function more generic and dynamic by adding a parameter for the locale or take the locale from session
+export const getFormatedAmount = (
+  amount: number,
+  currencyCode: string
+): string => {
+  const positive = amount > 0 ? "+" : "";
+  return (
+    positive +
+    amount.toLocaleString("en-US").replace(/,/g, " ") +
+    " " +
+    currencyCode
+  );
 };
 
 /**

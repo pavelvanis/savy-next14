@@ -1,7 +1,11 @@
-import { Typography } from "@/components/ui";
-import { cn, getAmount } from "@/lib/utils";
-import { TinkTransaction, TinkTransactions } from "@/types/tink";
+import {
+  getBalance,
+  getExpensesAmount,
+  getIncomeAmount,
+} from "@/lib/utils";
 import React from "react";
+import { TinkTransaction } from "@/types/tink";
+import { BalanceText } from "../balance";
 
 interface TransacationsMonthNavbarProps extends PropsWithClassName {
   date: string;
@@ -31,9 +35,9 @@ const TransacationsMonthNavbar: React.FC<TransacationsMonthNavbarProps> = ({
         />
       </div>
       <div className=" flex-1 flex-center gap-x-2 text-center">
-        Bilance:{" "}
+        Balance:{" "}
         <BalanceText
-          amount={getBilance(transactions)}
+          amount={getBalance(transactions)}
           currencyCode={currencyCode}
         />
       </div>
@@ -42,82 +46,3 @@ const TransacationsMonthNavbar: React.FC<TransacationsMonthNavbarProps> = ({
 };
 
 export default TransacationsMonthNavbar;
-
-const BalanceText: React.FC<{ amount: number; currencyCode: string }> = ({
-  amount,
-  currencyCode,
-}) => {
-  const positive = amount > 0;
-  return (
-    <Typography
-      className={cn(
-        "text-center font-normal whitespace-nowrap",
-        positive ? "text-green-800" : "text-red-800"
-      )}
-    >
-      {getFormatedAmount(amount, currencyCode)}
-    </Typography>
-  );
-};
-
-const getIncomeAmount = (transactions: TinkTransaction[]): number => {
-  return transactions
-    .filter((transaction) => {
-      const amount = getAmount(
-        transaction.amount.value.scale,
-        transaction.amount.value.unscaledValue
-      );
-      return amount > 0;
-    })
-    .reduce((acc, transaction) => {
-      return (
-        acc +
-        getAmount(
-          transaction.amount.value.scale,
-          transaction.amount.value.unscaledValue
-        )
-      );
-    }, 0);
-};
-
-const getExpensesAmount = (transactions: TinkTransaction[]): number => {
-  return transactions
-    .filter((transaction) => {
-      const amount = getAmount(
-        transaction.amount.value.scale,
-        transaction.amount.value.unscaledValue
-      );
-      return amount < 0;
-    })
-    .reduce((acc, transaction) => {
-      return (
-        acc +
-        getAmount(
-          transaction.amount.value.scale,
-          transaction.amount.value.unscaledValue
-        )
-      );
-    }, 0);
-};
-
-const getBilance = (transactions: TinkTransaction[]): number => {
-  return transactions.reduce((acc, transaction) => {
-    return (
-      acc +
-      getAmount(
-        transaction.amount.value.scale,
-        transaction.amount.value.unscaledValue
-      )
-    );
-  }, 0);
-};
-
-const getFormatedAmount = (amount: number, currencyCode: string): string => {
-  const positive = amount > 0 ? "+" : "";
-  return (
-    positive +
-    amount.toLocaleString("en-US").replace(/,/g, " ") +
-    " " +
-    currencyCode
-  );
-};
