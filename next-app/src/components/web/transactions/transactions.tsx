@@ -1,87 +1,34 @@
-"use client";
-
 import React from "react";
-import { getAmount } from "@/lib/utils";
 import { Typography } from "@/components/ui";
-import { TinkTransaction, TinkTransactions } from "@/types/tink";
-import { ReactTable, ReactTableBody } from "@/components/react-table";
-import {
-  ColumnDef,
-  getCoreRowModel,
-  getFilteredRowModel,
-  getPaginationRowModel,
-  getSortedRowModel,
-  useReactTable,
-} from "@tanstack/react-table";
+import { TinkTransactions } from "@/types/tink";
+import { ReactTableBody } from "@/components/react-table";
 import SortableTransactionsHeader from "./transactions-sortable";
-import TransactionCard from "./transaction-card";
-import TransacationsMonthNavbar from "./transactions-chart";
+import TransacationsMonthNavbar from "./transactions-navbar";
+import TransactionReactTable from "./transaction-table";
 
 type TransactionListProps = PropsWithClassName &
   TinkTransactions & {
     date: string;
   };
 
-// Transaction columns for React Table
-const transactionColumns: ColumnDef<TinkTransaction>[] = [
-  {
-    accessorKey: "id",
-    header: "Id",
-  },
-  {
-    accessorKey: "date",
-    accessorFn: (data) => data.dates.booked,
-  },
-  {
-    accessorKey: "amount",
-    accessorFn: (data) =>
-      getAmount(data.amount.value.scale, data.amount.value.unscaledValue),
-  },
-  {
-    accessorKey: "status",
-    accessorFn: (data) => data.status,
-  },
-  {
-    accessorKey: "description",
-    accessorFn: (data) => data.descriptions.display,
-  },
-  {
-    accessorKey: "currencyCode",
-    accessorFn: (data) => data.amount.currencyCode,
-  },
-  {
-    accessorKey: "accountId",
-    accessorFn: (data) => data.accountId,
-  },
-];
-
 const TransactionList: React.FC<TransactionListProps> = ({
   date,
   transactions,
 }) => {
-  const table = useReactTable({
-    data: transactions,
-    columns: transactionColumns,
-    getCoreRowModel: getCoreRowModel(),
-    getSortedRowModel: getSortedRowModel(),
-    getFilteredRowModel: getFilteredRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
-  });
-
   if (transactions.length < 1) {
     return (
       <Typography variant="lead" className="font-semibold">
-        No accounts found
+        No transactions found
       </Typography>
     );
   } else {
     return (
       <section>
-        <ReactTable Component={TransactionCard} table={table}>
+        <TransactionReactTable transactions={transactions}>
           <SortableTransactionsHeader date={date} />
-          <TransacationsMonthNavbar date={date} transactions={transactions} />
+          <TransacationsMonthNavbar transactions={transactions} />
           <ReactTableBody className="mt-3" />
-        </ReactTable>
+        </TransactionReactTable>
       </section>
     );
   }

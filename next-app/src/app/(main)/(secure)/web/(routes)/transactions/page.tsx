@@ -13,17 +13,16 @@ import {
   PageNavbar,
   PageNavbarProps,
 } from "@/components/layout/page-components";
-import { groupBy } from "@/lib/utils";
-import { TinkTransaction } from "@/types/tink";
+import { groupByMonth } from "@/lib/utils";
 
 // Props for the transactions page navbar
-  const transactionsNavbarProps: PageNavbarProps = {
-    title: {
-      children: "Transactions",
-      icon: ArrowLeftRightIcon,
-    },
-    button: false,
-  };
+const transactionsNavbarProps: PageNavbarProps = {
+  title: {
+    children: "Transactions",
+    icon: ArrowLeftRightIcon,
+  },
+  button: false,
+};
 
 /**
  * Page to show all transaction history
@@ -32,12 +31,8 @@ const TransactionsPage = async () => {
   const { user } = await getAuthSession();
   const transactions = await getTransactions(user.permanentUserId);
 
-  const transactionsByMonth = groupBy(
-    transactions.data?.transactions || [],
-    (transaction: TinkTransaction) => {
-      const date = new Date(transaction.dates.booked);
-      return `${date.getFullYear()}-${date.getMonth() + 1}`;
-    }
+  const transactionsByMonth = groupByMonth(
+    transactions.data?.transactions || []
   );
 
   return (

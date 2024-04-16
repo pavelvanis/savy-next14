@@ -6,6 +6,8 @@ import {
 } from "@/components/react-table/";
 import { Button, Typography } from "@/components/ui";
 import { ChevronRightIcon } from "lucide-react";
+import Link from "next/link";
+import { getFormatedDate } from "@/lib/utils";
 
 interface SortableTransactionsHeaderProps {
   date: string;
@@ -15,14 +17,7 @@ interface SortableTransactionsHeaderProps {
 const SortableTransactionsHeader: React.FC<SortableTransactionsHeaderProps> = ({
   date,
 }) => {
-  const [year, month] = date.split("-");
-  const formatedDate = new Date(
-    Number(year),
-    Number(month) - 1
-  ).toLocaleDateString("cs-CZ", {
-    month: "long",
-    year: "numeric",
-  });
+  const formatedDate = getFormatedDate(date);
   return (
     <ReactTableHeader>
       <Typography
@@ -34,10 +29,15 @@ const SortableTransactionsHeader: React.FC<SortableTransactionsHeaderProps> = ({
       <Button
         size="sm"
         variant="text"
-        className="bg-gray-300/30 hover:bg-gray-400/30 mr-4 flex-center gap-x-1 px-2.5 py-1.5"
+        className="bg-gray-300/30 hover:bg-gray-400/30 mr-4 px-2.5 py-1.5"
       >
-        <Typography className="text-xs font-medium">Details</Typography>
-        <ChevronRightIcon className="size-4" />
+        <Link
+          className="flex-center gap-x-1"
+          href={`/web/transactions/${date}`}
+        >
+          <Typography className="text-xs font-medium">Details</Typography>
+          <ChevronRightIcon className="size-4" />
+        </Link>
       </Button>
       <div className="flex flex-1 gap-x-2 ">
         <ReactTableInput
