@@ -2,6 +2,7 @@ import {
   cn,
   getBalance,
   getExpensesAmount,
+  getFormatedDate,
   getIncomeAmount,
 } from "@/lib/utils";
 import React from "react";
@@ -12,17 +13,23 @@ import {
   getMonthBalances,
   MonthBalances,
 } from "@/lib/data-utils";
+import {
+  ReactTableButton,
+  ReactTableHeader,
+  ReactTableInput,
+} from "@/components/react-table";
+import { Button, Typography } from "@/components/ui";
+import Link from "next/link";
+import { ChevronRightIcon } from "lucide-react";
 
 interface TransacationsMonthNavbarProps extends PropsWithClassName {
   transactions: TinkTransaction[];
   previousMonth?: TinkTransaction[];
 }
 
-const TransacationsMonthNavbar: React.FC<TransacationsMonthNavbarProps> = ({
-  transactions,
-  className,
-  previousMonth,
-}) => {
+export const TransacationsMonthNavbar: React.FC<
+  TransacationsMonthNavbarProps
+> = ({ transactions, className, previousMonth }) => {
   const currentBalances = getMonthBalances(transactions);
   const previousBalances = getMonthBalances(previousMonth || []);
 
@@ -83,4 +90,43 @@ const TransacationsMonthNavbar: React.FC<TransacationsMonthNavbarProps> = ({
   );
 };
 
-export default TransacationsMonthNavbar;
+interface TransactionsSortableNavbarProps {
+  date: string;
+}
+
+// TODO: Change the date format for the clients locale
+export const TransactionsSortableNavbar: React.FC<
+  TransactionsSortableNavbarProps
+> = ({ date }) => {
+  const formatedDate = getFormatedDate(date);
+  return (
+    <ReactTableHeader>
+      <Typography
+        variant="h4"
+        className="font-bold capitalize whitespace-nowrap mr-2 ms-1"
+      >
+        {formatedDate}
+      </Typography>
+      <Button
+        size="sm"
+        variant="text"
+        className="bg-gray-300/30 hover:bg-gray-400/30 mr-4 px-2.5 py-1.5"
+      >
+        <Link
+          className="flex-center gap-x-1"
+          href={`/web/transactions/${date}`}
+        >
+          <Typography className="text-xs font-medium">Details</Typography>
+          <ChevronRightIcon className="size-4" />
+        </Link>
+      </Button>
+      <div className="flex flex-1 gap-x-2 ">
+        <ReactTableInput
+          column="description"
+          label="Search by description..."
+        />
+        <ReactTableButton column="amount" label="Sort by amount" />
+      </div>
+    </ReactTableHeader>
+  );
+};
