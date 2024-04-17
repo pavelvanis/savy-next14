@@ -3,19 +3,33 @@
 import React from "react";
 import { Card as MTCard } from "@material-tailwind/react";
 import { cn } from "@/lib/utils";
+import Link from "next/link";
 
-const Card = React.forwardRef<
-  React.ElementRef<typeof MTCard>,
-  React.ComponentPropsWithoutRef<typeof MTCard>
->(({ className, ...props }, ref) => {
-  return (
-    <MTCard
-      {...props}
-      ref={ref}
-      className={cn("p-5 border-[1.5px] border-gray-200", className)}
-    />
-  );
-});
+type CardProps = React.ComponentPropsWithoutRef<typeof MTCard> &
+  ({ asLink?: false; href?: never } | { asLink: true; href: string });
+
+const Card = React.forwardRef<React.ElementRef<typeof MTCard>, CardProps>(
+  ({ className, asLink, href, ...props }, ref) => {
+    if (asLink) {
+      return (
+        <Link href={href}>
+          <MTCard
+            {...props}
+            ref={ref}
+            className={cn("p-5 border-[1.5px] border-gray-200", className)}
+          />
+        </Link>
+      );
+    }
+    return (
+      <MTCard
+        {...props}
+        ref={ref}
+        className={cn("p-5 border-[1.5px] border-gray-200", className)}
+      />
+    );
+  }
+);
 
 const CardHeader = React.forwardRef<
   React.ElementRef<"div">,
