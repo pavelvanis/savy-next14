@@ -14,8 +14,6 @@ import TransacationsMonthNavbar from "@/components/web/transactions/transactions
 import { ReactTableBody, ReactTablePagination } from "@/components/react-table";
 import { TransactionsBalancesChart } from "@/components/web/transactions/transactins-chart";
 import {
-  calculateIncreasePercentage,
-  getMonthBalances,
   getPreviousMonth,
 } from "@/lib/data-utils";
 
@@ -63,6 +61,7 @@ const TransactionDetailsPage: React.FC<TransactionDetailsPageProps> = async ({
         </>
       ),
     },
+    callbackUrl: "/web/transactions",
     button: false,
   };
 
@@ -82,7 +81,7 @@ const TransactionDetailsPage: React.FC<TransactionDetailsPageProps> = async ({
         {/* Transaction chart */}
         <div className="flex flex-col max-w-xl mx-auto justify-center mt-16">
           <Typography className="font-semibold text-xl text-center">
-            Balance for this month
+            Trend line for this month
           </Typography>
           <TransactionsBalancesChart transactions={currentMonth} />
         </div>
