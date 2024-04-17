@@ -6,17 +6,47 @@ import {
 } from "@/lib/utils";
 import React from "react";
 import { TinkTransaction } from "@/types/tink";
-import { BalanceText } from "../balance";
+import { BalanceLine, BalanceText } from "../balance";
+import {
+  calculateIncreasePercentage,
+  getMonthBalances,
+  MonthBalances,
+} from "@/lib/data-utils";
 
 interface TransacationsMonthNavbarProps extends PropsWithClassName {
   transactions: TinkTransaction[];
+  previousMonth?: TinkTransaction[];
 }
 
 const TransacationsMonthNavbar: React.FC<TransacationsMonthNavbarProps> = ({
   transactions,
   className,
+  previousMonth,
 }) => {
+  console.log(previousMonth);
+  const currentBalances = getMonthBalances(transactions);
+
+  const previousBalances = getMonthBalances(previousMonth || []);
+
+  const prevMonthBalances: MonthBalances | undefined = previousBalances
+    ? {
+        income: calculateIncreasePercentage(
+          previousBalances.income,
+          currentBalances.income
+        ),
+        expenses: calculateIncreasePercentage(
+          previousBalances.expenses,
+          currentBalances.expenses
+        ),
+        balance: calculateIncreasePercentage(
+          previousBalances.income,
+          currentBalances.income
+        ),
+      }
+    : undefined;
+
   const currencyCode = transactions[0].amount.currencyCode;
+
   return (
     <div
       className={cn(
@@ -30,6 +60,7 @@ const TransacationsMonthNavbar: React.FC<TransacationsMonthNavbarProps> = ({
           amount={getIncomeAmount(transactions)}
           currencyCode={currencyCode}
         />
+        {prevMonthBalances && <BalanceLine amount={prevMonthBalances.income} />}
       </div>
       <div className=" flex-1 flex-center gap-x-2 text-center">
         Expenses:{" "}
@@ -37,6 +68,9 @@ const TransacationsMonthNavbar: React.FC<TransacationsMonthNavbarProps> = ({
           amount={getExpensesAmount(transactions)}
           currencyCode={currencyCode}
         />
+        {prevMonthBalances && (
+          <BalanceLine amount={prevMonthBalances.expenses} />
+        )}
       </div>
       <div className=" flex-1 flex-center gap-x-2 text-center">
         Balance:{" "}

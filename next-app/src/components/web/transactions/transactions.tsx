@@ -5,6 +5,7 @@ import { ReactTableBody } from "@/components/react-table";
 import SortableTransactionsHeader from "./transactions-sortable";
 import TransacationsMonthNavbar from "./transactions-navbar";
 import TransactionReactTable from "./transaction-table";
+import { getCurrentMonth, getPreviousMonth } from "@/lib/data-utils";
 
 type TransactionListProps = PropsWithClassName &
   TinkTransactions & {
@@ -22,11 +23,17 @@ const TransactionList: React.FC<TransactionListProps> = ({
       </Typography>
     );
   } else {
+    const currentMonthTransactions = getCurrentMonth(date, transactions);
+    const prevMonthTransactions = getPreviousMonth(date, transactions);
+
     return (
       <section>
-        <TransactionReactTable transactions={transactions}>
+        <TransactionReactTable transactions={currentMonthTransactions}>
           <SortableTransactionsHeader date={date} />
-          <TransacationsMonthNavbar transactions={transactions} />
+          <TransacationsMonthNavbar
+            transactions={currentMonthTransactions}
+            previousMonth={prevMonthTransactions}
+          />
           <ReactTableBody className="mt-3" />
         </TransactionReactTable>
       </section>

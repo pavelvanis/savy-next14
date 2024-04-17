@@ -44,11 +44,7 @@ const TransactionsPage = async () => {
         {transactions.data ? (
           Object.entries(transactionsByMonth).map(
             ([date, filteredTransactions]) => (
-              <TransactionList
-                transactions={filteredTransactions}
-                nextPageToken={transactions.data.nextPageToken}
-                date={date}
-              />
+              <TransactionList {...transactions.data} date={date} />
             )
           )
         ) : (
