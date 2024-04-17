@@ -6,7 +6,7 @@ import {
   Typography,
   TypographyProps,
 } from "@/components/ui";
-import { LucideIcon } from "lucide-react";
+import { LucideIcon, MoveLeftIcon } from "lucide-react";
 import Link from "next/link";
 
 /**
@@ -64,6 +64,7 @@ export interface PageNavbarProps
   extends React.PropsWithChildren,
     PropsWithClassName {
   title: NavbarTitleProps;
+  callbackUrl?: string;
   button: false | NavbarButtonProps;
 }
 
@@ -75,17 +76,26 @@ export interface PageNavbarProps
 export const PageNavbar: React.FC<PageNavbarProps> = ({
   title,
   button,
+  callbackUrl,
   children,
   className,
 }) => (
   <PageHeader className={cn(className)}>
     <div className="flex items-center gap-x-3">
+      {callbackUrl && (
+        <Button variant="outlined" size="sm" className="group mr-5 py-1">
+          <Link href={callbackUrl}>
+            <MoveLeftIcon className="size-6 group-hover:-translate-x-1 transition-all" />
+          </Link>
+        </Button>
+      )}
       {/* Title */}
       <Typography
         variant={title.variant || "h2"}
         className={cn("font-bold", title.className)}
         children={title.children}
       />
+      {/* Icon */}
       {title.icon && <title.icon className="size-8" />}
     </div>
     {/* Button */}
