@@ -20,7 +20,6 @@ export const calculateIncreasePercentage = (
   previous: number,
   current: number
 ): number => {
-  console.log(previous, current);
   // If the previous value is 0, we consider any current value to be a 100% increase.
   if (previous === 0 && current === 0) {
     return 0;
@@ -55,8 +54,6 @@ export const getPreviousMonth = (
 ): TinkTransaction[] => {
   // Group transactions by month.
   const transactionsByMonth = groupByMonth(transactions || []);
-
-  console.log(transactionsByMonth);
 
   // Split the current month into year and month.
   const [year, _month] = currentMonth.split("-");
