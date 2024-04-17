@@ -23,12 +23,10 @@ const TransacationsMonthNavbar: React.FC<TransacationsMonthNavbarProps> = ({
   className,
   previousMonth,
 }) => {
-  console.log(previousMonth);
   const currentBalances = getMonthBalances(transactions);
-
   const previousBalances = getMonthBalances(previousMonth || []);
 
-  const prevMonthBalances: MonthBalances | undefined = previousBalances
+  const percentageBalances: MonthBalances | undefined = previousBalances
     ? {
         income: calculateIncreasePercentage(
           previousBalances.income,
@@ -60,7 +58,9 @@ const TransacationsMonthNavbar: React.FC<TransacationsMonthNavbarProps> = ({
           amount={getIncomeAmount(transactions)}
           currencyCode={currencyCode}
         />
-        {prevMonthBalances && <BalanceLine amount={prevMonthBalances.income} />}
+        {percentageBalances && (
+          <BalanceLine amount={percentageBalances.income} />
+        )}
       </div>
       <div className=" flex-1 flex-center gap-x-2 text-center">
         Expenses:{" "}
@@ -68,8 +68,8 @@ const TransacationsMonthNavbar: React.FC<TransacationsMonthNavbarProps> = ({
           amount={getExpensesAmount(transactions)}
           currencyCode={currencyCode}
         />
-        {prevMonthBalances && (
-          <BalanceLine amount={prevMonthBalances.expenses} />
+        {percentageBalances && (
+          <BalanceLine amount={percentageBalances.expenses} />
         )}
       </div>
       <div className=" flex-1 flex-center gap-x-2 text-center">

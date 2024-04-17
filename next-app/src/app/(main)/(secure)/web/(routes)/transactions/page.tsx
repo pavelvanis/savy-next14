@@ -1,10 +1,7 @@
 import React from "react";
 import { ArrowLeftRightIcon } from "lucide-react";
 import { getAuthSession } from "@/lib/auth";
-import {
-  getEnrichedTransactions,
-  getTransactions,
-} from "@/actions/server/data";
+import { getTransactions } from "@/actions/server/data";
 import TransactionList from "@/components/web/transactions/transactions";
 import {
   Page,
