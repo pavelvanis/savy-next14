@@ -10,12 +10,10 @@ import {
 } from "@/components/layout/page-components";
 import { Typography } from "@/components/ui";
 import TransactionReactTable from "@/components/web/transactions/transaction-table";
-import TransacationsMonthNavbar from "@/components/web/transactions/transactions-navbar";
+import { TransacationsMonthNavbar } from "@/components/web/transactions/transactions-navbar";
 import { ReactTableBody, ReactTablePagination } from "@/components/react-table";
 import { TransactionsBalancesChart } from "@/components/web/transactions/transactins-chart";
-import {
-  getPreviousMonth,
-} from "@/lib/data-utils";
+import { getPreviousMonth } from "@/lib/data-utils";
 
 interface TransactionDetailsPageProps {
   params: { month: string };

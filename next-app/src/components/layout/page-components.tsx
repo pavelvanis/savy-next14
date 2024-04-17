@@ -81,7 +81,7 @@ export const PageNavbar: React.FC<PageNavbarProps> = ({
   className,
 }) => (
   <PageHeader className={cn(className)}>
-    <div className="flex items-center gap-x-3">
+    <div className="flex items-center flex-wrap gap-x-3 gap-y-4">
       {callbackUrl && (
         <Button variant="outlined" size="sm" className="group mr-5 py-1">
           <Link href={callbackUrl}>

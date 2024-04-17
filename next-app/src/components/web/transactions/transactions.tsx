@@ -2,8 +2,10 @@ import React from "react";
 import { Typography } from "@/components/ui";
 import { TinkTransactions } from "@/types/tink";
 import { ReactTableBody } from "@/components/react-table";
-import SortableTransactionsHeader from "./transactions-sortable";
-import TransacationsMonthNavbar from "./transactions-navbar";
+import {
+  TransacationsMonthNavbar,
+  TransactionsSortableNavbar,
+} from "./transactions-navbar";
 import TransactionReactTable from "./transaction-table";
 import { getCurrentMonth, getPreviousMonth } from "@/lib/data-utils";
 
@@ -29,7 +31,7 @@ const TransactionList: React.FC<TransactionListProps> = ({
     return (
       <section>
         <TransactionReactTable transactions={currentMonthTransactions}>
-          <SortableTransactionsHeader date={date} />
+          <TransactionsSortableNavbar date={date} />
           <TransacationsMonthNavbar
             transactions={currentMonthTransactions}
             previousMonth={prevMonthTransactions}
