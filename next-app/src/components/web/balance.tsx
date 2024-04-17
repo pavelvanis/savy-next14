@@ -3,7 +3,9 @@ import { cn, getFormatedAmount } from "@/lib/utils";
 import { TrendingDown, TrendingUp } from "lucide-react";
 import { Typography } from "../ui";
 
-interface BalanceTextProps extends PropsWithClassName {
+interface BalanceTextProps
+  extends PropsWithClassName,
+    Omit<React.ComponentProps<typeof Typography>, "children"> {
   amount: number;
   currencyCode: string;
 }
@@ -12,6 +14,7 @@ export const BalanceText: React.FC<BalanceTextProps> = ({
   amount,
   currencyCode,
   className,
+  ...props
 }) => {
   const positive = amount > 0;
   const isZero = amount === 0;
@@ -23,6 +26,7 @@ export const BalanceText: React.FC<BalanceTextProps> = ({
         isZero && "text-gray-600",
         className
       )}
+      {...props}
     >
       {getFormatedAmount(amount, currencyCode)}
     </Typography>
