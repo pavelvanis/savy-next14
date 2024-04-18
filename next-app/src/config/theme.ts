@@ -1,4 +1,3 @@
-
 // Tailwind theme configuration
 export const theme = {
   typography: {
@@ -41,8 +40,7 @@ export const theme = {
         },
         text: {
           gray: {
-            hover:
-              "hover:bg-gradient-to-br hover:from-gray-100 hover:to-gray-400",
+            hover: " hover:shadow-lg hover:shadow-gray-500/40",
           },
         },
       },
