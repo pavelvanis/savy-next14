@@ -31,13 +31,9 @@ const SettingsPage = async () => {
           value={`${user.firstName} ${user.lastName}`}
         />
         <SettingsRow label="email:" value={user.email} />
-        <SettingsRow
-          label="Generated user id:"
-          value={user.permanentUserId}
-          children={
-            <HelpTooltip content="This is permanent user id generated after you have registered and is used to accessing your data in banks." />
-          }
-        />
+        <SettingsRow label="Generated user id:" value={user.permanentUserId}>
+          <HelpTooltip content="This is permanent user id generated after you have registered and is used to accessing your data in banks." />
+        </SettingsRow>
       </section>
     </Page>
   );
