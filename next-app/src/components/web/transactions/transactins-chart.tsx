@@ -79,6 +79,7 @@ const chartData = (
         data,
         borderColor: "rgba(0, 0, 0, 0.1)",
         backgroundColor: "green",
+        tension: 0.2,
       },
     ],
   });
