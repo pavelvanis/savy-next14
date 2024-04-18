@@ -35,7 +35,7 @@ export const AccountsOverview: React.FC<AccountsOverviewProps> = async ({
                 ? addCredentialsLink(
                     authCode.data?.code,
                     user.permanentUserId,
-                    "http://localhost:3000/web"
+                    "http://localhost:3000/api/callback/web"
                   )
                 : "#"
             }
