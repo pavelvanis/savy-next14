@@ -29,4 +29,6 @@ const CustomLink = React.forwardRef<
   );
 });
 
+CustomLink.displayName = "CustomLink";
+
 export default CustomLink;

@@ -16,4 +16,6 @@ const HelpTooltip = React.forwardRef<
   </Tooltip>
 ));
 
+HelpTooltip.displayName = "HelpTooltip";
+
 export { HelpTooltip };

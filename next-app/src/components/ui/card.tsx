@@ -31,6 +31,8 @@ const Card = React.forwardRef<React.ElementRef<typeof MTCard>, CardProps>(
   }
 );
 
+Card.displayName = "Card";
+
 const CardHeader = React.forwardRef<
   React.ElementRef<"div">,
   React.HTMLAttributes<HTMLDivElement>
@@ -47,6 +49,8 @@ const CardHeader = React.forwardRef<
   );
 });
 
+CardHeader.displayName = "CardHeader";
+
 const CardBody = React.forwardRef<
   React.ElementRef<"div">,
   React.HTMLAttributes<HTMLDivElement>
@@ -54,11 +58,15 @@ const CardBody = React.forwardRef<
   return <div {...props} ref={ref} className={cn("px-1 pt-4", className)} />;
 });
 
+CardBody.displayName = "CardBody";
+
 const CardFooter = React.forwardRef<
   React.ElementRef<"div">,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => {
   return <div {...props} ref={ref} className={cn("px-1 pt-5", className)} />;
 });
+
+CardFooter.displayName = "CardFooter";
 
 export { Card, CardHeader, CardBody, CardFooter };

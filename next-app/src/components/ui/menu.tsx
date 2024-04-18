@@ -23,4 +23,6 @@ const MenuLinkItem = React.forwardRef<
   </Link>
 ));
 
+MenuLinkItem.displayName = "MenuLinkItem";
+
 export { Menu, MenuHandler, MenuList, MenuItem, MenuLinkItem };

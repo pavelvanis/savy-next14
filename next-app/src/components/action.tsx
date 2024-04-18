@@ -23,4 +23,6 @@ const Action = React.forwardRef<
   );
 });
 
+Action.displayName = "Action";
+
 export { Action };
