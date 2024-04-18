@@ -3,6 +3,7 @@ import { cn } from "@/lib/utils";
 import {
   Button,
   ButtonProps,
+  LinkButton,
   Typography,
   TypographyProps,
 } from "@/components/ui";
@@ -83,11 +84,13 @@ export const PageNavbar: React.FC<PageNavbarProps> = ({
   <PageHeader className={cn(className)}>
     <div className="flex items-center flex-wrap gap-x-3 gap-y-4">
       {callbackUrl && (
-        <Button variant="outlined" size="sm" className="group mr-5 py-1">
-          <Link href={callbackUrl}>
-            <MoveLeftIcon className="size-6 group-hover:-translate-x-1 transition-all" />
-          </Link>
-        </Button>
+        <LinkButton
+          href={callbackUrl}
+          className="group mr-5"
+          buttonProps={{ className: "py-1" }}
+        >
+          <MoveLeftIcon className="size-6 group-hover:-translate-x-1 transition-all" />
+        </LinkButton>
       )}
       {/* Title */}
       <Typography

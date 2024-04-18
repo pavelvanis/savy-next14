@@ -18,7 +18,7 @@ import {
   ReactTableHeader,
   ReactTableInput,
 } from "@/components/react-table";
-import { Button, Typography } from "@/components/ui";
+import { Button, LinkButton, Typography } from "@/components/ui";
 import Link from "next/link";
 import { ChevronRightIcon } from "lucide-react";
 
@@ -107,19 +107,18 @@ export const TransactionsSortableNavbar: React.FC<
       >
         {formatedDate}
       </Typography>
-      <Button
-        size="sm"
-        variant="text"
-        className="bg-gray-300/30 hover:bg-gray-400/30 mr-4 px-2.5 py-1.5"
+
+      <LinkButton
+        href={`/web/transactions/${date}`}
+        buttonProps={{
+          variant: "text",
+          className:
+            "bg-gray-300/30 hover:bg-gray-400/30 mr-4 px-2.5 py-1.5 flex-center gap-x-1",
+        }}
       >
-        <Link
-          className="flex-center gap-x-1"
-          href={`/web/transactions/${date}`}
-        >
-          <Typography className="text-xs font-medium">Details</Typography>
-          <ChevronRightIcon className="size-4" />
-        </Link>
-      </Button>
+        <Typography className="text-xs font-medium">Details</Typography>
+        <ChevronRightIcon className="size-4" />
+      </LinkButton>
       <div className="flex flex-1 gap-x-2 ">
         <ReactTableInput
           column="description"
