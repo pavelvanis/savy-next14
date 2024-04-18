@@ -8,6 +8,9 @@ const config = withMT({
   ],
   theme: {
     extend: {
+      screens: {
+        mobile: "440px",
+      },
       animation: {
         "spin-slow": "spin 1.5s linear infinite",
       },
