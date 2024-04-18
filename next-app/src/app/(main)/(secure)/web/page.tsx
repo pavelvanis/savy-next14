@@ -1,5 +1,4 @@
 import React from "react";
-import Image from "next/image";
 import { getAuthSession } from "@/lib/auth";
 import { Typography } from "@/components/ui";
 import { Page } from "@/components/layout/page-components";
