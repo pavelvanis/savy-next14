@@ -1,11 +1,13 @@
 "use client";
 
 import React from "react";
-import { toast } from "sonner";
-import { useRouter } from "next/navigation";
+import { toast, ToastT } from "sonner";
+import { useRouter, useSearchParams } from "next/navigation";
 import { tinkCallbackController } from "@/lib/tink/tink-callback-controller";
 
 const ToastTypes = ["success", "error", "info"];
+
+type ToastType = "success" | "error" | "info";
 
 interface ToastProviderHandlerProps extends React.PropsWithChildren {}
 
@@ -17,17 +19,17 @@ const ToastHandlerProvider: React.FC<ToastProviderHandlerProps> = ({
   children,
 }) => {
   const router = useRouter();
+  const searchParams = useSearchParams();
 
-  const tinkToast = tinkCallbackController();
+  const status = searchParams.get("status") as ToastType;
+  let message = searchParams.get("message");
+
+  message = decodeURIComponent(message || "");
 
   const showToast = () => {
     // Check if status is valid
-    if (
-      tinkToast &&
-      ToastTypes.includes(tinkToast.status) &&
-      tinkToast.message
-    ) {
-      toast[tinkToast.status](tinkToast.message, { duration: 25000 });
+    if (status && ToastTypes.includes(status) && message) {
+      toast[status](message, { duration: 25000 });
     }
     // Change url
     const newUrl = window.location.pathname;
@@ -38,7 +40,7 @@ const ToastHandlerProvider: React.FC<ToastProviderHandlerProps> = ({
     return () => {
       showToast();
     };
-  }, [tinkToast]);
+  }, [status, message]);
 
   return <>{children}</>;
 };
