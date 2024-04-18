@@ -26,6 +26,14 @@ export const theme = {
     },
   },
   button: {
+    defaultProps: {
+      variant: "outlined",
+      size: "sm",
+      color: "gray",
+      fullWidth: false,
+      ripple: true,
+      className: "flex items-center gap-x-2",
+    },
     styles: {
       base: {
         initial: {
