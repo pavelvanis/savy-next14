@@ -1,25 +1,55 @@
 import React from "react";
 import { IUser, TinkAccount } from "@/types/types";
-import { getAccounts } from "@/actions/server/data";
-import { Card, IconButton, Typography } from "@/components/ui";
+import { generateAuthorizationCode, getAccounts } from "@/actions/server/data";
+import { Button, Card, IconButton, Typography } from "@/components/ui";
 import { getAmount } from "@/lib/utils";
 import { BalanceText } from "../balance";
 import { ListMinusIcon } from "lucide-react";
+import Link from "next/link";
+import { addCredentialsLink } from "@/lib/tink/link";
 
 interface AccountsOverviewProps {
   user: IUser;
 }
 
+// TODO: Handle errors
 export const AccountsOverview: React.FC<AccountsOverviewProps> = async ({
   user,
 }) => {
   const accountsResponse = await getAccounts(user.permanentUserId);
 
+  const authCode = await generateAuthorizationCode(user.permanentUserId);
+
   const accounts = accountsResponse.data?.accounts;
 
   if (accounts)
     return (
-      <div className="relative p-4 flex items-center gap-x-4">
+      <section className="relative p-4 pt-3 flex flex-col gap-y-3">
+        <nav className="flex justify-between items-center">
+          <Typography variant="h5" className="font-bold text-black">
+            All accounts
+          </Typography>
+          <Link
+            href={
+              authCode.data?.code
+                ? addCredentialsLink(
+                    authCode.data?.code,
+                    user.permanentUserId,
+                    "http://localhost:3000/web"
+                  )
+                : "#"
+            }
+          >
+            <Button
+              disabled={!authCode.data?.code}
+              variant="text"
+              size="sm"
+              className="text-black border border-black hover:ring-1 ring-inset transition-all ring-black bg-gray-300/30 hover:bg-gray-200/50"
+            >
+              Add new account
+            </Button>
+          </Link>
+        </nav>
         <div className="absolute rounded-lg top-0 left-0 h-full w-full bg-gradient-to-r from-gray-500/10 via-gray-100/30 to-gray-500/10 -z-10" />
         <div className="inline-flex flex-row items-center space-x-3 overflow-x-auto snap-x overscroll-auto no-scrollbar">
           {accounts.map((acc, i) => {
@@ -32,7 +62,7 @@ export const AccountsOverview: React.FC<AccountsOverviewProps> = async ({
             return <AccountOverview key={i} {...acc} />;
           })}
         </div>
-      </div>
+      </section>
     );
 };
 
