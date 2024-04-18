@@ -1,7 +1,3 @@
-"use client";
-
-import React from "react";
-import { useSearchParams } from "next/navigation";
 import { TinkCallbackError } from "@/types/tink";
 
 type Toast =
@@ -11,34 +7,34 @@ type Toast =
     }
   | undefined;
 
-export const tinkCallbackController = (): Toast => {
-  const params = useSearchParams();
+export const tinkCallbackController = (
+  searchParams: URLSearchParams
+): Toast => {
+  const { error, errorReason } = getErrorStates(searchParams);
 
-  // Take params from the URL
-  const error = params.get("error") as TinkCallbackError;
-  const error_reason = params.get("error_reason");
-  const error_type = params.get("error_type");
-  let message = params.get("message");
-  const tracking_id = params.get("tracking_id");
-  const credentials = params.get("credentials_id");
-  const provider_name = params.get("provider_name");
-  const payment_request_id = params.get("payment_request_id");
+  const { credentialsId } = getSuccessStates(searchParams);
 
   const defaultMessage = "Something went wrong. Please try again later";
+
+  if (credentialsId) {
+    return {
+      status: "success",
+      message: "Credentials added successfully",
+    };
+  }
 
   switch (error) {
     case "USER_CANCELLED":
       return { status: "error", message: "User cancelled the flow" };
 
     case "BAD_REQUEST":
-      return { status: "error", message: error_reason || defaultMessage };
+      return { status: "error", message: errorReason || defaultMessage };
 
     case "INVALID_STATE":
       return { status: "error", message: "Invalid state" };
 
     case "AUTHENTICATION_ERROR":
-      message = error_reason || defaultMessage;
-      return { status: "error", message };
+      return { status: "error", message: errorReason || defaultMessage };
 
     case "TEMPORARY_ERROR":
       return { status: "error", message: "Temporary error" };
@@ -49,4 +45,33 @@ export const tinkCallbackController = (): Toast => {
         message: "Internal error. Please try this service later",
       };
   }
+};
+
+const getErrorStates = (params: URLSearchParams) => {
+  const error = params.get("error") as TinkCallbackError;
+  const errorReason = params.get("error_reason");
+  const errorType = params.get("error_type");
+  const message = params.get("message");
+  const trackingId = params.get("tracking_id");
+  const credentials = params.get("credentials_id");
+  const providerName = params.get("provider_name");
+  const paymentRequestId = params.get("payment_request_id");
+
+  return {
+    error,
+    errorReason,
+    errorType,
+    message,
+    trackingId,
+    credentials,
+    providerName,
+    paymentRequestId,
+  };
+};
+
+const getSuccessStates = (params: URLSearchParams) => {
+  const state = params.get("state");
+  const credentialsId = params.get("credentialsId");
+
+  return { state, credentialsId };
 };
