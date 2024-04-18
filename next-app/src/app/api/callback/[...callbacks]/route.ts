@@ -1,10 +1,15 @@
+import { auth } from "@/lib/auth";
+import { tinkCallbackController } from "@/lib/tink/tink-callback-controller";
+import { log } from "@/lib/utils";
 import { NextRequest, NextResponse } from "next/server";
-import { auth, update } from "@/lib/auth";
 
 /**
  * Handler for Tink callbacks
  */
 export const GET = async (req: NextRequest) => {
+  const callbackPath = req.nextUrl.pathname.split("/api/callback")[1];
+  const callbackUrl = new URL(callbackPath, req.nextUrl.origin);
+
   try {
     // Check session
     const session = await auth();
@@ -13,25 +18,30 @@ export const GET = async (req: NextRequest) => {
     }
 
     // Take params
-    const params = req.nextUrl.searchParams;
-    console.log(params);
+    const searchParams = req.nextUrl.searchParams;
 
-    const state = params.get("state");
-    // TODO: Validate state
+    const tinkCallback = tinkCallbackController(searchParams);
 
-    const credentialsId = params.get("credentialsId");
+    // Redirect to callback URL with status and message
+    if (tinkCallback) {
+      callbackUrl.searchParams.set("status", tinkCallback.status);
+      callbackUrl.searchParams.set(
+        "message",
+        encodeURIComponent(tinkCallback.message)
+      );
 
-    if (credentialsId) {
-      const updated = await update({
-        user: { ...session.user },
-      });
-      // console.log("updated", updated);
-      // return NextResponse.redirect(new URL("/web", req.url));
+      return NextResponse.redirect(callbackUrl);
     }
 
-    return NextResponse.json({ message: "Hello from callback" });
+    return NextResponse.redirect(callbackUrl);
   } catch (error) {
-    // Handle and show errors to user
-    console.error(error);
+    callbackUrl.searchParams.set("status", "error");
+    callbackUrl.searchParams.set(
+      "message",
+      encodeURIComponent("Something went wrong")
+    );
+
+    log(error);
+    return NextResponse.redirect(callbackUrl);
   }
 };
