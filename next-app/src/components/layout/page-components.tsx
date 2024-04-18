@@ -26,21 +26,30 @@ interface ComponentProps
  */
 const createComponent = (
   Tag: React.ElementType,
-  defaultClassName: string
+  defaultClassName: string,
+  displayName: string
 ): React.FC<ComponentProps> => {
-  return ({ children, className }: ComponentProps) => (
+  const Component = ({ children, className }: ComponentProps) => (
     <Tag className={cn(defaultClassName, className)}>{children}</Tag>
   );
+  Component.displayName = displayName;
+  return Component;
 };
 
 /** Main page component. Renders a <main> tag with the `"page-container"` class. */
-export const Page = createComponent("div", "page-container");
+export const Page = createComponent("div", "page-container", "Page");
+
+Page.displayName = "Page";
 
 /** Page header component. Renders a <div> tag with the `"page-header"` class. */
-export const PageHeader = createComponent("div", "page-header");
+export const PageHeader = createComponent("div", "page-header", "PageHeader");
+
+PageHeader.displayName = "PageHeader";
 
 /** Page body component. Renders a <div> tag with the `"page-body"` class. */
-export const PageBody = createComponent("div", "page-body");
+export const PageBody = createComponent("div", "page-body", "PageBody");
+
+PageBody.displayName = "PageBody";
 
 // Navbar title props
 type NavbarTitleProps = {
@@ -96,8 +105,9 @@ export const PageNavbar: React.FC<PageNavbarProps> = ({
       <Typography
         variant={title.variant || "h2"}
         className={cn("font-bold", title.className)}
-        children={title.children}
-      />
+      >
+        {title.children}
+      </Typography>
       {/* Icon */}
       {title.icon && <title.icon className="size-8" />}
     </div>
@@ -129,6 +139,8 @@ export const PageNavbar: React.FC<PageNavbarProps> = ({
   </PageHeader>
 );
 
+PageNavbar.displayName = "PageNavbar";
+
 /**
  * Page content error component. Renders an error message in a Typography component.
  *
@@ -141,6 +153,8 @@ export const PageContentError: React.FC<{ message: string }> = ({
     {message}
   </Typography>
 );
+
+PageContentError.displayName = "PageContentError";
 
 /**
  * Page content helper component.
@@ -156,3 +170,5 @@ export const PageContentHelper: React.FC<{
     * {message || children}
   </Typography>
 );
+
+PageContentHelper.displayName = "PageContentHelper";
