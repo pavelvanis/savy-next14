@@ -18,7 +18,7 @@ const TransactionsOverview: React.FC<TransactionsOverviewProps> = async ({
 
   if (transactions) {
     return (
-      <section className="relative p-4 flex flex-col w-full h-min gap-y-3 max-w-lg">
+      <section className="relative p-4 flex flex-col w-full h-min gap-y-3">
         <Typography variant="h5" className="font-bold text-black text-center">
           Last 10 transactions
         </Typography>
@@ -36,8 +36,6 @@ const TransactionsOverview: React.FC<TransactionsOverviewProps> = async ({
       </section>
     );
   }
-
-  return <div>TransactionsOverview</div>;
 };
 
 export default TransactionsOverview;

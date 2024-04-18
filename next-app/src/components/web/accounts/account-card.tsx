@@ -58,10 +58,10 @@ const AccountCard: React.FC<AccountCardProps> = ({ ...props }) => {
       </CardHeader>
       {/* Card body */}
       <CardBody className={"flex flex-wrap gap-x-3 gap-y-1"}>
-        <Button className=" bg-gray-800 hover:bg-gray-900 transition-all">
+        <Button variant="filled">
           <Link href="#">New transaction</Link>
         </Button>
-        <Button className=" bg-gray-800 hover:bg-gray-900 transition-all">
+        <Button variant="filled">
           <Link href={`/web/accounts/${props.id}`}>Overview</Link>
         </Button>
       </CardBody>
