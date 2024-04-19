@@ -7,7 +7,7 @@
 
 * [🛠️ Getting set up](fundamentals/getting-set-up/README.md)
   * [📝 Setting permissions](fundamentals/getting-set-up/setting-permissions.md)
-  * [🧑 Inviting Members](fundamentals/getting-set-up/inviting-members.md)
+  * [💻 Installation](fundamentals/getting-set-up/installation.md)
 
 ## Use Cases
 
