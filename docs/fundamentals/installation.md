@@ -18,7 +18,7 @@ You need to register in [Tink Console](https://console.tink.com/) and create an 
 
 In [Tink Console](https://console.tink.com/app-settings/client), configure the following redirect URIs:
 
-<img src="../../.gitbook/assets/Snímek obrazovky 2024-04-19 v 17.09.44.png" alt="" data-size="original">
+<img src="../.gitbook/assets/Snímek obrazovky 2024-04-19 v 17.09.44.png" alt="" data-size="original">
 
 * https://localhost:3000/web
 * https://localhost:3000/web/accounts
