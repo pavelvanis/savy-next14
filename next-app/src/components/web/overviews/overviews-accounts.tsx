@@ -55,12 +55,6 @@ export const AccountsOverview: React.FC<AccountsOverviewProps> = async ({
           {accounts.map((acc, i) => {
             return <AccountOverview key={i} {...acc} />;
           })}
-          {accounts.map((acc, i) => {
-            return <AccountOverview key={i} {...acc} />;
-          })}
-          {accounts.map((acc, i) => {
-            return <AccountOverview key={i} {...acc} />;
-          })}
         </div>
       </section>
     );
