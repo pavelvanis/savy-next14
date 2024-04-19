@@ -46,11 +46,10 @@ export const theme = {
             cursor: "cursor-pointer",
           },
         },
-        filled:{
-          gray:{
-            background: "bg-gray-800",
-            hover: "hover:bg-gray-900 hover:shadow-lg hover:shadow-gray-900/40"
-          }
+        filled: {
+          gray: {
+            hover: " hover:shadow-lg hover:shadow-gray-900/40",
+          },
         },
         text: {
           gray: {

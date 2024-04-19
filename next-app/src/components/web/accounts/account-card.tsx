@@ -14,6 +14,7 @@ import { getAmount } from "@/lib/utils";
 import { TinkAccount } from "@/types/types";
 import { Action } from "@/components/action";
 import { BarChart3Icon, FileBarChart2Icon } from "lucide-react";
+import { BalanceText } from "../balance";
 
 type AccountCardProps = TinkAccount & {};
 
@@ -38,9 +39,11 @@ const AccountCard: React.FC<AccountCardProps> = ({ ...props }) => {
               value={props.type}
             />
           </div>
-          <Typography className="text-black font-bold text-xl">
-            {amount.toLocaleString("en-US").replace(/,/g, " ")} {currencyCode}
-          </Typography>
+          <BalanceText
+            className="font-bold text-xl"
+            amount={amount}
+            currencyCode={currencyCode}
+          />
         </div>
         {/* bottom */}
         <div className="flex justify-between items-center gap-y-1 flex-wrap">
@@ -58,10 +61,10 @@ const AccountCard: React.FC<AccountCardProps> = ({ ...props }) => {
       </CardHeader>
       {/* Card body */}
       <CardBody className={"flex flex-wrap gap-x-3 gap-y-1"}>
-        <Button variant="filled">
+        <Button variant="filled" className="bg-gray-800  hover:bg-gray-900">
           <Link href="#">New transaction</Link>
         </Button>
-        <Button variant="filled">
+        <Button variant="filled" className="bg-gray-800  hover:bg-gray-900">
           <Link href={`/web/accounts/${props.id}`}>Overview</Link>
         </Button>
       </CardBody>
