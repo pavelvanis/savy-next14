@@ -9,6 +9,7 @@ import {
   TinkEnrichedTransactions,
   TinkTransactions,
 } from "@/types/types";
+import credentials from "next-auth/providers/credentials";
 
 /**
  * Retrieves the user's credentials.
@@ -28,6 +29,9 @@ const fetchUserCredentials = async (userAccessToken: string) => {
   );
 
   const userCredentials: TinkCredentials = userCredentialsResponse.data;
+
+  // Reverse the credentials to show the most recent first.
+  userCredentials.credentials.reverse();
 
   log("User credentials were fetched:", userCredentials);
 
