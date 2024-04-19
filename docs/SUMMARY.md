@@ -1,7 +1,6 @@
 # Table of contents
 
 * [👋 Welcome to our docs](README.md)
-* [🔐 Authentication](authentication.md)
 * [Page 1](page-1.md)
 
 ## Fundamentals
@@ -14,3 +13,7 @@
 
 * [🎨 For Designers](use-cases/for-designers.md)
 * [🖥️ For Developers](use-cases/for-developers.md)
+
+## 🔐 Authentication
+
+* [Session](authentication/session.md)
