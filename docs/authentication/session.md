@@ -4,12 +4,20 @@ For handling of user session is used [NextAuth.js v5](https://next-auth.js.org).
 
 ### Session
 
-Customize type of session
+Customize type of session where IUser has all informations saved in&#x20;
 
-{% @github-files/github-code-block url="https://github.com/pavelvanis/savy-next14/blob/development/next-app/src/types/types.ts" %}
+{% code title="next-app/src/types/nextauth.d.ts" overflow="wrap" lineNumbers="true" %}
+```typescript
+declare module "next-auth" {
+  interface Session {
+    user: IUser;
+  }
+
+  interface User extends IUser {}
+}
+```
+{% endcode %}
 
 ### IUser
 
 Type of user which is used in session
-
-{% @github-files/github-code-block url="https://github.com/pavelvanis/savy-next14/blob/development/next-app/src/types/types.ts" %}

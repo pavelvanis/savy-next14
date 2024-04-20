@@ -6,7 +6,7 @@ Configuration of Material Tailwind theme. Which is used as default values for UI
 
 Theme provider is used to initialize the theme created in _**/src/config/theme.ts**_ and is implemeted in Rootlayout where it wraps the entire body.
 
-{% code title="" lineNumbers="true" %}
+{% code title="next-app/src/components/providers/theme-provider.tsx" lineNumbers="true" %}
 ```typescript
 "use client";
 

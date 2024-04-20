@@ -14,9 +14,9 @@
 
 ## Features
 
-* [Accounts](features/accounts.md)
-* [🎨 For Designers](features/for-designers.md)
-* [🖥️ For Developers](features/for-developers.md)
+* [Tink Implementation](features/tink-implementation/README.md)
+  * [💶 Transactions](features/tink-implementation/transactions.md)
+  * [💳 Accounts](features/tink-implementation/accounts.md)
 
 ## 🔐 Authentication
 

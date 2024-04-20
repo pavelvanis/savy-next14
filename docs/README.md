@@ -1,22 +1,24 @@
 # 👋 Welcome to our docs
 
-{% hint style="info" %}
-**GitBook tip:** your product docs aren't just a reference of all your features! use them to encourage folks to perform certain actions and discover the value in your product.
+{% hint style="warning" %}
+The app is currently under development.
 {% endhint %}
+
+
 
 ## Overview
 
 Here are a couple of example overviews from products with really great docs:
 
-> Loom is a video messaging tool that helps you get your message across through instantly shareable videos.
->
-> With Loom, you can record your camera, microphone, and desktop simultaneously. Your video is then instantly available to share through Loom's patented technology.
->
-> — From the [Loom Docs](https://support.loom.com/hc/en-us/articles/360002158057-What-is-Loom-)
+The app is designed to provide a more efficient and user-friendly experience for managing and accessing information about your banking accounts. With this app, you can:
 
-> The Mailchimp Marketing API provides programmatic access to Mailchimp data and functionality, allowing developers to build custom features to do things like sync email activity and campaign analytics with their database, manage audiences and campaigns, and more.
+> Retrieve all information about your banking accounts and their balances.
 >
-> — From the [Mailchimp Marketing API docs](https://mailchimp.com/developer/marketing/docs/fundamentals/)
+> Tink provides comprehensive information about the user's banking accounts, including account balances, transaction history, and more.
+>
+> —[ Accounts Docs](features/tink-implementation/accounts.md)
+>
+> — [Transactions Docs](features/tink-implementation/transactions.md)
 
 ## Quick links
 
@@ -32,14 +34,14 @@ Here are a couple of example overviews from products with really great docs:
 
 We've put together some helpful guides for you to get setup with our product quickly and easily.
 
-{% content-ref url="broken-reference" %}
-[Broken link](broken-reference)
-{% endcontent-ref %}
-
-{% content-ref url="broken-reference" %}
-[Broken link](broken-reference)
-{% endcontent-ref %}
-
 {% content-ref url="fundamentals/installation.md" %}
 [installation.md](fundamentals/installation.md)
+{% endcontent-ref %}
+
+{% content-ref url="fundamentals/configuration/" %}
+[configuration](fundamentals/configuration/)
+{% endcontent-ref %}
+
+{% content-ref url="fundamentals/project-structure.md" %}
+[project-structure.md](fundamentals/project-structure.md)
 {% endcontent-ref %}
