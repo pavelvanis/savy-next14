@@ -1,6 +1,6 @@
 # Session
 
-For handling of user session is used [NextAuth.js v5](https://next-auth.js.org). The configuration of NextAuth is in _**src/lib/auth.config.ts**_  file and the handlers are exported from  _**src/lib/auth.ts.**_
+For handling of user session is used [NextAuth.js v5](https://next-auth.js.org). The configuration of NextAuth is in next-_**app/src/lib/auth.config.ts**_  file and the handlers are exported from  _**next-app/src/lib/auth.ts.**_
 
 ### Session
 
@@ -21,3 +21,15 @@ declare module "next-auth" {
 ### IUser
 
 Type of user which is used in session
+
+{% code title="next-app/src/types/types.ts" lineNumbers="true" %}
+```typescript
+export interface IUser {
+  permanentUserId: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+}
+
+```
+{% endcode %}

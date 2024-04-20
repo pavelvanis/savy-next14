@@ -15,8 +15,10 @@
 ## Features
 
 * [Tink Implementation](features/tink-implementation/README.md)
-  * [💶 Transactions](features/tink-implementation/transactions.md)
-  * [💳 Accounts](features/tink-implementation/accounts.md)
+  * [🔑 Authentication](features/tink-implementation/authentication.md)
+  * [Data fetching](features/tink-implementation/data-fetching.md)
+  * [Accounts](features/tink-implementation/accounts.md)
+  * [Transactions](features/tink-implementation/transactions.md)
 
 ## 🔐 Authentication
 
