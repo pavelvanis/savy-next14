@@ -20,6 +20,8 @@ The app is designed to provide a more efficient and user-friendly experience for
 
 ## Frameworks & Libraries
 
+Here's a list of the primary libraries and frameworks utilized in the app.
+
 {% tabs %}
 {% tab title="Next.js" %}
 The web application is developed using [Next.js](https://nextjs.org) with **app router**. Additionally, the codebase is written in TypeScript, offering enhanced type safety and developer productivity.
@@ -36,6 +38,7 @@ The web application is developed using [Next.js](https://nextjs.org) with **app 
 {% tab title="MongoDB" %}
 The project utilizes a MongoDB database.
 
+* For working with database is used [mongoose](https://mongoosejs.com)
 * All database models can be found at _**`/next-app/src/database`**_.
 * The database connection is managed in _**`/next-app/src/lib/connect-db.ts`**_.
 * To ensure proper data retrieval from the database, include the following code, which establishes a connection if one has not already been created:
