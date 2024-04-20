@@ -18,6 +18,8 @@ The app is designed to provide a more efficient and user-friendly experience for
 >
 > — [Transactions Docs](features/tink-implementation/transactions.md)
 
+## Frameworks & Libraries
+
 {% tabs %}
 {% tab title="Next.js" %}
 The web application is developed using [Next.js](https://nextjs.org) with **app router**. Additionally, the codebase is written in TypeScript, offering enhanced type safety and developer productivity.
@@ -61,10 +63,12 @@ Chart.js is employed to visualize monthly balance trends and other statistical d
 #### [React-Table](https://tanstack.com/table/v7)
 
 Tanstack's React-Table is used to create sortable and filterable lists that are more user-friendly.
+
+#### [Zod](https://zod.dev)
+
+Zod is utilized to create schemas for validating objects.
 {% endtab %}
 {% endtabs %}
-
-
 
 ## Get Started
 
