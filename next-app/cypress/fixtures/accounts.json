@@ -1,0 +1,85 @@
+{
+  "accounts": [
+    {
+      "id": "ijwiufwjcnwcwicownve",
+      "name": "Savings Account",
+      "type": "CHECKING",
+      "balances": {
+        "booked": {
+          "amount": {
+            "currencyCode": "CZK",
+            "value": {
+              "scale": 1,
+              "unscaledValue": 2300
+            }
+          }
+        },
+        "available": {
+          "amount": {
+            "currencyCode": "CZK",
+            "value": {
+              "scale": 1,
+              "unscaledValue": 2300
+            }
+          }
+        }
+      },
+      "identifiers": {
+        "iban": {
+          "iban": "CZK123456789",
+          "bban": "123456789"
+        },
+        "financialInstitution": {
+          "accountNumber": "123456789",
+          "referenceNumbers": {}
+        }
+      },
+      "dates": {
+        "lastRefreshed": "2021-09-01T00:00:00Z"
+      },
+      "financialInstitutionId": "123456789",
+      "customerSegment": "123456789"
+    },
+    {
+      "id": "anotherAccountId",
+      "name": "Checking Account",
+      "type": "SAVINGS",
+      "balances": {
+        "booked": {
+          "amount": {
+            "currencyCode": "USD",
+            "value": {
+              "scale": 1,
+              "unscaledValue": 4500
+            }
+          }
+        },
+        "available": {
+          "amount": {
+            "currencyCode": "USD",
+            "value": {
+              "scale": 1,
+              "unscaledValue": 4500
+            }
+          }
+        }
+      },
+      "identifiers": {
+        "iban": {
+          "iban": "USD987654321",
+          "bban": "987654321"
+        },
+        "financialInstitution": {
+          "accountNumber": "987654321",
+          "referenceNumbers": {}
+        }
+      },
+      "dates": {
+        "lastRefreshed": "2021-10-01T00:00:00Z"
+      },
+      "financialInstitutionId": "987654321",
+      "customerSegment": "987654321"
+    }
+  ],
+  "nextPageToken": ""
+}

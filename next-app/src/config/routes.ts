@@ -19,7 +19,7 @@ export const HOME_ROUTE = "/web";
 /**
  * Default redirect when user is not authorized
  */
-export const DEFAULT_UNAUTHORIZED_REDIRECT = "/";
+export const DEFAULT_UNAUTHORIZED_REDIRECT = "/login";
 
 /**
  * Links for haeder in auth layout

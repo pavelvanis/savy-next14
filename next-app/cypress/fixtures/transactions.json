@@ -1,0 +1,83 @@
+{
+  "transactions": [
+    {
+      "accountId": "feffe8f2fn2fc82c",
+      "amount": {
+        "currencyCode": "CZK",
+        "value": {
+          "scale": 2,
+          "unscaledValue": 1000
+        }
+      },
+      "categories": {
+        "pfm": {
+          "id": "inv29vcc3vdvd",
+          "name": "Food & Drinks"
+        }
+      },
+      "dates": {
+        "booked": "2021-09-01T00:00:00Z",
+        "value": "2021-09-01T00:00:00Z"
+      },
+      "descriptions": {
+        "display": "TESCO STORES 1234",
+        "original": "TESCO STORES 1234 Original"
+      },
+      "id": "ac2c9ncwv3uvc9newunv",
+      "identifiers": {
+        "providerTransactionId": "d2nd2uf3jnc2y89ucxnycwichbhwdbc"
+      },
+      "merchantInformation": {
+        "merchantCategoryCode": "1234",
+        "merchantName": "TESCO STORES"
+      },
+      "providerMutability": "MUTABLE",
+      "reference": "1234",
+      "status": "COMPLETED",
+      "types": {
+        "financialInstitutionTypeCode": "1234",
+        "type": "PURCHASE"
+      }
+    },
+    {
+      "accountId": "anotherAccountId",
+      "amount": {
+        "currencyCode": "USD",
+        "value": {
+          "scale": 2,
+          "unscaledValue": 2000
+        }
+      },
+      "categories": {
+        "pfm": {
+          "id": "anotherCategoryId",
+          "name": "Travel"
+        }
+      },
+      "dates": {
+        "booked": "2021-10-01T00:00:00Z",
+        "value": "2021-10-01T00:00:00Z"
+      },
+      "descriptions": {
+        "display": "Another Store",
+        "original": "Another Store Original"
+      },
+      "id": "anotherTransactionId",
+      "identifiers": {
+        "providerTransactionId": "anotherProviderTransactionId"
+      },
+      "merchantInformation": {
+        "merchantCategoryCode": "5678",
+        "merchantName": "Another Store"
+      },
+      "providerMutability": "MUTABLE",
+      "reference": "5678",
+      "status": "COMPLETED",
+      "types": {
+        "financialInstitutionTypeCode": "5678",
+        "type": "PURCHASE"
+      }
+    }
+  ],
+  "nextPageToken": ""
+}

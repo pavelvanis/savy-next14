@@ -52,33 +52,43 @@ const LoginForm = () => {
         Login
       </Typography>
       <form
+        data-testid="cypress-login-form"
         onSubmit={handleSubmit(onSubmit)}
         className="mt-8 mb-2 px-4 w-80 max-w-screen-lg sm:w-96"
       >
         <div className="mb-3 flex flex-col gap-6">
           <div>
             <Input
+              data-testid="cypress-login-email"
               {...register("email")}
               type="email"
               size="lg"
               error={!!errors.email}
               label="Email"
             />
-            <FormError message={errors.email?.message} />
+            <FormError
+              data-testid="cypress-login-email-error"
+              message={errors.email?.message}
+            />
           </div>
           <div>
             <Input
+              data-testid="cypress-login-password"
               {...register("password")}
               type="password"
               size="lg"
               error={!!errors.password}
               label="Password"
             />
-            <FormError message={errors.password?.message} />
+            <FormError
+              data-testid="cypress-login-password-error"
+              message={errors.password?.message}
+            />
           </div>
         </div>
         <FormError className="mt-4 font-semibold" message={globalFormError} />
         <Button
+          data-testid="cypress-login-btn"
           disabled={isPending}
           className="mt-6 flex justify-center items-center gap-2"
           type="submit"
