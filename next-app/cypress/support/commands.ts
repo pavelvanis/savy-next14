@@ -1,4 +1,5 @@
 /// <reference types="cypress" />
+
 // ***********************************************
 // This example commands.ts shows you how to
 // create various custom commands and overwrite
@@ -35,3 +36,12 @@
 //     }
 //   }
 // }
+
+Cypress.Commands.add("getBySel", (selector, ...args) => {
+  return cy.get(`[data-testid=${selector}]`, ...args);
+});
+
+Cypress.Commands.add("clearAuth", () => {
+  cy.clearCookies();
+  cy.clearLocalStorage();
+});
