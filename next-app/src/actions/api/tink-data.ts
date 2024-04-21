@@ -9,7 +9,6 @@ import {
   TinkEnrichedTransactions,
   TinkTransactions,
 } from "@/types/types";
-import credentials from "next-auth/providers/credentials";
 
 /**
  * Retrieves the user's credentials.

@@ -9,9 +9,3 @@ declare module "next-auth" {
 
   interface User extends IUser {}
 }
-
-// declare module "@auth/core/jwt" {
-//   interface JWT extends DefaultJWT {
-//     user: IUser;
-//   }
-// }

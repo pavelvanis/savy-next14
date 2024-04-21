@@ -1,8 +1,6 @@
 // Tink types
 export * from './tink';
 
-// Database types
-
 export interface IUser {
   // Tink properties
   permanentUserId: string;
