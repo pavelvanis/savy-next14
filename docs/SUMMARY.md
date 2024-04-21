@@ -20,6 +20,7 @@
   * [Accounts](features/tink-implementation/accounts.md)
   * [Transactions](features/tink-implementation/transactions.md)
 
-## 🔐 Authentication
+## References
 
-* [Session](authentication/session.md)
+* [🔐 Authenticating](references/authenticating.md)
+* [🚧 Testing](references/testing.md)

@@ -1,4 +1,4 @@
-# Session
+# 🔐 Authenticating
 
 For handling of user session is used [NextAuth.js v5](https://next-auth.js.org). The configuration of NextAuth is in next-_**app/src/lib/auth.config.ts**_  file and the handlers are exported from  _**next-app/src/lib/auth.ts.**_
 
