@@ -14,5 +14,5 @@ export {
   ListItemSuffix,
 } from "./list";
 export { Menu, MenuHandler, MenuItem, MenuLinkItem, MenuList } from "./menu";
-export { Select } from "./select";
+export { Select, Option } from "./select";
 export { Tooltip } from "./tooltip";
