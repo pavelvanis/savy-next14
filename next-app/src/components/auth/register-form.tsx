@@ -60,62 +60,84 @@ const RegisterForm = () => {
         Register
       </Typography>
       <form
+        data-testid="cypress-register-form"
         onSubmit={handleSubmit(onSubmit)}
         className="mt-8 mb-2 px-4 w-80 max-w-screen-lg sm:w-96"
       >
         <div className="mb-3 flex flex-col gap-6">
           <div>
             <Input
+              data-testid="cypress-register-firstName"
               {...register("firstName")}
               type="text"
               size="lg"
               error={!!errors.firstName}
               label="First name"
             />
-            <FormError message={errors.firstName?.message} />
+            <FormError
+              data-testid="cypress-register-firstName-error"
+              message={errors.firstName?.message}
+            />
           </div>
           <div>
             <Input
+              data-testid="cypress-register-lastName"
               {...register("lastName")}
               type="text"
               size="lg"
               error={!!errors.lastName}
               label="Last name"
             />
-            <FormError message={errors.lastName?.message} />
+            <FormError
+              data-testid="cypress-register-lastName-error"
+              message={errors.lastName?.message}
+            />
           </div>
           <div>
             <Input
+              data-testid="cypress-register-email"
               {...register("email")}
               type="email"
               size="lg"
               error={!!errors.email}
               label="Email"
             />
-            <FormError message={errors.email?.message} />
+            <FormError
+              data-testid="cypress-register-email-error"
+              message={errors.email?.message}
+            />
           </div>
           <div>
             <Input
+              data-testid="cypress-register-password"
               {...register("password")}
               type="password"
               size="lg"
               error={!!errors.password}
               label="Password"
             />
-            <FormError message={errors.password?.message} />
+            <FormError
+              data-testid="cypress-register-password-error"
+              message={errors.password?.message}
+            />
           </div>
           <div>
             <Input
+              data-testid="cypress-register-checkPassword"
               {...register("confirmPassword")}
               type="password"
               size="lg"
               error={!!errors.confirmPassword}
               label="Confirm Password"
             />
-            <FormError message={errors.confirmPassword?.message} />
+            <FormError
+              data-testid="cypress-register-checkPassword-error"
+              message={errors.confirmPassword?.message}
+            />
           </div>
           <div>
             <Checkbox
+              data-testid="cypress-register-consents"
               {...register("consents")}
               className={errors.consents && "border-red-500"}
               label={
@@ -135,14 +157,19 @@ const RegisterForm = () => {
               }
               containerProps={{ className: "-ml-2.5" }}
             />
-            <FormError message={errors.consents?.message} />
+            <FormError
+              data-testid="cypress-register-constents-error"
+              message={errors.consents?.message}
+            />
           </div>
         </div>
         <FormError
+          data-testid="cypress-register-error"
           className="mt-4 font-semibold"
           message={globalFormError || errors.root?.message}
         />
         <Button
+          data-testid="cypress-register-btn"
           disabled={isPending}
           className="mt-6 flex justify-center items-center gap-2"
           type="submit"

@@ -5,11 +5,14 @@ interface FormErrorProps extends PropsWithClassName {
   message?: string;
 }
 
-export const FormError = ({ message, className }: FormErrorProps) => {
+export const FormError = ({ message, className, ...props }: FormErrorProps) => {
   if (!message) return null;
 
   return (
-    <Typography className={cn("text-red-500 ms-2 mt-1 text-sm", className)}>
+    <Typography
+      className={cn("text-red-500 ms-2 mt-1 text-sm", className)}
+      {...props}
+    >
       {message}
     </Typography>
   );
