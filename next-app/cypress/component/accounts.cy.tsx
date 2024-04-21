@@ -4,16 +4,23 @@ import AccountsList from "@/components/web/accounts/accounts";
 import { TestWrapper } from "../test-wrapper";
 
 describe("Accounts", () => {
+  let accounts: TinkAccounts;
+
+  // Load accounts fixture
+  before(() => {
+    cy.fixture("accounts.json").then(({ ...loaded }: TinkAccounts) => {
+      accounts = loaded;
+    });
+  });
+
   // Only card rendering is tested here
   it("Accounts card rendering", () => {
-    cy.fixture("accounts.json").then(({ accounts }: TinkAccounts) => {
-      accounts.forEach((account: TinkAccount) => {
-        cy.mount(
-          <TestWrapper>
-            <AccountCard {...account} />
-          </TestWrapper>
-        );
-      });
+    accounts.accounts.forEach((account: TinkAccount) => {
+      cy.mount(
+        <TestWrapper>
+          <AccountCard {...account} />
+        </TestWrapper>
+      );
     });
   });
 
