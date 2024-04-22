@@ -27,7 +27,7 @@ const WebPage = async () => {
           </Typography>
         </div>
         <AccountsOverview user={user} />
-        <div className="grid  md:grid-cols-2">
+        <div className="grid  md:grid-cols-2 gap-4">
           <TransactionsOverview user={user} />
           <div className="flex-center">
             {transactions && (

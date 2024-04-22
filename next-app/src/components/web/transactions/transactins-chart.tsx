@@ -17,6 +17,8 @@ import {
   ChartData,
 } from "chart.js";
 import { TinkTransaction } from "@/types/tink";
+import { Typography } from "@/components/ui";
+import NoDataBox from "../no-data";
 
 ChartJS.register(
   CategoryScale,
@@ -92,7 +94,7 @@ interface TransactionsBalancesChartProps extends PropsWithClassName {
 export const TransactionsBalancesChart: React.FC<
   TransactionsBalancesChartProps
 > = ({ className, transactions }) => {
-  // Structure data
+  // Structure data to { date: amount}
   const data_t = transactions.reduce((acc, transaction) => {
     const date = new Date(transaction.dates.booked).toISOString().split("T")[0];
 
@@ -106,12 +108,17 @@ export const TransactionsBalancesChart: React.FC<
     return acc;
   }, {} as DateAmountData);
 
+  // Sort data by date
   const sortedData = Object.entries(data_t)
     .sort((a, b) => new Date(a[0]).getTime() - new Date(b[0]).getTime())
     .reduce((acc, [date, amount]) => {
       acc[date] = amount;
       return acc;
     }, {} as DateAmountData);
+
+  if (Object.keys(sortedData).length === 0) {
+    return <NoDataBox>No transactions</NoDataBox>;
+  }
 
   return (
     <Line

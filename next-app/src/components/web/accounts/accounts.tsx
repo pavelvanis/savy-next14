@@ -19,6 +19,7 @@ import {
   ReactTablePagination,
 } from "@/components/react-table";
 import SortableAccountsHeader from "./accounts-sortable";
+import NoDataBox from "../no-data";
 
 type AccountsListProps = TinkAccounts & PropsWithClassName & {};
 
@@ -56,9 +57,7 @@ const AccountsList: React.FC<AccountsListProps> = ({ className, accounts }) => {
     <section className={cn("", className)}>
       {/* No accounts | Account list */}
       {accounts.length === 0 ? (
-        <Typography variant="lead" className="font-semibold text-lg">
-          Not connected accounts
-        </Typography>
+        <NoDataBox>Not connected accounts</NoDataBox>
       ) : (
         <ReactTable table={table} Component={AccountCard}>
           <SortableAccountsHeader />

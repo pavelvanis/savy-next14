@@ -19,6 +19,7 @@ import {
 import { TinkCredential, TinkCredentials } from "@/types/tink";
 import { CredentialsCard } from "./credential-card";
 import SortableCredentialsHeader from "./credentials-sortable";
+import NoDataBox from "../no-data";
 
 const columns: ColumnDef<TinkCredential>[] = [
   {
@@ -77,9 +78,7 @@ const SettingsCredentialsList: React.FC<SettingsCredentialsProps> = ({
     <section className={cn("", className)}>
       {/* No accounts | Credentials list */}
       {credentials.length === 0 ? (
-        <Typography variant="lead" className="font-medium text-lg">
-          You don&apos;t have any credentials connected yet
-        </Typography>
+        <NoDataBox>You don&apos;t have any credentials connected yet</NoDataBox>
       ) : (
         <ReactTable table={table} Component={CredentialsCard}>
           <SortableCredentialsHeader />
