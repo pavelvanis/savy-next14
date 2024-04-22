@@ -13,6 +13,16 @@ import {
 import { groupByMonth } from "@/lib/utils";
 import NoDataBox from "@/components/web/no-data";
 
+import { Metadata } from "next";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const { user } = await getAuthSession();
+
+  return {
+    title: `${user.firstName} ${user.lastName} | Transactions`,
+  };
+}
+
 // Props for the transactions page navbar
 const transactionsNavbarProps: PageNavbarProps = {
   title: {
@@ -45,9 +55,7 @@ const TransactionsPage = async () => {
               <TransactionList key={date} {...transactions.data} date={date} />
             ))
           ) : (
-            <NoDataBox>No transactions to show
-              
-            </NoDataBox>
+            <NoDataBox>No transactions to show</NoDataBox>
           )
         ) : (
           <PageContentError message={transactions.error.message} />

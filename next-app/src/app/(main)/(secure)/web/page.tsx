@@ -6,6 +6,15 @@ import { AccountsOverview } from "@/components/web/overviews";
 import TransactionsOverview from "@/components/web/overviews/overviews-transactions";
 import { TransactionsBalancesChart } from "@/components/web/transactions/transactins-chart";
 import { getTransactions } from "@/actions/server/data";
+import { Metadata } from "next";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const { user } = await getAuthSession();
+
+  return {
+    title: `${user.firstName} ${user.lastName} | Savy`,
+  };
+}
 
 const WebPage = async () => {
   const { user } = await getAuthSession();

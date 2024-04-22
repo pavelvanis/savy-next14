@@ -7,6 +7,15 @@ import {
 import { Typography } from "@/components/ui";
 import { getAuthSession } from "@/lib/auth";
 import { HelpTooltip } from "@/components";
+import { Metadata } from "next";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const { user } = await getAuthSession();
+
+  return {
+    title: `${user.firstName} ${user.lastName} | Settings`,
+  };
+}
 
 const settingsNavbarProps: PageNavbarProps = {
   title: {

@@ -16,6 +16,16 @@ import { Typography } from "@/components/ui";
 import { addCredentialsLink } from "@/lib/tink/link";
 import SettingsCredentialsList from "@/components/web/settings/credentials";
 
+import { Metadata } from "next";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const { user } = await getAuthSession();
+
+  return {
+    title: `${user.firstName} ${user.lastName} | Credentials`,
+  };
+}
+
 const SettingsCredentialsPage = async () => {
   const { user } = await getAuthSession();
   const credentials = await getCredentials(user.permanentUserId);

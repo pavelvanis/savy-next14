@@ -15,6 +15,23 @@ import { ReactTableBody, ReactTablePagination } from "@/components/react-table";
 import { TransactionsBalancesChart } from "@/components/web/transactions/transactins-chart";
 import { getPreviousMonth } from "@/lib/data-utils";
 
+import { Metadata } from "next";
+
+type Props = {
+  params: { month: string };
+};
+
+export async function generateMetadata({
+  params: { month },
+}: Props): Promise<Metadata> {
+  const { user } = await getAuthSession();
+  const date = getFormatedDate(month);
+
+  return {
+    title: `${user.firstName} ${user.lastName} | ${date} Transactions`,
+  };
+}
+
 interface TransactionDetailsPageProps {
   params: { month: string };
 }

@@ -2,6 +2,13 @@ import React from "react";
 
 import Image from "next/image";
 import RegisterForm from "@/components/auth/register-form";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Register | Savy",
+  description:
+    "Register to your account to manage your baking accounts and transactions",
+};
 
 const RegisterPage = () => {
   return (

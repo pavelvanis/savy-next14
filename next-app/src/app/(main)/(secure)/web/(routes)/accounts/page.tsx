@@ -11,6 +11,16 @@ import { addCredentialsLink } from "@/lib/tink/link";
 import AccountsList from "@/components/web/accounts/accounts";
 import { getAccounts, generateAuthorizationCode } from "@/actions/server/data";
 
+import { Metadata } from "next";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const { user } = await getAuthSession();
+
+  return {
+    title: `${user.firstName} ${user.lastName} | Accounts`,
+  };
+}
+
 /**
  * Page to show all connected accounts and their details
  */

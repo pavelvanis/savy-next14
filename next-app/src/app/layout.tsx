@@ -1,18 +1,17 @@
 import "@/styles/globals.css";
 
 import type { Metadata } from "next";
-import { Inter, Red_Hat_Display } from "next/font/google";
+import { Red_Hat_Display } from "next/font/google";
 
 import { Toaster } from "sonner";
 import { ThemeProvider, SessionProvider } from "@/components/providers";
 
-const inter = Inter({ subsets: ["latin"] });
 const font = Red_Hat_Display({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "savy - Money Manager",
+  title: "Savy",
   description:
-    "Web application to manage your baking accounts and transactions",
+    "Savy is a modern web application that helps you manage your finances.",
 };
 
 export default function RootLayout({
