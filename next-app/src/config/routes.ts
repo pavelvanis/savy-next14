@@ -70,14 +70,14 @@ export const settingsLinks: NavLinkProps[][] = [
       title: "Credentials",
     },
   ],
-  [
-    {
-      href: "/web/settings/accounts",
-      title: "Accounts",
-    },
-    {
-      href: "/settings/transactions",
-      title: "Transactions",
-    },
-  ],
+  // [
+  //   {
+  //     href: "/web/settings/accounts",
+  //     title: "Accounts",
+  //   },
+  //   {
+  //     href: "/settings/transactions",
+  //     title: "Transactions",
+  //   },
+  // ],
 ];
