@@ -17,7 +17,7 @@ import {
 } from "@/components/ui";
 import { RegisterSchema } from "@/schemas";
 import { FormError } from "@/components/form-error";
-import { register as registerAction } from "@/actions/server/register";
+import { registration } from "@/actions/server/registration";
 import { DEFAULT_LOGIN_REDIRECT } from "@/config/routes";
 
 const RegisterForm = () => {
@@ -39,7 +39,7 @@ const RegisterForm = () => {
     setGlobalFormError("");
 
     startTransition(() => {
-      registerAction(values).then((data) => {
+      registration(values).then((data) => {
         if (data?.error) {
           setGlobalFormError(data.error);
         } else {

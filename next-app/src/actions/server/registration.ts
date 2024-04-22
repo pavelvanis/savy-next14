@@ -1,7 +1,7 @@
 "use server";
 
 import * as z from "zod";
-import { login } from "./login";
+import { signin } from "./signin";
 import { sanitize } from "@/lib/api";
 import { RegisterSchema } from "@/schemas";
 import { connectDB } from "@/lib/connect-db";
@@ -18,7 +18,7 @@ import { createPermanentUser } from "@/actions/server/data/user";
  * @param values - An object containing the user's information. It should match the shape of the RegisterSchema.
  * @returns An object indicating the success or failure of the registration process.
  */
-export const register = async (values: z.infer<typeof RegisterSchema>) => {
+export const registration = async (values: z.infer<typeof RegisterSchema>) => {
   try {
     // Zod validation
     const validatedFields = RegisterSchema.safeParse(values);
@@ -56,7 +56,7 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
     });
 
     if (createdUser) {
-      const loginResponse = await login({
+      const loginResponse = await signin({
         email: createdUser.email,
         password: sanitizedFields.password,
       });

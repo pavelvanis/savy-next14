@@ -12,7 +12,7 @@ import {
   redirect,
 } from "next/dist/client/components/redirect";
 
-export const login = async (credentials: z.infer<typeof LoginSchema>) => {
+export const signin = async (credentials: z.infer<typeof LoginSchema>) => {
   try {
     const validatedFields = LoginSchema.safeParse(credentials);
 

@@ -5,7 +5,7 @@ import React from "react";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { LoginSchema } from "@/schemas";
-import { login } from "@/actions/server/login";
+import { signin } from "@/actions/server/signin";
 import { FormError } from "@/components/form-error";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -34,7 +34,7 @@ const LoginForm = () => {
     setGlobalFormError("");
 
     startTransition(() => {
-      login(values)
+      signin(values)
         .then((data) => {
           if (data?.error) {
             console.log(data);
