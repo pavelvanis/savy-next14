@@ -1,8 +1,7 @@
 import React from "react";
-import Link from "next/link";
 import { BookOpenTextIcon, KeyRoundIcon, LogOutIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui";
+import { Button, LinkButton } from "@/components/ui";
 import { LogoutButton } from "./logout-button";
 
 /**
@@ -23,18 +22,14 @@ export default LoginSignout;
 
 const LoginRegister = ({ className }: PropsWithClassName) => (
   <div className={cn("flex gap-x-3", className)}>
-    <Button variant="outlined" size="sm" className="btn-hover">
-      <Link href="/login" className="flex-center gap-x-2">
-        <KeyRoundIcon className="size-4" />
-        Log in
-      </Link>
-    </Button>
-    <Button variant="outlined" size="sm" className="btn-hover">
-      <Link href="/register" className="flex-center gap-x-2">
-        <BookOpenTextIcon className="size-4" />
-        Register
-      </Link>
-    </Button>
+    <LinkButton href="/login">
+      <KeyRoundIcon className="size-4" />
+      Log in
+    </LinkButton>
+    <LinkButton href="/login">
+      <BookOpenTextIcon className="size-4" />
+      Register
+    </LinkButton>
   </div>
 );
 
