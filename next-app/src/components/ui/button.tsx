@@ -19,14 +19,19 @@ const LinkButton: React.FC<LinkButtonProps> = ({
   className,
   ...props
 }) => {
-  const { variant = "text", size = "sm", ...restButtonProps } = buttonProps;
+  const {
+    variant = "text",
+    size = "sm",
+    className: buttonClassName,
+    ...restButtonProps
+  } = buttonProps;
 
   const button = (
     <Button
       variant={variant}
       className={cn(
         "text-black border border-black hover:ring-0 ring-1 ring-inset transition-all ring-black bg-gray-300/30 hover:bg-gray-200/50",
-        buttonProps.className
+        buttonClassName
       )}
       size={size}
       {...restButtonProps}
