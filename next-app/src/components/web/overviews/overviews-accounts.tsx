@@ -1,12 +1,19 @@
 import React from "react";
 import { IUser, TinkAccount } from "@/types/types";
 import { generateAuthorizationCode, getAccounts } from "@/actions/server/data";
-import { Button, Card, IconButton, Typography } from "@/components/ui";
+import {
+  Button,
+  Card,
+  IconButton,
+  LinkButton,
+  Typography,
+} from "@/components/ui";
 import { getAmount } from "@/lib/utils";
 import { BalanceText } from "../balance";
 import { ListMinusIcon } from "lucide-react";
 import Link from "next/link";
 import { addCredentialsLink } from "@/lib/tink/link";
+import NoDataBox from "../no-data";
 
 interface AccountsOverviewProps {
   user: IUser;
@@ -29,7 +36,7 @@ export const AccountsOverview: React.FC<AccountsOverviewProps> = async ({
           <Typography variant="h5" className="font-bold text-black">
             All accounts
           </Typography>
-          <Link
+          <LinkButton
             href={
               authCode.data?.code
                 ? addCredentialsLink(
@@ -40,15 +47,8 @@ export const AccountsOverview: React.FC<AccountsOverviewProps> = async ({
                 : "#"
             }
           >
-            <Button
-              disabled={!authCode.data?.code}
-              variant="text"
-              size="sm"
-              className="text-black border border-black hover:ring-1 ring-inset transition-all ring-black bg-gray-300/30 hover:bg-gray-200/50"
-            >
-              Add new account
-            </Button>
-          </Link>
+            Add new account
+          </LinkButton>
         </nav>
         <div className="absolute rounded-lg top-0 left-0 h-full w-full bg-gradient-to-r from-gray-500/10 via-gray-100/30 to-gray-500/10 -z-10" />
         <div className="inline-flex flex-row items-center space-x-3 overflow-x-auto snap-x overscroll-auto no-scrollbar">
@@ -57,9 +57,9 @@ export const AccountsOverview: React.FC<AccountsOverviewProps> = async ({
               return <AccountOverview key={i} {...acc} />;
             })
           ) : (
-            <Typography variant="lead" className="text-lg text-center font-medium">
+            <NoDataBox className="flex-1">
               You have no connected accounts
-            </Typography>
+            </NoDataBox>
           )}
         </div>
       </section>

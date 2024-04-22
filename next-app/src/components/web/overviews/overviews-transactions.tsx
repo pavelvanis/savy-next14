@@ -4,6 +4,7 @@ import { Card, Typography } from "@/components/ui";
 import { IUser, TinkTransaction } from "@/types/types";
 import { BalanceText } from "../balance";
 import { getAmount } from "@/lib/utils";
+import NoDataBox from "../no-data";
 
 interface TransactionsOverviewProps {
   user: IUser;
@@ -23,9 +24,7 @@ const TransactionsOverview: React.FC<TransactionsOverviewProps> = async ({
           Last 10 transactions
         </Typography>
         {transactions.length === 0 && (
-          <Typography variant="lead" className="text-lg text-center mt-2 font-medium">
-            You have no transactions to show
-          </Typography>
+          <NoDataBox>No transactions to show</NoDataBox>
         )}
         <div className="absolute rounded-lg top-0 left-0 h-full w-full bg-gradient-to-r from-gray-500/10 via-gray-100/30 to-gray-500/10 -z-10" />
         <div className="inline-flex flex-1 flex-col gap-y-1 items-center overflow-x-auto snap-x overscroll-auto no-scrollbar">

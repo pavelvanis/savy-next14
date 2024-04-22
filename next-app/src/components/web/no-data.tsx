@@ -14,7 +14,7 @@ const NoDataBox: React.FC<NoDataBoxProps> = ({
     <Typography
       variant={variant || "lead"}
       className={cn(
-        "text-lg text-center py-10 px-16 font-medium rounded-lg border-2 border-dashed border-gray-500/50 text-gray-500",
+        "text-lg flex-center text-center py-10 px-16 font-medium rounded-lg border-2 border-dashed border-gray-500/50 text-gray-500",
         className
       )}
       {...props}

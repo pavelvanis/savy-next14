@@ -1,14 +1,12 @@
 import React from "react";
 import { cn } from "@/lib/utils";
 import {
-  Button,
   ButtonProps,
   LinkButton,
   Typography,
   TypographyProps,
 } from "@/components/ui";
 import { LucideIcon, MoveLeftIcon } from "lucide-react";
-import Link from "next/link";
 
 /**
  * Props for the components.
@@ -114,24 +112,13 @@ export const PageNavbar: React.FC<PageNavbarProps> = ({
     {/* Button */}
     {button && (
       <div>
-        <Button
-          variant={button.variant || "outlined"}
-          size={button.size || "sm"}
-          className={cn("btn-hover py-1 px-2 sm:py-2 sm:px-4", className)}
-          disabled={!button.link}
+        <LinkButton
+          href={button.link || "#"}
+          buttonProps={{ disabled: !button.link }}
         >
-          {button.link ? (
-            <Link className=" flex items-center gap-2" href={button.link}>
-              {button.icon && <button.icon className="size-5" />}
-              <span className="hidden sm:block">{button.children}</span>
-            </Link>
-          ) : (
-            <div className="flex items-center gap-2">
-              {button.icon && <button.icon className="size-5" />}
-              <span className="hidden sm:block">{button.children}</span>
-            </div>
-          )}
-        </Button>
+          {button.icon && <button.icon className="size-5" />}
+          <span className="hidden sm:block">{button.children}</span>
+        </LinkButton>
       </div>
     )}
     {/* Childrens */}
