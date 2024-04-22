@@ -1,8 +1,22 @@
 import React from "react";
 import LoginForm from "@/components/auth/login-form";
+import Image from "next/image";
 
 const LoginPage = () => {
-  return <LoginForm />;
+  return (
+    <>
+      <div className="absolute left-0 top-0 w-screen h-screen">
+        <Image
+          src="/images/login.svg"
+          alt="login-image"
+          width={600}
+          height={600}
+          className="w-screen h-screen object-cover"
+        />
+      </div>
+      <LoginForm />
+    </>
+  );
 };
 
 export default LoginPage;

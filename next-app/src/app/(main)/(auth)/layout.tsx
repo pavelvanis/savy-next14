@@ -9,7 +9,7 @@ const AuthLayout = async ({ children }: React.PropsWithChildren) => {
   return (
     <>
       <HeaderAuth />
-      <main className=" min-h-screen container flex flex-col justify-center items-center">
+      <main className=" relative min-h-screen flex flex-col justify-center items-center">
         {/* If the user is logged in, a signout button will appear. */}
         {session ? <Signout /> : children}
       </main>
