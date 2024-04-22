@@ -52,7 +52,7 @@ const SettingsCredentialsPage = async () => {
         ? addCredentialsLink(
             data.code,
             user.permanentUserId,
-            "http://localhost:3000/api/callback/web/settings/credentials"
+            `${process.env.BASE_URL}/api/callback/web/settings/credentials`
           )
         : null,
     },

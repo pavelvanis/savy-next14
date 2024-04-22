@@ -43,7 +43,7 @@ const AccountsPage = async () => {
         ? addCredentialsLink(
             data.code,
             user.permanentUserId,
-            "http://localhost:3000/api/callback/web/accounts"
+            `${process.env.BASE_URL}/api/callback/web/accounts`
           )
         : null,
     },

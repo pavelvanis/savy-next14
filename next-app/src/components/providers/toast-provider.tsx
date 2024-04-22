@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { toast, ToastT } from "sonner";
+import { toast } from "sonner";
 import { useRouter, useSearchParams } from "next/navigation";
 import { tinkCallbackController } from "@/lib/tink/tink-callback-controller";
 
