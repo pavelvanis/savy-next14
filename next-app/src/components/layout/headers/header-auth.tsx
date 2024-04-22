@@ -21,10 +21,10 @@ const AuthHeader = ({ className }: PropsWithClassName) => {
           alt="logo"
         />
       </div>
-      <HeaderPublicNavList className="hidden md:flex flex-row" />
-      <HeaderMenu hidden="md">
+      {/* <HeaderPublicNavList className="hidden md:flex flex-row" /> */}
+      {/* <HeaderMenu hidden="md">
         <HeaderPublicMenuList  />
-      </HeaderMenu>
+      </HeaderMenu> */}
     </header>
   );
 };

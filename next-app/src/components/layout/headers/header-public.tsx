@@ -16,7 +16,7 @@ const SmallHeader = async ({ className }: PropsWithClassName) => {
   return (
     <header
       className={cn(
-        "bg-red-5 h-16 flex px-5 items-center justify-between",
+        "bg-red-5 h-16 flex px-5 items-center justify-between sticky top-0 z-50 w-full",
         className
       )}
     >
@@ -30,11 +30,11 @@ const SmallHeader = async ({ className }: PropsWithClassName) => {
       />
 
       {/* Nav */}
-      <HeaderPublicNavList className="flex-row hidden sm:flex" />
+      {/* <HeaderPublicNavList className="flex-row hidden sm:flex" /> */}
 
       {/* Menu */}
       <HeaderMenu className="ms-auto md:hidden">
-        <HeaderPublicMenuList className="sm:hidden" />
+        {/* <HeaderPublicMenuList className="sm:hidden" /> */}
         <HeaderUserMenuList loginState={!!session} />
         <HeaderAuthMenuList loginState={!!session} />
       </HeaderMenu>

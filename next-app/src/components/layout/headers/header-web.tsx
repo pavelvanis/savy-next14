@@ -21,7 +21,7 @@ const HeaderWeb = async ({ className }: PropsWithClassName) => {
         <Typography className="whitespace-nowrap">Big logo here</Typography>
         {/* Nav */}
         <div className="flex-1 flex justify-between items-center flex-wrap gap-y-2">
-          <HeaderPublicNavList className="hidden md:flex flex-row gap-x-4 mx-auto" />
+          {/* <HeaderPublicNavList className="hidden md:flex flex-row gap-x-4 mx-auto" /> */}
           {/* Login & Register | Signout */}
           {session && (
             <Typography className="ms-auto whitespace-nowrap text-xl font-semibold me-4">
@@ -30,7 +30,7 @@ const HeaderWeb = async ({ className }: PropsWithClassName) => {
           )}
           {/* Menu */}
           <HeaderMenu>
-            <HeaderPublicMenuList />
+            {/* <HeaderPublicMenuList /> */}
             <HeaderUserMenuList className="sm:hidden" loginState={!!session} />
             <HeaderAuthMenuList loginState={!!session} />
           </HeaderMenu>
