@@ -8,7 +8,6 @@ import {
 import TransactionReactTable from "./transaction-table";
 import { getCurrentMonth, getPreviousMonth } from "@/lib/data-utils";
 import NoDataBox from "../no-data";
-import { groupByMonth } from "@/lib/utils";
 
 type TransactionListProps = PropsWithClassName &
   TinkTransactions & {
@@ -19,10 +18,6 @@ const TransactionList: React.FC<TransactionListProps> = ({
   date,
   transactions,
 }) => {
-  const transactionsByMonth = groupByMonth(
-    transactions || []
-  );
-
   if (transactions.length < 1) {
     return <NoDataBox>Not transactions to show</NoDataBox>;
   } else {
