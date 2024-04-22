@@ -26,7 +26,7 @@ const LoginRegister = ({ className }: PropsWithClassName) => (
       <KeyRoundIcon className="size-4" />
       Log in
     </LinkButton>
-    <LinkButton href="/login">
+    <LinkButton href="/register">
       <BookOpenTextIcon className="size-4" />
       Register
     </LinkButton>
