@@ -19,7 +19,7 @@ const RegisterPage = () => {
           alt="register-image"
           width={600}
           height={600}
-          className="w-screen h-screen object-cover"
+          className="w-screen h-screen object-center"
         />
       </div>
       <RegisterForm />
