@@ -57,6 +57,24 @@ await connectDB()
 {% tab title="Cypress" %}
 In our application, we utilize [Cypress](https://www.cypress.io), a powerful testing framework. Cypress allows us to write End-to-End and component tests that simulate real user interactions, ensuring that our application behaves as expected under various scenarios.
 {% endtab %}
+
+{% tab title="Other" %}
+#### [Tailwind CSS](https://tailwindcss.com)
+
+All styling within the app is crafted using inline styles from Tailwind CSS.
+
+#### [Chart.js](https://www.chartjs.org)
+
+Chart.js is employed to visualize monthly balance trends and other statistical data through line charts.
+
+#### [React-Table](https://tanstack.com/table/v7)
+
+Tanstack's React-Table is used to create sortable and filterable lists that are more user-friendly.
+
+#### [Zod](https://zod.dev)
+
+Zod is utilized to create schemas for validating objects.
+{% endtab %}
 {% endtabs %}
 
 I've put together some helpful guides for you to get setup with our product quickly and easily.
