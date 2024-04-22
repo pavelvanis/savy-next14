@@ -114,7 +114,10 @@ export const PageNavbar: React.FC<PageNavbarProps> = ({
       <div>
         <LinkButton
           href={button.link || "#"}
-          buttonProps={{ disabled: !button.link }}
+          buttonProps={{
+            disabled: !button.link,
+            className: "py-1 px-1.5 sm:py-2 sm:px-4",
+          }}
         >
           {button.icon && <button.icon className="size-5" />}
           <span className="hidden sm:block">{button.children}</span>
