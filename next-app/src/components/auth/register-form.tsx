@@ -51,7 +51,11 @@ const RegisterForm = () => {
   };
 
   return (
-    <Card color="transparent" shadow={false}>
+    <Card
+      color="white"
+      shadow={true}
+      className=" backdrop-blur-sm"
+    >
       <Typography
         variant="h1"
         color="blue-gray"

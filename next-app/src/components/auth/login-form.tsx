@@ -8,7 +8,14 @@ import { LoginSchema } from "@/schemas";
 import { login } from "@/actions/server/login";
 import { FormError } from "@/components/form-error";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Card, Typography, Button, Input, Spinner } from "@/components/ui";
+import {
+  Card,
+  Typography,
+  Button,
+  Input,
+  Spinner,
+  LinkButton,
+} from "@/components/ui";
 
 const LoginForm = () => {
   const [globalFormError, setGlobalFormError] = React.useState("");
@@ -43,7 +50,11 @@ const LoginForm = () => {
   };
 
   return (
-    <Card color="transparent" shadow={false}>
+    <Card
+      color="white"
+      shadow={true}
+      className=" backdrop-blur-sm"
+    >
       <Typography
         variant="h1"
         color="blue-gray"
@@ -90,7 +101,7 @@ const LoginForm = () => {
         <Button
           data-testid="cypress-login-btn"
           disabled={isPending}
-          className="mt-6 flex justify-center items-center gap-2"
+          className="mt-6 flex justify-center items-center gap-2 text-black border border-black hover:ring-0 ring-1 ring-inset transition-all ring-black bg-gray-300/30 hover:bg-gray-200/50"
           type="submit"
           onClick={() => setGlobalFormError("")}
           fullWidth
