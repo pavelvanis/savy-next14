@@ -5,7 +5,7 @@ const PublicLayout = ({ children }: React.PropsWithChildren) => {
   return (
     <>
       <HeaderSmall />
-      <main className=" container min-h-screen flex flex-col justify-center items-center">
+      <main className=" container min-h-screen flex flex-col justify-start items-center">
         {children}
       </main>
       <FooterSmall />
