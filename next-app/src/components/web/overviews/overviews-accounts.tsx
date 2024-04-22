@@ -52,9 +52,15 @@ export const AccountsOverview: React.FC<AccountsOverviewProps> = async ({
         </nav>
         <div className="absolute rounded-lg top-0 left-0 h-full w-full bg-gradient-to-r from-gray-500/10 via-gray-100/30 to-gray-500/10 -z-10" />
         <div className="inline-flex flex-row items-center space-x-3 overflow-x-auto snap-x overscroll-auto no-scrollbar">
-          {accounts.map((acc, i) => {
-            return <AccountOverview key={i} {...acc} />;
-          })}
+          {accounts.length > 0 ? (
+            accounts.map((acc, i) => {
+              return <AccountOverview key={i} {...acc} />;
+            })
+          ) : (
+            <Typography variant="lead" className="text-lg text-center font-medium">
+              You have no connected accounts
+            </Typography>
+          )}
         </div>
       </section>
     );

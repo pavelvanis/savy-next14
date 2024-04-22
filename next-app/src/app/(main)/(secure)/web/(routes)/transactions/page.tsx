@@ -11,6 +11,7 @@ import {
   PageNavbarProps,
 } from "@/components/layout/page-components";
 import { groupByMonth } from "@/lib/utils";
+import NoDataBox from "@/components/web/no-data";
 
 // Props for the transactions page navbar
 const transactionsNavbarProps: PageNavbarProps = {
@@ -39,10 +40,14 @@ const TransactionsPage = async () => {
       {/* Transactions list | Error message */}
       <PageBody className="list-col">
         {transactions.data ? (
-          Object.entries(transactionsByMonth).map(
-            ([date, filteredTransactions]) => (
+          transactions.data.transactions.length > 0 ? (
+            Object.entries(transactionsByMonth).map(([date]) => (
               <TransactionList key={date} {...transactions.data} date={date} />
-            )
+            ))
+          ) : (
+            <NoDataBox>No transactions to show
+              
+            </NoDataBox>
           )
         ) : (
           <PageContentError message={transactions.error.message} />

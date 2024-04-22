@@ -23,8 +23,8 @@ const TransactionsOverview: React.FC<TransactionsOverviewProps> = async ({
           Last 10 transactions
         </Typography>
         {transactions.length === 0 && (
-          <Typography variant="lead" className="font-semibold text-center">
-            You have o transactions
+          <Typography variant="lead" className="text-lg text-center mt-2 font-medium">
+            You have no transactions to show
           </Typography>
         )}
         <div className="absolute rounded-lg top-0 left-0 h-full w-full bg-gradient-to-r from-gray-500/10 via-gray-100/30 to-gray-500/10 -z-10" />
