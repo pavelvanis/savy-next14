@@ -1,17 +1,18 @@
 // Tailwind theme configuration
 export const theme = {
   typography: {
-    valid: {
-      variants: ["link"],
-    },
     styles: {
+      defaultProps: {
+        color: "yellow",
+      },
       variants: {
-        link: {
-          fontSize: "text-lg",
-          textTransform: "uppercase",
-          fontWeight: "font-medium",
-          hover: "hover:font-bold",
-          transition: "transition-all",
+        h1: {
+          fontSize: "text-5xl",
+          fontWeight: "font-bold",
+        },
+        h2: {
+          fontSize: "text-3xl",
+          fontWeight: "font-bold",
         },
       },
     },
