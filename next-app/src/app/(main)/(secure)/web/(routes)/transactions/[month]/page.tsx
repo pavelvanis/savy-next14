@@ -1,4 +1,5 @@
 import React from "react";
+import { Metadata } from "next";
 import { getAuthSession } from "@/lib/auth";
 import { getTransactions } from "@/actions/server/data";
 import { getFormatedDate, groupByMonth } from "@/lib/utils";
@@ -9,13 +10,11 @@ import {
   PageNavbarProps,
 } from "@/components/layout/page-components";
 import { Typography } from "@/components/ui";
+import { getPreviousMonth } from "@/lib/data-utils";
+import { ReactTableBody, ReactTablePagination } from "@/components/react-table";
 import TransactionReactTable from "@/components/web/transactions/transaction-table";
 import { TransacationsMonthNavbar } from "@/components/web/transactions/transactions-navbar";
-import { ReactTableBody, ReactTablePagination } from "@/components/react-table";
 import { TransactionsBalancesChart } from "@/components/web/transactions/transactins-chart";
-import { getPreviousMonth } from "@/lib/data-utils";
-
-import { Metadata } from "next";
 
 type Props = {
   params: { month: string };
@@ -28,7 +27,7 @@ export async function generateMetadata({
   const date = getFormatedDate(month);
 
   return {
-    title: `${user.firstName} ${user.lastName} | ${date} Transactions`,
+    title: `${user.firstName} ${user.lastName} | Transactions ${date}`,
   };
 }
 
