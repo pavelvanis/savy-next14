@@ -6,6 +6,7 @@ import {
   getIncomeAmount,
 } from "@/lib/utils";
 import React from "react";
+import { ChevronRightIcon } from "lucide-react";
 import { TinkTransaction } from "@/types/tink";
 import { BalanceLine, BalanceText } from "../balance";
 import {
@@ -18,9 +19,7 @@ import {
   ReactTableHeader,
   ReactTableInput,
 } from "@/components/react-table";
-import { Button, LinkButton, Typography } from "@/components/ui";
-import Link from "next/link";
-import { ChevronRightIcon } from "lucide-react";
+import { LinkButton, Typography } from "@/components/ui";
 
 interface TransacationsMonthNavbarProps extends PropsWithClassName {
   transactions: TinkTransaction[];
@@ -113,7 +112,7 @@ export const TransactionsSortableNavbar: React.FC<
         buttonProps={{
           variant: "text",
           className:
-            "bg-gray-300/30 hover:bg-gray-400/30 mr-4 px-2.5 py-1.5 flex-center gap-x-1",
+            "bg-gray-300/30 hover:bg-gray-400/30 mr-4 px-2.5 py-1.5 flex-center gap-x-1 border-none ring-0",
         }}
       >
         <Typography className="text-xs font-medium">Details</Typography>
